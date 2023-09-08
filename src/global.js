@@ -87,7 +87,7 @@ const headerLocationsSpecies = document.querySelector("#locationsTableThead th.s
 const headerLocationsRarity = document.querySelector("#locationsTableThead th.rarity")
 const headerLocationsZone = document.querySelector("#locationsTableThead th.zone")
 
-const utilityButton = document.querySelector('.utilityButton')
+const utilityButton = document.querySelector(".utilityButton")
 
 
 
