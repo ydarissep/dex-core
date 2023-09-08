@@ -21,10 +21,6 @@ function appendMovesToTable(moveName){
     nameContainer.append(name)
     nameContainer.append(ingameName)
 
-    if(isHardcoreRestricted(moves[moveName]["name"])){
-        ingameName.style.color = "#FF8F8F"
-    }
-
     row.append(nameContainer)
 
 

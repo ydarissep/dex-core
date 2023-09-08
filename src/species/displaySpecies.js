@@ -105,10 +105,6 @@ function appendSpeciesToTable(speciesName){
                 }
             }
 
-            if(isHardcoreRestricted(abilityName)){
-                ability.style.color = "#FF8F8F"
-            }
-
             abilitiesContainer.append(ability)
         }
     }

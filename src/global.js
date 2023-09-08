@@ -1,5 +1,3 @@
-window.repo = "ydarissep/Radical-Red-Pokedex"
-
 window.tracker
 window.panelSpecies = ""
 window.scrollToSpecies = ""
