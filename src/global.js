@@ -309,6 +309,16 @@ locationsInput.addEventListener("input", e => {
     filterFilters(value)
     filterLocationsTableInput(value, species, ["evolutionLine"])
 })
+speciesPanelInputSpecies.addEventListener("input", e => {
+    const value = e.target.value
+    if(speciesIngameNameArray.includes(value)){
+        const species = `SPECIES_${value.replaceAll(" ", "_").toUpperCase()}`
+        createSpeciesPanel(species)
+        window.scrollTo(0, 0)
+        speciesPanelInputSpecies.blur()
+        speciesPanelInputSpecies.value = ""
+    }
+})
 
 
 speciesButton.addEventListener("click", async () => {

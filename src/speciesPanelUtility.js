@@ -377,20 +377,6 @@ async function createSpeciesPanel(name){
 
 
 
-speciesPanelInputSpecies.addEventListener("input", e => {
-    const value = e.target.value
-    if(speciesIngameNameArray.includes(value)){
-        const species = `SPECIES_${value.replaceAll(" ", "_").toUpperCase()}`
-        createSpeciesPanel(species)
-        window.scrollTo(0, 0)
-        speciesPanelInputSpecies.blur()
-        speciesPanelInputSpecies.value = ""
-    }
-})
-
-
-
-
 
 
 function createClickableImgAndName(speciesName, evoConditions = false, showName = true, miniSprite = true){
