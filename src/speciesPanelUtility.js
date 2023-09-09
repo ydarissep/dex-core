@@ -1159,10 +1159,6 @@ document.querySelectorAll("#speciesPanelLevelUpFromPreviousEvoTableTHead, #speci
 
 
 
-speciesPanelCloseButton.addEventListener("click", () => {
-    speciesPanel("hide")
-})
-
 async function speciesPanel(param){
     if(typeof speciesPanelMainContainer !== "undefined"){
         if(param === "hide"){

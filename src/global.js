@@ -404,7 +404,9 @@ closeCredits.addEventListener("click", () => {
         modal.close()
     }
 })
-
+speciesPanelCloseButton.addEventListener("click", () => {
+    speciesPanel("hide")
+})
 
 
 
