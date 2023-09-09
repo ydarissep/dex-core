@@ -990,7 +990,6 @@ function buildSpeciesPanelSingleLearnsetsTable(table, name, input, label = "", a
         const row = document.createElement("tr")
 
         const moveName = document.createElement("td")
-        console.log(move)
         moveName.innerText = moves[move]["ingameName"]
         moveName.className = "bold"
         row.append(moveName)
