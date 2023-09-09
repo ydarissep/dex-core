@@ -4,135 +4,138 @@ window.scrollToSpecies = ""
 window.historyObj = []
 window.timeout = false
 
-const tableFilter = document.getElementById("tableFilter")
 
 
 
-const openCredits = document.getElementById("openCredits")
-const closeCredits = document.getElementById("closeCredits")
-const modal = document.getElementById("modal")
-const update = document.getElementById("update")
-const backup = document.getElementById("backup")
-const overlay = document.getElementById('overlay')
-const popup = document.getElementById('popup')
-
-const patchnoteModeCheckbox = document.getElementById("patchnoteModeCheckbox")
-const onlyShowChangedPokemonCheckbox = document.getElementById("onlyShowChangedPokemonCheckbox")
-const onlyShowStrategyPokemonCheckbox = document.getElementById("onlyShowStrategyPokemonCheckbox")
+window.tableFilter = document.getElementById("tableFilter")
 
 
 
+window.openCredits = document.getElementById("openCredits")
+window.closeCredits = document.getElementById("closeCredits")
+window.modal = document.getElementById("modal")
+window.update = document.getElementById("update")
+window.backup = document.getElementById("backup")
+window.overlay = document.getElementById('overlay')
+window.popup = document.getElementById('popup')
 
-
-
-const graph = document.getElementById("statsGraph")
-const graphStats = [...graph.children]
-const statDisplays = [...document.querySelectorAll(".statsGraphHeader")]
-
-
-const speciesPanelMainContainer = document.getElementById("speciesPanelMainContainer")
-const speciesPanelCloseButton = document.getElementById("speciesPanelCloseButton")
-const speciesName = document.getElementById("speciesName")
-const speciesID = document.getElementById("speciesID")
-const speciesPanelInputSpecies = document.getElementById("speciesPanelInputSpecies")
-const speciesPanelInputSpeciesDataList = document.getElementById("speciesPanelInputSpeciesDataList")
-const speciesSprite = document.getElementById("speciesSprite")
-const speciesType1 = document.getElementById("speciesType1")
-const speciesType2 = document.getElementById("speciesType2")
-const speciesAbilities = document.getElementById("speciesAbilities")
-const speciesBaseStatsGraph = document.getElementById("speciesBaseStatsGraph")
-const speciesEvolutionsText = document.getElementById("speciesEvolutionsText")
-const speciesEvoTable = document.getElementById("speciesEvoTable")
-const speciesFormes = document.getElementById("speciesFormes")
-const speciesFormesText = document.getElementById("speciesFormesText")
-const speciesEggGroups = document.getElementById("speciesEggGroups")
-const speciesHeldItems = document.getElementById("speciesHeldItems")
-const speciesChanges = document.getElementById("speciesChanges")
-const speciesHeldItemsContainer = document.getElementById("speciesHeldItemsContainer")
-const speciesChangesContainer = document.getElementById("speciesChangesContainer")
-const speciesDefensiveTypeChart = document.getElementById("speciesDefensiveTypeChart")
-const recommendedCoverageContainer = document.getElementById("recommendedCoverageContainer")
-const recommendedCoverage = document.getElementById("recommendedCoverage")
-const speciesOffensiveTypeChart = document.getElementById("speciesOffensiveTypeChart")
-const speciesStrategiesContainer = document.getElementById("speciesStrategiesContainer")
-const speciesStrategies = document.getElementById("speciesStrategies")
-const speciesPanelLevelUpFromPreviousEvoTable = document.getElementById("speciesPanelLevelUpFromPreviousEvoTable")
-const speciesPanelLevelUpTable = document.getElementById("speciesPanelLevelUpTable")
-const speciesPanelTMHMTable = document.getElementById("speciesPanelTMHMTable")
-const speciesPanelTutorTable = document.getElementById("speciesPanelTutorTable")
-const speciesPanelEggMovesTable = document.getElementById("speciesPanelEggMovesTable")
+window.patchnoteModeCheckbox = document.getElementById("patchnoteModeCheckbox")
+window.onlyShowChangedPokemonCheckbox = document.getElementById("onlyShowChangedPokemonCheckbox")
+window.onlyShowStrategyPokemonCheckbox = document.getElementById("onlyShowStrategyPokemonCheckbox")
 
 
 
 
 
 
-
-const speciesInput = document.getElementById("speciesInput")
-const speciesButton = document.getElementById("speciesButton")
-const speciesTable = document.getElementById("speciesTable")
-const speciesTableThead = document.getElementById("speciesTableThead")
-const speciesTableTbody = document.getElementById("speciesTableTbody")
+window.graph = document.getElementById("statsGraph")
+window.graphStats = [...graph.children]
+window.statDisplays = [...document.querySelectorAll(".statsGraphHeader")]
 
 
-const abilitiesInput = document.getElementById("abilitiesInput")
-const abilitiesButton = document.getElementById("abilitiesButton")
-const abilitiesTable = document.getElementById("abilitiesTable")
-const abilitiesTableThead = document.getElementById("abilitiesTableThead")
-const abilitiesTableTbody = document.getElementById("abilitiesTableTbody")
+window.speciesPanelMainContainer = document.getElementById("speciesPanelMainContainer")
+window.speciesPanelCloseButton = document.getElementById("speciesPanelCloseButton")
+window.speciesName = document.getElementById("speciesName")
+window.speciesID = document.getElementById("speciesID")
+window.speciesPanelInputSpecies = document.getElementById("speciesPanelInputSpecies")
+window.speciesPanelInputSpeciesDataList = document.getElementById("speciesPanelInputSpeciesDataList")
+window.speciesSprite = document.getElementById("speciesSprite")
+window.speciesType1 = document.getElementById("speciesType1")
+window.speciesType2 = document.getElementById("speciesType2")
+window.speciesAbilities = document.getElementById("speciesAbilities")
+window.speciesBaseStatsGraph = document.getElementById("speciesBaseStatsGraph")
+window.speciesEvolutionsText = document.getElementById("speciesEvolutionsText")
+window.speciesEvoTable = document.getElementById("speciesEvoTable")
+window.speciesFormes = document.getElementById("speciesFormes")
+window.speciesFormesText = document.getElementById("speciesFormesText")
+window.speciesEggGroups = document.getElementById("speciesEggGroups")
+window.speciesHeldItems = document.getElementById("speciesHeldItems")
+window.speciesChanges = document.getElementById("speciesChanges")
+window.speciesHeldItemsContainer = document.getElementById("speciesHeldItemsContainer")
+window.speciesChangesContainer = document.getElementById("speciesChangesContainer")
+window.speciesDefensiveTypeChart = document.getElementById("speciesDefensiveTypeChart")
+window.recommendedCoverageContainer = document.getElementById("recommendedCoverageContainer")
+window.recommendedCoverage = document.getElementById("recommendedCoverage")
+window.speciesOffensiveTypeChart = document.getElementById("speciesOffensiveTypeChart")
+window.speciesStrategiesContainer = document.getElementById("speciesStrategiesContainer")
+window.speciesStrategies = document.getElementById("speciesStrategies")
+window.speciesPanelLevelUpFromPreviousEvoTable = document.getElementById("speciesPanelLevelUpFromPreviousEvoTable")
+window.speciesPanelLevelUpTable = document.getElementById("speciesPanelLevelUpTable")
+window.speciesPanelTMHMTable = document.getElementById("speciesPanelTMHMTable")
+window.speciesPanelTutorTable = document.getElementById("speciesPanelTutorTable")
+window.speciesPanelEggMovesTable = document.getElementById("speciesPanelEggMovesTable")
 
 
-const locationsInput = document.getElementById("locationsInput")
-const locationsButton = document.getElementById("locationsButton")
-const locationsTable = document.getElementById("locationsTable")
-const locationsTableTbody = document.getElementById("locationsTableTbody")
-
-
-const movesInput = document.getElementById("movesInput")
-const movesButton = document.getElementById("movesButton")
-const movesTable = document.getElementById("movesTable")
-const movesTableThead = document.getElementById("movesTableThead")
-const movesTableTbody = document.getElementById("movesTableTbody")
-
-
-const abilitiesInputDataList = document.getElementById("abilitiesInputDataList")
-const speciesInputDataList = document.getElementById("speciesInputDataList")
-const movesInputDataList = document.getElementById("movesInputDataList")
 
 
 
-const table = document.querySelector("#table")
 
-const headerAbilitiesName = document.querySelector("#abilitiesTableThead th.ability")
-const headerAbilitiesDescription = document.querySelector("#abilitiesTableThead th.description")
 
-const headerMovesMove = document.querySelector("#movesTableThead th.move")
-const headerMovesType = document.querySelector("#movesTableThead th.type")
-const headerMovesSplit = document.querySelector("#movesTableThead th.split")
-const headerMovesPower = document.querySelector("#movesTableThead th.power")
-const headerMovesAccuracy = document.querySelector("#movesTableThead th.accuracy")
-const headerMovesPP = document.querySelector("#movesTableThead th.PP")
-const headerMovesEffect = document.querySelector("#movesTableThead th.effect")
+window.speciesInput = document.getElementById("speciesInput")
+window.speciesButton = document.getElementById("speciesButton")
+window.speciesTable = document.getElementById("speciesTable")
+window.speciesTableThead = document.getElementById("speciesTableThead")
+window.speciesTableTbody = document.getElementById("speciesTableTbody")
 
-const headerSpeciesID = document.querySelector("#speciesTableThead th.ID")
-const headerSpeciesSprite = document.querySelector("#speciesTableThead th.sprite")
-const headerSpeciesName = document.querySelector("#speciesTableThead th.species")
-const headerSpeciesTypes = document.querySelector("#speciesTableThead th.types")
-const headerSpeciesAbilities = document.querySelector("#speciesTableThead th.abilities")
-const headerSpeciesHP = document.querySelector("#speciesTableThead th.baseHP")
-const headerSpeciesAtk = document.querySelector("#speciesTableThead th.baseAttack")
-const headerSpeciesDef = document.querySelector("#speciesTableThead th.baseDefense")
-const headerSpeciesSpA = document.querySelector("#speciesTableThead th.baseSpAttack")
-const headerSpeciesSpD = document.querySelector("#speciesTableThead th.baseSpDefense")
-const headerSpeciesSpe = document.querySelector("#speciesTableThead th.baseSpeed")
-const headerSpeciesBST = document.querySelector("#speciesTableThead th.BST")
 
-const headerLocationsSprite = document.querySelector("#locationsTableThead th.sprite")
-const headerLocationsSpecies = document.querySelector("#locationsTableThead th.species")
-const headerLocationsRarity = document.querySelector("#locationsTableThead th.rarity")
-const headerLocationsZone = document.querySelector("#locationsTableThead th.zone")
+window.abilitiesInput = document.getElementById("abilitiesInput")
+window.abilitiesButton = document.getElementById("abilitiesButton")
+window.abilitiesTable = document.getElementById("abilitiesTable")
+window.abilitiesTableThead = document.getElementById("abilitiesTableThead")
+window.abilitiesTableTbody = document.getElementById("abilitiesTableTbody")
 
-const utilityButton = document.querySelector(".utilityButton")
+
+window.locationsInput = document.getElementById("locationsInput")
+window.locationsButton = document.getElementById("locationsButton")
+window.locationsTable = document.getElementById("locationsTable")
+window.locationsTableTbody = document.getElementById("locationsTableTbody")
+
+
+window.movesInput = document.getElementById("movesInput")
+window.movesButton = document.getElementById("movesButton")
+window.movesTable = document.getElementById("movesTable")
+window.movesTableThead = document.getElementById("movesTableThead")
+window.movesTableTbody = document.getElementById("movesTableTbody")
+
+
+window.abilitiesInputDataList = document.getElementById("abilitiesInputDataList")
+window.speciesInputDataList = document.getElementById("speciesInputDataList")
+window.movesInputDataList = document.getElementById("movesInputDataList")
+
+
+
+window.table = document.querySelector("#table")
+
+window.headerAbilitiesName = document.querySelector("#abilitiesTableThead th.ability")
+window.headerAbilitiesDescription = document.querySelector("#abilitiesTableThead th.description")
+
+window.headerMovesMove = document.querySelector("#movesTableThead th.move")
+window.headerMovesType = document.querySelector("#movesTableThead th.type")
+window.headerMovesSplit = document.querySelector("#movesTableThead th.split")
+window.headerMovesPower = document.querySelector("#movesTableThead th.power")
+window.headerMovesAccuracy = document.querySelector("#movesTableThead th.accuracy")
+window.headerMovesPP = document.querySelector("#movesTableThead th.PP")
+window.headerMovesEffect = document.querySelector("#movesTableThead th.effect")
+
+window.headerSpeciesID = document.querySelector("#speciesTableThead th.ID")
+window.headerSpeciesSprite = document.querySelector("#speciesTableThead th.sprite")
+window.headerSpeciesName = document.querySelector("#speciesTableThead th.species")
+window.headerSpeciesTypes = document.querySelector("#speciesTableThead th.types")
+window.headerSpeciesAbilities = document.querySelector("#speciesTableThead th.abilities")
+window.headerSpeciesHP = document.querySelector("#speciesTableThead th.baseHP")
+window.headerSpeciesAtk = document.querySelector("#speciesTableThead th.baseAttack")
+window.headerSpeciesDef = document.querySelector("#speciesTableThead th.baseDefense")
+window.headerSpeciesSpA = document.querySelector("#speciesTableThead th.baseSpAttack")
+window.headerSpeciesSpD = document.querySelector("#speciesTableThead th.baseSpDefense")
+window.headerSpeciesSpe = document.querySelector("#speciesTableThead th.baseSpeed")
+window.headerSpeciesBST = document.querySelector("#speciesTableThead th.BST")
+
+window.headerLocationsSprite = document.querySelector("#locationsTableThead th.sprite")
+window.headerLocationsSpecies = document.querySelector("#locationsTableThead th.species")
+window.headerLocationsRarity = document.querySelector("#locationsTableThead th.rarity")
+window.headerLocationsZone = document.querySelector("#locationsTableThead th.zone")
+
+window.utilityButton = document.querySelector(".utilityButton")
 
 
 
