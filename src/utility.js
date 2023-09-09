@@ -69,7 +69,7 @@ async function fetchTypeChart(){
 
 
 async function forceUpdate(){
-    const update = 28
+    const update = 29
     if(localStorage.getItem("update") != `${update} RR`){
         await localStorage.clear()
         await localStorage.setItem("update", `${update} RR`)
