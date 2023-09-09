@@ -1,41 +1,3 @@
-const graph = document.getElementById("statsGraph")
-const graphStats = [...graph.children]
-const statDisplays = [...document.querySelectorAll(".statsGraphHeader")]
-
-
-const speciesPanelMainContainer = document.getElementById("speciesPanelMainContainer")
-const speciesPanelCloseButton = document.getElementById("speciesPanelCloseButton")
-const speciesName = document.getElementById("speciesName")
-const speciesID = document.getElementById("speciesID")
-const speciesPanelInputSpecies = document.getElementById("speciesPanelInputSpecies")
-const speciesPanelInputSpeciesDataList = document.getElementById("speciesPanelInputSpeciesDataList")
-const speciesSprite = document.getElementById("speciesSprite")
-const speciesType1 = document.getElementById("speciesType1")
-const speciesType2 = document.getElementById("speciesType2")
-const speciesAbilities = document.getElementById("speciesAbilities")
-const speciesBaseStatsGraph = document.getElementById("speciesBaseStatsGraph")
-const speciesEvolutionsText = document.getElementById("speciesEvolutionsText")
-const speciesEvoTable = document.getElementById("speciesEvoTable")
-const speciesFormes = document.getElementById("speciesFormes")
-const speciesFormesText = document.getElementById("speciesFormesText")
-const speciesEggGroups = document.getElementById("speciesEggGroups")
-const speciesHeldItems = document.getElementById("speciesHeldItems")
-const speciesChanges = document.getElementById("speciesChanges")
-const speciesHeldItemsContainer = document.getElementById("speciesHeldItemsContainer")
-const speciesChangesContainer = document.getElementById("speciesChangesContainer")
-const speciesDefensiveTypeChart = document.getElementById("speciesDefensiveTypeChart")
-const recommendedCoverageContainer = document.getElementById("recommendedCoverageContainer")
-const recommendedCoverage = document.getElementById("recommendedCoverage")
-const speciesOffensiveTypeChart = document.getElementById("speciesOffensiveTypeChart")
-const speciesStrategiesContainer = document.getElementById("speciesStrategiesContainer")
-const speciesStrategies = document.getElementById("speciesStrategies")
-const speciesPanelLevelUpFromPreviousEvoTable = document.getElementById("speciesPanelLevelUpFromPreviousEvoTable")
-const speciesPanelLevelUpTable = document.getElementById("speciesPanelLevelUpTable")
-const speciesPanelTMHMTable = document.getElementById("speciesPanelTMHMTable")
-const speciesPanelTutorTable = document.getElementById("speciesPanelTutorTable")
-const speciesPanelEggMovesTable = document.getElementById("speciesPanelEggMovesTable")
-
-
 async function createSpeciesPanel(name){
     panelSpecies = name
     speciesPanel("show")
@@ -1216,14 +1178,16 @@ speciesPanelCloseButton.addEventListener("click", () => {
 })
 
 async function speciesPanel(param){
-    if(param === "hide"){
-        speciesPanelMainContainer.classList.add("hide")
+    if(typeof speciesPanelMainContainer !== "undefined"){
+        if(param === "hide"){
+            speciesPanelMainContainer.classList.add("hide")
+        }
+        else if(param === "show"){
+            speciesPanelMainContainer.classList.remove("hide")
+        }
+        else{
+            speciesPanelMainContainer.classList.toggle("hide")
+        }
+        refreshURLParams()
     }
-    else if(param === "show"){
-        speciesPanelMainContainer.classList.remove("hide")
-    }
-    else{
-        speciesPanelMainContainer.classList.toggle("hide")
-    }
-    refreshURLParams()
 }
