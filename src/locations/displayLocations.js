@@ -72,7 +72,7 @@ function createRowHeader(location, method){
     let spriteHeaderContainer = document.createElement("th")
     let spriteHeader = document.createElement("img")
     spriteHeaderContainer.className = "sprite"
-    spriteHeader.src = `https://raw.githubusercontent.com/ydarissep/dex-core/main/src/locations/sprites/${returnMethodSprite(method).replaceAll(" ", "_")}.png`
+    spriteHeader.src = `https://raw.githubusercontent.com/${repo}/main/src/locations/sprites/${returnMethodSprite(method).replaceAll(" ", "_")}.png`
     spriteHeaderContainer.append(spriteHeader)
     locationTableHeader.append(spriteHeaderContainer)
 

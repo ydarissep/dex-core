@@ -1,6 +1,10 @@
 async function displaySetup(){    
     await footerP("")
 
+    if(Object.keys(strategies).length === 0){
+        strategyCheckbox.classList.add("hide")
+    }
+
     lazyLoading(true)
 
     await tableInput.classList.remove("hide")

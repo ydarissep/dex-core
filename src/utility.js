@@ -49,29 +49,6 @@ async function fetchData(){
     await displayParams(urlParams)
 
     await window.scrollTo(0, 0)
-
-
-
-    /*
-    if(await fetchMovesObj()){
-        await fetchAbilitiesObj()
-        await fetchSpeciesObj()
-        await fetchLocationsObj()
-        await fetchStrategiesObj()   
-
-        await fetchTypeChart()
-
-        await setDataList()
-        await setFilters()
-        await displaySetup()
-        await displayParams(urlParams)
-
-        await window.scrollTo(0, 0)
-    }
-    else{
-        useBackup()
-    }
-    */
 }
 
 

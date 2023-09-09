@@ -402,11 +402,14 @@ function createClickableImgAndName(speciesName, evoConditions = false, showName 
 
     if(evoConditions){
         const evoCondition = document.createElement("span")
-        if(evoConditions[0] !== "EVO_MEGA"){
-            evoCondition.innerText = `${sanitizeString(evoConditions[0])} (${sanitizeString(evoConditions[1])})`
+        if(evoConditions[0] === "EVO_MEGA"){
+            evoCondition.innerText = `Mega`
+        }
+        else if(evoConditions[0] === "EVO_GIGANTAMAX"){
+            evoCondition.innerText = `Giga`
         }
         else{
-            evoCondition.innerText = `Mega`
+            evoCondition.innerText = `${sanitizeString(evoConditions[0])} (${sanitizeString(evoConditions[1])})`
         }
         evoCondition.innerText += ` ➝ `
         evoCondition.className = "evoMethod"
@@ -1147,7 +1150,6 @@ document.querySelectorAll("#speciesPanelLevelUpFromPreviousEvoTableTHead, #speci
                 buildSpeciesPanelSingleLearnsetsTable(speciesPanelTutorTable, panelSpecies, "tutorLearnsets", th.innerText, -1)
                 buildSpeciesPanelSingleLearnsetsTable(speciesPanelEggMovesTable, panelSpecies, "eggMovesLearnsets", th.innerText, -1)
             }
-            //speciesPanelMainContainer.classList.remove("hide")
             window.scroll({top: offset})
         })
     })

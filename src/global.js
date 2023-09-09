@@ -22,7 +22,7 @@ window.popup = document.getElementById('popup')
 window.patchnoteModeCheckbox = document.getElementById("patchnoteModeCheckbox")
 window.onlyShowChangedPokemonCheckbox = document.getElementById("onlyShowChangedPokemonCheckbox")
 window.onlyShowStrategyPokemonCheckbox = document.getElementById("onlyShowStrategyPokemonCheckbox")
-
+window.strategyCheckbox = document.getElementById("strategyCheckbox")
 
 
 
