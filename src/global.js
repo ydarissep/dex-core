@@ -612,4 +612,11 @@ window.addEventListener('popstate', async () => {
 
 
 
-fetchData()
+let interval = setInterval(function() {
+    if (typeof fetchData() == 'undefined'){
+        return
+    }
+    clearInterval(interval);
+
+    fetchData()
+}, 100)
