@@ -549,6 +549,21 @@ backup.addEventListener("click", async () => {
     await useBackup()
 })
 
+async function speciesPanel(param){
+    if(typeof speciesPanelMainContainer !== "undefined"){
+        if(param === "hide"){
+            speciesPanelMainContainer.classList.add("hide")
+        }
+        else if(param === "show"){
+            speciesPanelMainContainer.classList.remove("hide")
+        }
+        else{
+            speciesPanelMainContainer.classList.toggle("hide")
+        }
+        refreshURLParams()
+    }
+}
+
 async function useBackup(){
     console.log("Used Backup")
     history.pushState(null, null, location.href)

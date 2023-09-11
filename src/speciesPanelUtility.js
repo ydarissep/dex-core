@@ -1160,21 +1160,3 @@ document.querySelectorAll("#speciesPanelLevelUpFromPreviousEvoTableTHead, #speci
 
 
 
-
-
-
-
-async function speciesPanel(param){
-    if(typeof speciesPanelMainContainer !== "undefined"){
-        if(param === "hide"){
-            speciesPanelMainContainer.classList.add("hide")
-        }
-        else if(param === "show"){
-            speciesPanelMainContainer.classList.remove("hide")
-        }
-        else{
-            speciesPanelMainContainer.classList.toggle("hide")
-        }
-        refreshURLParams()
-    }
-}
