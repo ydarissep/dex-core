@@ -70,9 +70,9 @@ async function fetchTypeChart(){
 
 
 async function forceUpdate(){
-    if(localStorage.getItem("update") != `${update}`){
+    if(localStorage.getItem("update") != `${checkUpdate}`){
         await localStorage.clear()
-        await localStorage.setItem("update", `${update}`)
+        await localStorage.setItem("update", `${checkUpdate}`)
         await footerP("Fetching data please wait... this is only run once")
     }
 }
