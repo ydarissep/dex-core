@@ -69,6 +69,16 @@ async function fetchTypeChart(){
 
 
 
+async function forceUpdate(){
+    if(localStorage.getItem("update") != `${update}`){
+        await localStorage.clear()
+        await localStorage.setItem("update", `${update}`)
+        await footerP("Fetching data please wait... this is only run once")
+    }
+}
+
+
+
 
 function exportData(){
     console.log(`let backupData = [${JSON.stringify(moves)}, ${JSON.stringify(abilities)}, ${JSON.stringify(species)}, ${JSON.stringify(locations)}, ${JSON.stringify(strategies)}, ${JSON.stringify(typeChart)}]`)
