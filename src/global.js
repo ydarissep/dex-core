@@ -549,20 +549,44 @@ backup.addEventListener("click", async () => {
     await useBackup()
 })
 
-async function speciesPanel(param){
-    if(typeof speciesPanelMainContainer !== "undefined"){
-        if(param === "hide"){
-            speciesPanelMainContainer.classList.add("hide")
-        }
-        else if(param === "show"){
-            speciesPanelMainContainer.classList.remove("hide")
-        }
-        else{
-            speciesPanelMainContainer.classList.toggle("hide")
-        }
-        refreshURLParams()
+
+
+
+async function refreshURLParams(){
+    const url = document.location.href.split("?")[0] + "?"
+    let params = ""
+
+    if(!speciesPanelMainContainer.classList.contains("hide")){
+        params += `species=${panelSpecies}&`
     }
+    if(document.getElementsByClassName("activeTable").length > 0){
+        params += `table=${document.getElementsByClassName("activeTable")[0].id}&`
+    }
+    if(document.getElementsByClassName("activeFilter")[0].getElementsByClassName("filter").length > 0){
+        params += "filter="
+        const filters = document.getElementsByClassName("activeFilter")[0].getElementsByClassName("filter")
+        for(let i = 0, j = filters.length; i < j; i++){
+            if(!/>|<|=/.test(filters[i].innerText)){
+                let param = filters[i].innerText.split(":")
+                params += `${param[0]}:${param[1].trim()}`
+                if(i !== j - 1){
+                    params += ","
+                }
+            }
+        }
+        params += "&"
+    }
+    if(document.getElementsByClassName("activeInput")[0].value !== ""){
+        params += `input=${document.getElementsByClassName("activeInput")[0].value}&`
+    }
+    
+    await getHistoryState()
+    window.history.replaceState(`${url}${params}`, null, `${url}${params}`)
+    return `${url}${params}`, null, `${url}${params}`
 }
+
+
+
 
 async function useBackup(){
     console.log("Used Backup")
