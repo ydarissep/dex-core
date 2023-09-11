@@ -1171,6 +1171,10 @@ async function speciesPanel(param){
         else{
             speciesPanelMainContainer.classList.toggle("hide")
         }
-        refreshURLParams()
+
+        
+        if(typeof refreshURLParams !== "undefined"){
+            refreshURLParams()
+        }
     }
 }
