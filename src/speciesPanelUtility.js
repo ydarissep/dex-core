@@ -601,6 +601,9 @@ function createSpeciesStrategy(strategy, speciesName){
             const strategyTag = document.createElement("span"); strategyTag.className = "strategyTag"
             strategyTag.innerText = strategy["tags"][i].trim()
             strategyTagsContainer.append(strategyTag)
+            if(i >= 2){
+                break
+            }
         }
         strategyContainer.append(strategyTagsContainer)
     }
