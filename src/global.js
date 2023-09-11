@@ -608,3 +608,8 @@ window.addEventListener('popstate', async () => {
         historyObj.pop()
     }
 })
+
+
+
+
+fetchData()
