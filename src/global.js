@@ -596,6 +596,7 @@ async function useBackup(){
     if(!localStorage.getItem("locations")){
         await localStorage.setItem("locations", LZString.compressToUTF16(JSON.stringify(locations)))
     }
+    let counter = 0
     locationsTracker = []
     Object.keys(locations).forEach(zone => {
         Object.keys(locations[zone]).forEach(method => {
@@ -603,6 +604,7 @@ async function useBackup(){
                 locationsTracker[counter] = {}
                 locationsTracker[counter]["key"] = `${zone}\\${method}\\${speciesName}`
                 locationsTracker[counter]["filter"] = []
+                counter++
             })
         })
     })
