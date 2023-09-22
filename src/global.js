@@ -560,38 +560,50 @@ async function useBackup(){
     if(!localStorage.getItem("moves")){
         await localStorage.setItem("moves", LZString.compressToUTF16(JSON.stringify(moves)))
     }
+    movesTracker = []
     for(let i = 0, j = Object.keys(moves).length; i < j; i++){
         movesTracker[i] = {}
         movesTracker[i]["key"] = Object.keys(moves)[i]
         movesTracker[i]["filter"] = []
     }
+
+
     abilities = await backupData[1]
     if(!localStorage.getItem("abilities")){
         await localStorage.setItem("abilities", LZString.compressToUTF16(JSON.stringify(abilities)))
     }
+    abilitiesTracker = []
     for(let i = 0, j = Object.keys(abilities).length; i < j; i++){
         abilitiesTracker[i] = {}
         abilitiesTracker[i]["key"] = Object.keys(abilities)[i]
         abilitiesTracker[i]["filter"] = []
     }
+
+    
     species = await backupData[2]
     if(!localStorage.getItem("species")){
         await localStorage.setItem("species", LZString.compressToUTF16(JSON.stringify(species)))
     }
+    speciesTracker = []
     for(let i = 0, j = Object.keys(species).length; i < j; i++){
         speciesTracker[i] = {}
         speciesTracker[i]["key"] = Object.keys(species)[i]
         speciesTracker[i]["filter"] = []
     }
+
+
     locations = await backupData[3]
     if(!localStorage.getItem("locations")){
         await localStorage.setItem("locations", LZString.compressToUTF16(JSON.stringify(locations)))
     }
+    locationsTracker = []
     for(let i = 0, j = Object.keys(locations).length; i < j; i++){
         locationsTracker[i] = {}
         locationsTracker[i]["key"] = Object.keys(locations)[i]
         locationsTracker[i]["filter"] = []
     }
+
+    
     strategies = await backupData[4]
     /*
     if(!localStorage.getItem("strategies")){
