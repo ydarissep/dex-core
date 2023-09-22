@@ -603,7 +603,6 @@ async function useBackup(){
                 locationsTracker[counter] = {}
                 locationsTracker[counter]["key"] = `${zone}\\${method}\\${speciesName}`
                 locationsTracker[counter]["filter"] = []
-                counter++
             })
         })
     })
