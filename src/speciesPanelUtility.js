@@ -213,12 +213,12 @@ async function createSpeciesPanel(name){
 
 
 
-    if(species[name]["item1"] !== "ITEM_NONE"){
+    if(species[name]["item1"] !== "ITEM_NONE" && species[name]["item1"] !== ""){
         const heldItem1 = document.createElement("div")
         heldItem1.innerText = `50% ${sanitizeString(species[name]["item1"])}`
         speciesHeldItems.append(heldItem1)
     }
-    if(species[name]["item2"] !== "ITEM_NONE"){
+    if(species[name]["item2"] !== "ITEM_NONE" && species[name]["item2"] !== ""){
         const heldItem2 = document.createElement("div")
         heldItem2.innerText = `5% ${sanitizeString(species[name]["item2"])}`
         speciesHeldItems.append(heldItem2)
@@ -402,10 +402,10 @@ function createClickableImgAndName(speciesName, evoConditions = false, showName 
 
     if(evoConditions){
         const evoCondition = document.createElement("span")
-        if(evoConditions[0] === "EVO_MEGA"){
+        if(evoConditions[0].includes("EVO_MEGA")){
             evoCondition.innerText = `Mega`
         }
-        else if(evoConditions[0] === "EVO_GIGANTAMAX"){
+        else if(evoConditions[0].includes("EVO_GIGA")){
             evoCondition.innerText = `Giga`
         }
         else{
