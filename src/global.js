@@ -596,7 +596,7 @@ async function useBackup(){
     if(!localStorage.getItem("locations")){
         await localStorage.setItem("locations", LZString.compressToUTF16(JSON.stringify(locations)))
     }
-    window.locationsTracker = []
+    locationsTracker = []
     Object.keys(locations).forEach(zone => {
         Object.keys(locations[zone]).forEach(method => {
             Object.keys(locations[zone][method]).forEach(speciesName => {
