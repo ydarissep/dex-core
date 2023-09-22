@@ -596,12 +596,17 @@ async function useBackup(){
     if(!localStorage.getItem("locations")){
         await localStorage.setItem("locations", LZString.compressToUTF16(JSON.stringify(locations)))
     }
-    locationsTracker = []
-    for(let i = 0, j = Object.keys(locations).length; i < j; i++){
-        locationsTracker[i] = {}
-        locationsTracker[i]["key"] = Object.keys(locations)[i]
-        locationsTracker[i]["filter"] = []
-    }
+    window.locationsTracker = []
+    Object.keys(locations).forEach(zone => {
+        Object.keys(locations[zone]).forEach(method => {
+            Object.keys(locations[zone][method]).forEach(speciesName => {
+                locationsTracker[counter] = {}
+                locationsTracker[counter]["key"] = `${zone}\\${method}\\${speciesName}`
+                locationsTracker[counter]["filter"] = []
+                counter++
+            })
+        })
+    })
 
     
     strategies = await backupData[4]
