@@ -112,6 +112,12 @@ async function createSpeciesPanel(name){
                 speciesInnates.append(abilityContainer)
             }
         }
+        if(species[name]["innates"].length == 0){
+            speciesInnatesMainContainer.classList.add("hide")
+        }
+        else{
+            speciesInnatesMainContainer.classList.remove("hide")
+        }
     }
     
 
