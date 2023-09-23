@@ -24,15 +24,16 @@ function sanitizeString(string){
 
 
 
-async function fetchData(){
+async function fetchData(urlParams = ""){
     setTimeout(() => {
         timeout = true
     }, "20000");
 
-    history.pushState(null, null, location.href)
-    const queryString = window.location.search
-    const urlParams = new URLSearchParams(queryString)
-
+    if(urlParams == ""){
+        history.pushState(null, null, location.href)
+        const queryString = window.location.search
+        urlParams = new URLSearchParams(queryString)
+    }
     await forceUpdate()
 
     await fetchMovesObj()

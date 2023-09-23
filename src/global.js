@@ -650,11 +650,12 @@ window.addEventListener('popstate', async () => {
 
 
 
+const searchParams = new URLSearchParams(window.location.search)
 let interval = setInterval(function() {
     if (typeof fetchData == 'undefined'){
         return
     }
     clearInterval(interval);
 
-    fetchData()
-}, 100)
+    fetchData(searchParams)
+}, 100) 
