@@ -291,7 +291,7 @@ headerSpeciesBST.addEventListener("click", () => {
 speciesInput.addEventListener("input", e => {
     const value = e.target.value
     filterFilters(value)
-    filterTableInput(value, species, ["name", "abilities"])
+    filterTableInput(value, species, ["name", "abilities", "innates"])
 })
 abilitiesInput.addEventListener("input", e => {
     const value = e.target.value

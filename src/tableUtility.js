@@ -70,9 +70,11 @@ function filterTableInput(input, obj, keyArray){
     for(let i = 0, j = Object.keys(tracker).length; i < j; i++){
         tracker[i]["filter"].push("input")
         for (let k = 0; k < keyArray.length; k++){
-            if(regexInput.test(sanitizeString("" + obj[tracker[i]["key"]][keyArray[k]]).replaceAll(/-|'| |_/g, ""))){
-                tracker[i]["filter"] = tracker[i]["filter"].filter(value => value !== "input")
-                break
+            if(keyArray[k] !== "innates" || typeof innatesDefined !== "undefined"){
+                if(regexInput.test(sanitizeString("" + obj[tracker[i]["key"]][keyArray[k]]).replaceAll(/-|'| |_/g, ""))){
+                    tracker[i]["filter"] = tracker[i]["filter"].filter(value => value !== "input")
+                    break
+                }
             }
         }
     }
