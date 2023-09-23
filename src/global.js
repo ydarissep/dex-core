@@ -124,6 +124,7 @@ window.headerSpeciesSprite = document.querySelector("#speciesTableThead th.sprit
 window.headerSpeciesName = document.querySelector("#speciesTableThead th.species")
 window.headerSpeciesTypes = document.querySelector("#speciesTableThead th.types")
 window.headerSpeciesAbilities = document.querySelector("#speciesTableThead th.abilities")
+window.headerSpeciesInnates = document.querySelector("#speciesTableThead th.innates")
 window.headerSpeciesHP = document.querySelector("#speciesTableThead th.baseHP")
 window.headerSpeciesAtk = document.querySelector("#speciesTableThead th.baseAttack")
 window.headerSpeciesDef = document.querySelector("#speciesTableThead th.baseDefense")
