@@ -238,6 +238,12 @@ headerSpeciesAbilities.addEventListener("click", () => {
     else
         sortTableByClassName(speciesTable, species, ["abilities"], "abilities", asc = false)
 })
+headerSpeciesInnates.addEventListener("click", () => {
+    if(headerSpeciesInnates.classList.contains("th-sort-desc"))
+        sortTableByClassName(speciesTable, species, ["innates"], "innates", asc = true)
+    else
+        sortTableByClassName(speciesTable, species, ["innates"], "innates", asc = false)
+})
 headerSpeciesHP.addEventListener("click", () => {
     if(headerSpeciesHP.classList.contains("th-sort-desc"))
         sortTableByClassName(speciesTable, species, ["baseHP"], "baseHP", asc = true)
