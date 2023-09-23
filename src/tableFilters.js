@@ -57,7 +57,7 @@ function filterSpeciesAbility(value, label){
             if(tracker === locationsTracker){
                 name = tracker[i]["key"].split("\\")[2]
             }
-            if(!species[name]["abilities"].includes(abilityName)){
+            if(!species[name]["abilities"].includes(abilityName) && (innatesDefined && !species[name]["innates"].includes(abilityName))){
                 tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
             }
         }
