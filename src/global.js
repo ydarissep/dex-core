@@ -557,9 +557,7 @@ async function useBackup(){
     const urlParams = new URLSearchParams(queryString)
 
     moves = await backupData[0]
-    if(!localStorage.getItem("moves")){
-        await localStorage.setItem("moves", LZString.compressToUTF16(JSON.stringify(moves)))
-    }
+    await localStorage.setItem("moves", LZString.compressToUTF16(JSON.stringify(moves)))
     movesTracker = []
     for(let i = 0, j = Object.keys(moves).length; i < j; i++){
         movesTracker[i] = {}
@@ -569,9 +567,7 @@ async function useBackup(){
 
 
     abilities = await backupData[1]
-    if(!localStorage.getItem("abilities")){
-        await localStorage.setItem("abilities", LZString.compressToUTF16(JSON.stringify(abilities)))
-    }
+    await localStorage.setItem("abilities", LZString.compressToUTF16(JSON.stringify(abilities)))
     abilitiesTracker = []
     for(let i = 0, j = Object.keys(abilities).length; i < j; i++){
         abilitiesTracker[i] = {}
@@ -581,9 +577,7 @@ async function useBackup(){
 
     
     species = await backupData[2]
-    if(!localStorage.getItem("species")){
-        await localStorage.setItem("species", LZString.compressToUTF16(JSON.stringify(species)))
-    }
+    await localStorage.setItem("species", LZString.compressToUTF16(JSON.stringify(species)))
     speciesTracker = []
     for(let i = 0, j = Object.keys(species).length; i < j; i++){
         speciesTracker[i] = {}
@@ -593,9 +587,7 @@ async function useBackup(){
 
 
     locations = await backupData[3]
-    if(!localStorage.getItem("locations")){
-        await localStorage.setItem("locations", LZString.compressToUTF16(JSON.stringify(locations)))
-    }
+    await localStorage.setItem("locations", LZString.compressToUTF16(JSON.stringify(locations)))
     let counter = 0
     locationsTracker = []
     Object.keys(locations).forEach(zone => {
@@ -611,11 +603,9 @@ async function useBackup(){
 
     
     strategies = await backupData[4]
-    /*
-    if(!localStorage.getItem("strategies")){
-        await localStorage.setItem("strategies", LZString.compressToUTF16(JSON.stringify(strategies)))
-    }
-    */
+    //await localStorage.setItem("strategies", LZString.compressToUTF16(JSON.stringify(strategies)))
+
+    
     typeChart = await backupData[5]
 
     await setDataList()
