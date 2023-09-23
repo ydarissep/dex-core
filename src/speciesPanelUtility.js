@@ -25,7 +25,7 @@ async function createSpeciesPanel(name){
 
 
 
-    while (speciesAbilities.firstChild)
+        while (speciesAbilities.firstChild)
         speciesAbilities.removeChild(speciesAbilities.firstChild)
 
     for (let i = 0; i < species[name]["abilities"].length; i++){
@@ -50,6 +50,7 @@ async function createSpeciesPanel(name){
             else{
                 abilityName.className = "italic"
             }
+
             abilityName.classList.add("hyperlink")
 
             abilityDescription.className = "speciesPanelAbilitiesDescriptionPadding"
@@ -73,12 +74,53 @@ async function createSpeciesPanel(name){
         }
     }
 
+    if(typeof innatesDefined !== "undefined"){
+        while (speciesInnates.firstChild)
+            speciesInnates.removeChild(speciesInnates.firstChild)
+
+        for (let i = 0; i < species[name]["innates"].length; i++){
+            const ability = species[name]["innates"][i]
+            if(species[name]["innates"][i] !== "ABILITY_NONE"){
+                const abilityContainer = document.createElement("div")
+                const abilityName = document.createElement("span")
+                const abilityDescription = document.createElement("span")
+
+                abilityName.innerText = abilities[ability]["ingameName"]
+                abilityDescription.innerText = abilities[ability]["description"]
+
+                abilityName.className = "italic"
+
+                abilityName.classList.add("hyperlink")
+
+                abilityDescription.className = "speciesPanelAbilitiesDescriptionPadding"
+                abilityContainer.className = "flex wrap"
+
+                abilityName.addEventListener("click", async() => {
+                    if(!speciesButton.classList.contains("activeButton")){
+                        tracker = speciesTracker
+                        await tableButtonClick("species")
+                    }
+                    deleteFiltersFromTable()
+
+                    createFilter(abilities[ability]["ingameName"], "Ability")
+                    speciesPanel("hide")
+                    window.scrollTo({ top: 0})
+                })
+
+                abilityContainer.append(abilityName)
+                abilityContainer.append(abilityDescription)
+                speciesInnates.append(abilityContainer)
+            }
+        }
+    }
+    
 
 
 
 
 
-    let monStats = [species[name]["baseHP"],
+
+    let monStats = [species[name]["baseHP"], 
     species[name]["baseAttack"], 
     species[name]["baseDefense"], 
     species[name]["baseSpAttack"], 

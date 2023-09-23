@@ -89,6 +89,7 @@ function createRowHeader(location, method){
 
 
 function returnMethodSprite(method){
+    console.log(method)
     if(method.match(/raid/i)){
         return "Raid"
     }
