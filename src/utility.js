@@ -143,10 +143,20 @@ function setDataList(){
         if(!(species[name]["type2"] in typeCount)){
             typeCount[species[name]["type2"]] = 0
         }
+        if(typeof species[name]["type3"] !== "undefined"){
+            if(!(species[name]["type3"] in typeCount)){
+                typeCount[species[name]["type3"]] = 0
+            }
+        }
 
         typeCount[species[name]["type1"]] += 1
         if(species[name]["type1"] !== species[name]["type2"]){
             typeCount[species[name]["type2"]] += 1
+        }
+        if(typeof species[name]["type3"] !== "undefined"){
+            if(species[name]["type3"] !== species[name]["type1"] && species[name]["type3"] !== species[name]["type2"]){
+                typeCount[species[name]["type3"]] += 1
+            }
         }
     }
 
@@ -438,7 +448,15 @@ function getSpeciesBestCoverageTypes(speciesObj){
 
         offensiveTypeChart[type] = getPokemonEffectivenessValueAgainstType(speciesObj, type)
 
-        if(type !== speciesObj["type1"] && type !== speciesObj["type2"]){
+        if(typeof speciesObj["type3"] !== "undefined"){
+            if(type !== speciesObj["type1"] && type !== speciesObj["type2"] && type !== speciesObj["type3"]){
+                const value = speciesCanLearnType(speciesObj, type)
+                if(value > 0){
+                    speciesCanLearnTypeArray[type] = value
+                }
+            }
+        }
+        else if(type !== speciesObj["type1"] && type !== speciesObj["type2"]){
             const value = speciesCanLearnType(speciesObj, type)
             if(value > 0){
                 speciesCanLearnTypeArray[type] = value
@@ -518,22 +536,38 @@ function getOffensiveTypeValue(offensiveType, defensiveType){
 }
 
 function getPokemonResistanceValueAgainstType(speciesObj, type){
-    if((speciesObj["type1"] !== speciesObj["type2"]) && speciesObj["type2"] !== undefined){
-        return typeChart[type][speciesObj["type1"]] * typeChart[type][speciesObj["type2"]]
+    if((speciesObj["type1"] !== speciesObj["type2"])){
+        if(typeof speciesObj["type3"] !== "undefined"){
+            if(speciesObj["type3"] !== speciesObj["type1"] && speciesObj["type3"] !== speciesObj["type2"]){
+                return typeChart[type][speciesObj["type1"]] * typeChart[type][speciesObj["type2"]] * typeChart[type][speciesObj["type3"]]
+            }
+        }
+        else{
+            return typeChart[type][speciesObj["type1"]] * typeChart[type][speciesObj["type2"]]
+        }
     }
     else{
-        return typeChart[type][speciesObj["type1"]]
+        if(typeof speciesObj["type3"] !== "undefined"){
+            if(speciesObj["type3"] !== speciesObj["type1"] && speciesObj["type3"] !== speciesObj["type2"]){
+                return typeChart[type][speciesObj["type1"]] * typeChart[type][speciesObj["type3"]]
+            }
+        }
+        else{
+            return typeChart[type][speciesObj["type1"]]
+        }
     }
 }
 
 function getPokemonEffectivenessValueAgainstType(speciesObj, type){
     let offensiveValue = typeChart[speciesObj["type1"]][type]
-    if(speciesObj["type2"] !== undefined){
-        if(typeChart[speciesObj["type2"]][type] > typeChart[speciesObj["type1"]][type]){
-            offensiveValue = typeChart[speciesObj["type2"]][type]
+    if(typeChart[speciesObj["type2"]][type] > typeChart[speciesObj["type1"]][type]){
+        offensiveValue = typeChart[speciesObj["type2"]][type]
+    }
+    if(typeof speciesObj["type3"] !== "undefined"){
+        if(typeChart[speciesObj["type3"]][type] > typeChart[speciesObj["type1"]][type] && typeChart[speciesObj["type3"]][type] > typeChart[speciesObj["type2"]][type]){
+            offensiveValue = typeChart[speciesObj["type3"]][type]
         }
     }
 
     return offensiveValue
 }
-

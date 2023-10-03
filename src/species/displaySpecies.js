@@ -50,6 +50,7 @@ function appendSpeciesToTable(speciesName){
     let types = document.createElement("div")
     let type1 = document.createElement("div")
     let type2 = document.createElement("div")
+    let type3 = document.createElement("div")
     typesContainer.className = "types"
     type1.innerText = `${sanitizeString(species[speciesName]["type1"])} `
     type2.innerText = `${sanitizeString(species[speciesName]["type2"])} `
@@ -72,6 +73,13 @@ function appendSpeciesToTable(speciesName){
     types.append(type1)
     if(species[speciesName]["type1"] !== species[speciesName]["type2"]){
         types.append(type2)
+    }
+    if(typeof species[speciesName]["type3"] !== "undefined"){
+        if(species[speciesName]["type3"] !== species[speciesName]["type1"] && species[speciesName]["type3"] !== species[speciesName]["type2"]){
+            type3.innerText = `${sanitizeString(species[speciesName]["type3"])} `
+            type3.className = `${species[speciesName]["type3"]} background`
+            types.append(type3)
+        }
     }
     typesContainer.append(types)
     row.append(typesContainer)

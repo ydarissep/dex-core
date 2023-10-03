@@ -107,6 +107,11 @@ function filterType(value, label){
             if(!(sanitizeString(species[name]["type1"]) === value) && !(sanitizeString(species[name]["type2"]) === value)){
                 tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
             }
+            if(typeof species[name]["type3"] !== "undefined"){
+                if(!(sanitizeString(species[name]["type3"]) === value)){
+                    tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+                }
+            }
         }
         else if(table === movesTable){
             if(!(sanitizeString(moves[name]["type"]) === value)){

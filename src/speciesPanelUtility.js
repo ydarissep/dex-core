@@ -21,7 +21,16 @@ async function createSpeciesPanel(name){
         speciesType2.classList.remove("hide")
 
 
-
+    if(typeof species[name]["type3"] !== "undefined"){
+        if(species[name]["type3"] !== species[name]["type1"] && species[name]["type3"] !== species[name]["type2"]){
+            speciesType3.innerText = sanitizeString(species[name]["type3"])
+            speciesType3.className = `${species[name]["type3"]} background`
+            speciesType3.classList.remove("hide")
+        }
+    }
+    else{
+        speciesType3.classList.add("hide")
+    }
 
 
 
