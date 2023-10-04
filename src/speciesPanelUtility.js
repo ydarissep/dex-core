@@ -339,19 +339,24 @@ async function createSpeciesPanel(name){
     while (recommendedCoverage.children.length > 0)
         recommendedCoverage.removeChild(recommendedCoverage.firstChild)
 
-    for(const type of getSpeciesBestCoverageTypes(species[name])){
-        const recommendationContainer = document.createElement("span"); recommendationContainer.className = "speciesOffensiveTypeChartMarginTop"
-        const recommendationType = document.createElement("span")
-        const recommendationScore = document.createElement("div")
-
-        recommendationType.innerText = sanitizeString(type[0])
-        recommendationType.className = `background ${type[0]}`
-
-        recommendationScore.innerText = type[1].toFixed(2)
-
-        recommendationContainer.append(recommendationType)
-        recommendationContainer.append(recommendationScore)
-        recommendedCoverage.append(recommendationContainer)
+    try{
+        for(const type of getSpeciesBestCoverageTypes(species[name])){
+            const recommendationContainer = document.createElement("span"); recommendationContainer.className = "speciesOffensiveTypeChartMarginTop"
+            const recommendationType = document.createElement("span")
+            const recommendationScore = document.createElement("div")
+    
+            recommendationType.innerText = sanitizeString(type[0])
+            recommendationType.className = `background ${type[0]}`
+    
+            recommendationScore.innerText = type[1].toFixed(2)
+    
+            recommendationContainer.append(recommendationType)
+            recommendationContainer.append(recommendationScore)
+            recommendedCoverage.append(recommendationContainer)
+        }
+    }
+    catch{
+        console.log(`Couldn't get recommended coverage type for ${name}`)
     }
 
     if(recommendedCoverage.children.length === 0){
@@ -368,21 +373,26 @@ async function createSpeciesPanel(name){
     while (speciesOffensiveTypeChart.firstChild)
         speciesOffensiveTypeChart.removeChild(speciesOffensiveTypeChart.firstChild)
 
-    Object.keys(typeChart).forEach(type => {
-        const offensiveTypeEffectivenessContainer = document.createElement("span")
-        const checkType = document.createElement("span")
-        const offensiveTypeEffectivenessValue = document.createElement("span")
-        offensiveTypeEffectivenessContainer.className = "flex flexCenter flexColumn speciesOffensiveTypeChartMarginTop"
-        checkType.innerText = sanitizeString(type)
-        checkType.className = `background2 ${type}`
-
-        offensiveTypeEffectivenessValue.innerText = getPokemonEffectivenessValueAgainstType(species[name], type)
-
-        offensiveTypeEffectivenessValue.className = `typeChartOffensive${offensiveTypeEffectivenessValue.innerText} background3`
-        offensiveTypeEffectivenessContainer.append(checkType)
-        offensiveTypeEffectivenessContainer.append(offensiveTypeEffectivenessValue)
-        speciesOffensiveTypeChart.append(offensiveTypeEffectivenessContainer)
-    })
+    try{
+        Object.keys(typeChart).forEach(type => {
+            const offensiveTypeEffectivenessContainer = document.createElement("span")
+            const checkType = document.createElement("span")
+            const offensiveTypeEffectivenessValue = document.createElement("span")
+            offensiveTypeEffectivenessContainer.className = "flex flexCenter flexColumn speciesOffensiveTypeChartMarginTop"
+            checkType.innerText = sanitizeString(type)
+            checkType.className = `background2 ${type}`
+    
+            offensiveTypeEffectivenessValue.innerText = getPokemonEffectivenessValueAgainstType(species[name], type)
+    
+            offensiveTypeEffectivenessValue.className = `typeChartOffensive${offensiveTypeEffectivenessValue.innerText} background3`
+            offensiveTypeEffectivenessContainer.append(checkType)
+            offensiveTypeEffectivenessContainer.append(offensiveTypeEffectivenessValue)
+            speciesOffensiveTypeChart.append(offensiveTypeEffectivenessContainer)
+        })
+    }
+    catch{
+        console.log(`Couldn't calc offensiveTypeEffectivenessValue for ${name}`)
+    }
 
 
 
