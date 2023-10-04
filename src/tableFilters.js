@@ -57,8 +57,15 @@ function filterSpeciesAbility(value, label){
             if(tracker === locationsTracker){
                 name = tracker[i]["key"].split("\\")[2]
             }
-            if(!species[name]["abilities"].includes(abilityName) && (typeof innatesDefined !== "undefined" && !species[name]["innates"].includes(abilityName))){
-                tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+            if(!species[name]["abilities"].includes(abilityName)){
+                if(typeof innatesDefined !== "undefined"){
+                    if(!species[name]["innates"].includes(abilityName)){
+                        tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+                    }
+                }
+                else{
+                    tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+                }
             }
         }
     }
