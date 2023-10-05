@@ -27,7 +27,7 @@ function appendSpeciesToTable(speciesName){
     spriteContainer.className = "sprite"
     let sprite = document.createElement("img")
     sprite.className = `sprite${speciesName}`
-    sprite.src = getSpeciesSpriteSrc(speciesName).replace(/front.png$/i, "anim_front.png")
+    sprite.src = getSpeciesSpriteSrc(speciesName)
     spriteContainer.append(sprite)
     row.append(spriteContainer)
         
