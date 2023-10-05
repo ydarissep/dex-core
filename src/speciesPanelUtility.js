@@ -432,12 +432,20 @@ async function createSpeciesPanel(name){
 
 
 
-
+    [[speciesPanelLevelUpTable, "levelUpLearnsets"], [speciesPanelTMHMTable, "TMHMLearnsets"], [speciesPanelTutorTable, "tutorLearnsets"], [speciesPanelEggMovesTable, "eggMovesLearnsets"]].forEach(learnsets => {
+        try{
+            if(typeof species[name][learnsets[1]][0] == "string"){
+                buildSpeciesPanelSingleLearnsetsTable(learnsets[0], name, [learnsets[1]])
+            }
+            else{
+                buildSpeciesPanelDoubleLearnsetsTable(learnsets[0], name, [learnsets[1]])
+            }
+        }
+        catch{
+            console.log(`Error building ${learnsets[1]} for ${name}`)
+        }
+    })
     buildSpeciesPanelLevelUpFromPreviousEvoTable(speciesPanelLevelUpFromPreviousEvoTable, name)
-    buildSpeciesPanelDoubleLearnsetsTable(speciesPanelLevelUpTable, name, "levelUpLearnsets")
-    buildSpeciesPanelSingleLearnsetsTable(speciesPanelTMHMTable, name, "TMHMLearnsets")
-    buildSpeciesPanelSingleLearnsetsTable(speciesPanelTutorTable, name, "tutorLearnsets")
-    buildSpeciesPanelSingleLearnsetsTable(speciesPanelEggMovesTable, name, "eggMovesLearnsets")
 }
 
 
@@ -1212,18 +1220,36 @@ let interval = setInterval(function() {
             th.addEventListener("click", () => {
                 const offset = window.scrollY
                 if(th.classList.contains("th-sort-desc")){
+                    [[speciesPanelLevelUpTable, "levelUpLearnsets"], [speciesPanelTMHMTable, "TMHMLearnsets"], [speciesPanelTutorTable, "tutorLearnsets"], [speciesPanelEggMovesTable, "eggMovesLearnsets"]].forEach(learnsets => {
+                        try{
+                            if(typeof species[panelSpecies][learnsets[1]][0] == "string"){
+                                buildSpeciesPanelSingleLearnsetsTable(learnsets[0], panelSpecies, [learnsets[1]], th.innerText, 1)
+                            }
+                            else{
+                                buildSpeciesPanelDoubleLearnsetsTable(learnsets[0], panelSpecies, [learnsets[1]], th.innerText, 1)
+                            }
+                        }
+                        catch{
+                            console.log(`Error building ${learnsets[1]} for ${panelSpecies}`)
+                        }
+                    })
                     buildSpeciesPanelLevelUpFromPreviousEvoTable(speciesPanelLevelUpFromPreviousEvoTable, panelSpecies, th.innerText, 1)
-                    buildSpeciesPanelDoubleLearnsetsTable(speciesPanelLevelUpTable, panelSpecies, "levelUpLearnsets", th.innerText, 1)
-                    buildSpeciesPanelSingleLearnsetsTable(speciesPanelTMHMTable, panelSpecies, "TMHMLearnsets", th.innerText, 1)
-                    buildSpeciesPanelSingleLearnsetsTable(speciesPanelTutorTable, panelSpecies, "tutorLearnsets", th.innerText, 1)
-                    buildSpeciesPanelSingleLearnsetsTable(speciesPanelEggMovesTable, panelSpecies, "eggMovesLearnsets", th.innerText, 1)
                 }
                 else{
+                    [[speciesPanelLevelUpTable, "levelUpLearnsets"], [speciesPanelTMHMTable, "TMHMLearnsets"], [speciesPanelTutorTable, "tutorLearnsets"], [speciesPanelEggMovesTable, "eggMovesLearnsets"]].forEach(learnsets => {
+                        try{
+                            if(typeof species[panelSpecies][learnsets[1]][0] == "string"){
+                                buildSpeciesPanelSingleLearnsetsTable(learnsets[0], panelSpecies, [learnsets[1]], th.innerText, -1)
+                            }
+                            else{
+                                buildSpeciesPanelDoubleLearnsetsTable(learnsets[0], panelSpecies, [learnsets[1]], th.innerText, -1)
+                            }
+                        }
+                        catch{
+                            console.log(`Error building ${learnsets[1]} for ${panelSpecies}`)
+                        }
+                    })
                     buildSpeciesPanelLevelUpFromPreviousEvoTable(speciesPanelLevelUpFromPreviousEvoTable, panelSpecies, th.innerText, -1)
-                    buildSpeciesPanelDoubleLearnsetsTable(speciesPanelLevelUpTable, panelSpecies, "levelUpLearnsets", th.innerText, -1)
-                    buildSpeciesPanelSingleLearnsetsTable(speciesPanelTMHMTable, panelSpecies, "TMHMLearnsets", th.innerText, -1)
-                    buildSpeciesPanelSingleLearnsetsTable(speciesPanelTutorTable, panelSpecies, "tutorLearnsets", th.innerText, -1)
-                    buildSpeciesPanelSingleLearnsetsTable(speciesPanelEggMovesTable, panelSpecies, "eggMovesLearnsets", th.innerText, -1)
                 }
                 window.scroll({top: offset})
             })
