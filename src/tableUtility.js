@@ -4,6 +4,9 @@ async function displaySetup(){
     if(Object.keys(strategies).length === 0){
         strategyCheckbox.classList.add("hide")
     }
+    if(Object.keys(locations).length === 0){
+        locationsButton.classList.add("hide")
+    }
     if(typeof innatesDefined !== "undefined"){
         document.getElementsByClassName("innatesHeader")[0].classList.remove("hide")
     }
