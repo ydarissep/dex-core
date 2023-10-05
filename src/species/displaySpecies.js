@@ -197,9 +197,6 @@ function createBaseStatsContainer(headerText, stats, speciesObj){
 async function spriteRemoveBgReturnBase64(speciesName, species){
     let sprite = new Image()
     let canvas = document.createElement("canvas")
-    sprite.onerror = function(){
-        sprite.src = species[speciesName]["sprite"].replace(/front.png$/i, "anim_front.png")
-    }
     canvas.width = 64
     canvas.height = 64
     sprite.crossOrigin = 'anonymous'
