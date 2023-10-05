@@ -27,7 +27,12 @@ function appendSpeciesToTable(speciesName){
     spriteContainer.className = "sprite"
     let sprite = document.createElement("img")
     sprite.className = `sprite${speciesName}`
-    sprite.src = getSpeciesSpriteSrc(speciesName)
+    try{
+        sprite.src = getSpeciesSpriteSrc(speciesName)
+    }
+    catch{
+        sprite.src = getSpeciesSpriteSrc(speciesName).replace(/front.png$/i, "anim_front.png")
+    }
     spriteContainer.append(sprite)
     row.append(spriteContainer)
         
@@ -200,7 +205,12 @@ async function spriteRemoveBgReturnBase64(speciesName, species){
     canvas.width = 64
     canvas.height = 64
     sprite.crossOrigin = 'anonymous'
-    sprite.src = species[speciesName]["sprite"]
+    try{
+        sprite.src = species[speciesName]["sprite"]
+    }
+    catch{
+        sprite.src = species[speciesName]["sprite"].replace(/front.png$/i, "anim_front.png")
+    }
 
     const context = canvas.getContext('2d')
     context.clearRect(0, 0, canvas.width, canvas.height)
