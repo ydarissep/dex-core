@@ -57,7 +57,11 @@ async function fetchTypeChart(){
     footerP("Fetching type chart")
     window.typeChart = {}
     try{
-        let rawTypeChart = await fetch("https://raw.githubusercontent.com/ydarissep/inclement-emerald-pokedex/main/src/typeChart.json")
+        let typeChartUrl = "https://raw.githubusercontent.com/ydarissep/dex-core/main/src/typeChart.json"
+        if(typeof repoTypeChartUrl !== "undefined"){
+            typeChartUrl = repoTypeChartUrl
+        }
+        let rawTypeChart = await fetch(typeChartUrl)
         typeChart = await rawTypeChart.json()
     }
     catch(e){
