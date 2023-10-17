@@ -108,7 +108,7 @@ function createTrainerSpeciesTbody(trainerObj, key){
             window.scrollTo(0, 0)
         })
 
-        const trainerSpeciesAbility = document.createElement("div"); trainerSpeciesAbility.innerText = abilities[species[trainerSpeciesObj["name"]]["abilities"][trainerSpeciesObj["ability"]]]["ingameName"]; trainerSpeciesAbility.className = "dottedUnderline bold trainerSpeciesAbility"
+        const trainerSpeciesAbility = document.createElement("div"); trainerSpeciesAbility.innerText = abilities[species[trainerSpeciesObj["name"]]["abilities"][trainerSpeciesObj["ability"]]]["ingameName"]; trainerSpeciesAbility.className = "hyperlink bold trainerSpeciesAbility"
         trainerSpeciesAbility.addEventListener('click', () => {
             createPopupTrainerAbility(trainerSpeciesObj)
             overlay.style.display = 'block'
@@ -147,7 +147,7 @@ function returnMovesObj(trainerSpeciesObj){
     for(let i = 0; i < trainerSpeciesObj["moves"].length; i++){
         const trainerSpeciesMoveContainer = document.createElement("div")
         const trainerSpeciesMoveType = document.createElement("span"); trainerSpeciesMoveType.innerText = sanitizeString(moves[trainerSpeciesObj["moves"][i]]["type"]); trainerSpeciesMoveType.className = `background2 ${moves[trainerSpeciesObj["moves"][i]]["type"]} trainersSpeciesMoveType`
-        const trainerSpeciesMoveName = document.createElement("span"); trainerSpeciesMoveName.className = "trainerSpeciesMoveName dottedUnderline"
+        const trainerSpeciesMoveName = document.createElement("span"); trainerSpeciesMoveName.className = "trainerSpeciesMoveName hyperlink"
 
         let moveName = moves[trainerSpeciesObj["moves"][i]]["ingameName"]
         let resized = false
@@ -161,13 +161,20 @@ function returnMovesObj(trainerSpeciesObj){
         
         trainerSpeciesMoveName.innerText = moveName
 
-        trainerSpeciesMoveContainer.append(trainerSpeciesMoveType)
+        if(trainerSpeciesObj["moves"][i] != "MOVE_NONE"){
+            trainerSpeciesMoveContainer.append(trainerSpeciesMoveType)
+
+            trainerSpeciesMoveContainer.addEventListener("click", () => {
+                createPopupTrainerMoves(moves[trainerSpeciesObj["moves"][i]])
+                overlay.style.display = 'block'
+            })
+        }
+        else{
+            trainerSpeciesMoveName.classList.remove("hyperlink")
+        }
+
         trainerSpeciesMoveContainer.append(trainerSpeciesMoveName)
 
-        trainerSpeciesMoveContainer.addEventListener("click", () => {
-            createPopupTrainerMoves(moves[trainerSpeciesObj["moves"][i]])
-            overlay.style.display = 'block'
-        })
         trainerSpeciesMovesContainer.append(trainerSpeciesMoveContainer)
     }
 
@@ -186,17 +193,23 @@ function returnEVsObj(array){
 
     const indexToString = ["HP", "Atk", "Def", "SpA", "SpD", "Spe"]
 
-    for(let i = 0; i < array.length; i++){
-        if(i < 6){
-            if(array[i] > 0){
-                const stat = document.createElement("span"); stat.innerText = `${array[i]}\n${indexToString[i]}`; stat.className = "trainerSpeciesStat"
-                trainerSpeciesEVs.append(stat)
+    if(allAreEqual(array)){
+        const stat = document.createElement("span"); stat.innerText = `${array[0]}\nAll`; stat.className = "trainerSpeciesStat"
+        trainerSpeciesEVs.append(stat)
+    }
+    else{
+        for(let i = 0; i < array.length; i++){
+            if(i < 6){
+                if(array[i] > 0){
+                    const stat = document.createElement("span"); stat.innerText = `${array[i]}\n${indexToString[i]}`; stat.className = "trainerSpeciesStat"
+                    trainerSpeciesEVs.append(stat)
+                }
             }
         }
-    }
-    if(trainerSpeciesEVs.children.length === 0){
-        const stat = document.createElement("span"); stat.innerText = `0\nAll`; stat.className = "trainerSpeciesStat"
-        trainerSpeciesEVs.append(stat)
+        if(trainerSpeciesEVs.children.length === 0){
+            const stat = document.createElement("span"); stat.innerText = `0\nAll`; stat.className = "trainerSpeciesStat"
+            trainerSpeciesEVs.append(stat)
+        }
     }
 
     trainerSpeciesEVsContainer.append(trainerSpeciesEVs)
@@ -346,7 +359,7 @@ function createPopupTrainerMoves(move){
         popup.append(moveEffect)
     }
 
-    const moveDescription = document.createElement("div"); moveDescription.innerText = move["description"]; moveDescription.className = "popupTrainerMoveDescription"
+    const moveDescription = document.createElement("div"); moveDescription.innerText = move["description"].join(""); moveDescription.className = "popupTrainerMoveDescription"
     popup.append(moveDescription)
 
     const flagsContainer = document.createElement("div")

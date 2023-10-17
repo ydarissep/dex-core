@@ -75,11 +75,9 @@ function appendMovesToTable(moveName){
 
 
     descriptionContainer.className = "description"
-    for(let j = 0; j < moves[moveName]["description"].length; j++){
-        let description = document.createElement("div")
-        description.innerText += moves[moveName]["description"][j]
-        descriptionContainer.append(description)
-    }
+    description.innerText = moves[moveName]["description"].join("")
+    descriptionContainer.append(description)
+
 
     effectContainer.append(descriptionContainer)
 
@@ -175,7 +173,7 @@ function createPopupForMove(move){
         popup.append(moveEffect)
     }
 
-    const moveDescription = document.createElement("div"); moveDescription.innerText = move["description"]; moveDescription.className = "popupTrainerMoveDescription"
+    const moveDescription = document.createElement("div"); moveDescription.innerText = move["description"].join(""); moveDescription.className = "popupTrainerMoveDescription"
     popup.append(moveDescription)
 
     const flagsContainer = document.createElement("div")

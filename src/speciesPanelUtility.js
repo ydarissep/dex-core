@@ -933,9 +933,7 @@ function buildSpeciesPanelLevelUpFromPreviousEvoTable(table, name, label = "", a
     
                 const description = document.createElement("td")
                 description.className = "speciesPanelLearnsetsEffect"
-                for (let j = 0; j < moves[move[0]]["description"].length; j++){
-                    description.innerText += moves[move[0]]["description"][j]
-                }
+                description.innerText = moves[move[0]]["description"].join("")
     
                 row.addEventListener('click', function () {
                     createPopupForMove(moves[move[0]])
@@ -1024,9 +1022,7 @@ function buildSpeciesPanelDoubleLearnsetsTable(table, name, input, label = "", a
 
         const description = document.createElement("td")
         description.className = "speciesPanelLearnsetsEffect"
-        for (let j = 0; j < moves[move[0]]["description"].length; j++){
-            description.innerText += moves[move[0]]["description"][j]
-        }
+        description.innerText = moves[move[0]]["description"].join("")
 
         row.addEventListener('click', function () {
             createPopupForMove(moves[move[0]])
@@ -1102,9 +1098,7 @@ function buildSpeciesPanelSingleLearnsetsTable(table, name, input, label = "", a
 
         const description = document.createElement("td")
         description.className = "speciesPanelLearnsetsEffect"
-        for (let j = 0; j < moves[move]["description"].length; j++){
-            description.innerText += moves[move]["description"][j]
-        }
+        description.innerText += moves[move]["description"].join("")
 
         row.addEventListener('click', function () {
             createPopupForMove(moves[move])
