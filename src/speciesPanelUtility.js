@@ -819,7 +819,7 @@ function createStrategyMisc(label, value, speciesName){
             }
         }
         else{
-            miscValue.innerText = `Hardcore-Mode` // RR specific code, change string for other repo
+            miscValue.innerText = `0`
         }
     }
     else{

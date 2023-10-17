@@ -105,6 +105,13 @@ window.speciesInputDataList = document.getElementById("speciesInputDataList")
 window.movesInputDataList = document.getElementById("movesInputDataList")
 
 
+window.trainersInput = document.getElementById("trainersInput")
+window.trainersButton = document.getElementById("trainersButton")
+window.trainersTable = document.getElementById("trainersTable")
+window.difficultyCheckboxContainer = document.getElementById("difficultyCheckboxContainer")
+window.trainersTableTbody = document.getElementById("trainersTableTbody")
+window.trainersFilter = document.getElementById("trainersFilter")
+
 
 window.table = document.querySelector("#table")
 
@@ -294,29 +301,50 @@ headerSpeciesBST.addEventListener("click", () => {
 
 
 
-
+let typingTimer
+let doneTypingInterval = 300
 speciesInput.addEventListener("input", e => {
-    const value = e.target.value
-    filterFilters(value)
-    filterTableInput(value, species, ["name", "abilities", "innates"])
+    clearTimeout(typingTimer)
+    typingTimer = setTimeout(function(){
+        const value = e.target.value
+        filterFilters(value)
+        filterTableInput(value, species, ["name", "abilities", "innates"])
+    }, doneTypingInterval)
 })
 abilitiesInput.addEventListener("input", e => {
-    const value = e.target.value
-    if(abilitiesIngameNameArray.includes(value)){
-        abilitiesInput.blur()
-    }
-    filterFilters(value)
-    filterTableInput(value, abilities, ["name", "ingameName", "description"])
+    clearTimeout(typingTimer)
+    typingTimer = setTimeout(function(){
+        const value = e.target.value
+        if(abilitiesIngameNameArray.includes(value)){
+            abilitiesInput.blur()
+        }
+        filterFilters(value)
+        filterTableInput(value, abilities, ["name", "ingameName", "description"])
+    }, doneTypingInterval)
 })
 movesInput.addEventListener("input", e => {
-    const value = e.target.value
-    filterFilters(value)
-    filterTableInput(value, moves, ["name", "ingameName", "effect", "description"])
+    clearTimeout(typingTimer)
+    typingTimer = setTimeout(function(){
+        const value = e.target.value
+        filterFilters(value)
+        filterTableInput(value, moves, ["name", "ingameName", "effect", "description"])
+    }, doneTypingInterval)
 })
 locationsInput.addEventListener("input", e => {
-    const value = e.target.value
-    filterFilters(value)
-    filterLocationsTableInput(value, species, ["evolutionLine"])
+    clearTimeout(typingTimer)
+    typingTimer = setTimeout(function(){
+        const value = e.target.value
+        filterFilters(value)
+        filterLocationsTableInput(value, species, ["evolutionLine"])
+    }, doneTypingInterval)
+})
+trainersInput.addEventListener('input', e => {
+    clearTimeout(typingTimer)
+    typingTimer = setTimeout(function(){
+        const value = e.target.value
+        filterFilters(value)
+        filterTrainersTableInput(value)
+    }, doneTypingInterval)
 })
 speciesPanelInputSpecies.addEventListener("input", e => {
     const value = e.target.value
@@ -348,6 +376,11 @@ locationsButton.addEventListener("click", async () => {
 movesButton.addEventListener("click", async () => {
     if(!movesButton.classList.contains("activeButton")){
         await tableButtonClick("moves")
+    }
+})
+trainersButton.addEventListener("click", async () => {
+    if(!trainersButton.classList.contains("activeButton")){
+        await tableButtonClick("trainers")
     }
 })
 
@@ -561,6 +594,8 @@ backup.addEventListener("click", async () => {
 
 async function useBackup(){
     console.log("Used Backup")
+    await localStorage.clear()
+    await localStorage.setItem("update", `${checkUpdate}`)
     history.pushState(null, null, location.href)
     const queryString = window.location.search
     const urlParams = new URLSearchParams(queryString)
@@ -610,12 +645,26 @@ async function useBackup(){
         })
     })
 
+
+    trainers = await backupData[4]
+    await localStorage.setItem("trainers", LZString.compressToUTF16(JSON.stringify(trainers)))
+    counter = 0
+    trainersTracker = []
+    Object.keys(trainers).forEach(zone => {
+        Object.keys(trainers[zone]).forEach(trainer => {
+            trainersTracker[counter] = {}
+            trainersTracker[counter]["key"] = `${zone}\\${trainer}`
+            trainersTracker[counter]["filter"] = []
+            counter++
+        })
+    })
+
     
-    strategies = await backupData[4]
+    strategies = await backupData[5]
     //await localStorage.setItem("strategies", LZString.compressToUTF16(JSON.stringify(strategies)))
 
     
-    typeChart = await backupData[5]
+    typeChart = await backupData[6]
 
     await setDataList()
     await setFilters()
@@ -658,3 +707,4 @@ let interval = setInterval(function() {
 
     fetchData(searchParams)
 }, 100) 
+

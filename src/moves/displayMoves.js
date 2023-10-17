@@ -100,17 +100,6 @@ function appendMovesToTable(moveName){
 
     row.append(effectContainer)
 
-    /*
-    row.addEventListener("click", async() => {
-        if(!speciesButton.classList.contains("activeButton")){
-            tracker = speciesTracker
-            await tableButtonClick("species")
-        }
-        window.scrollTo({ top: 0})
-        deleteFiltersFromTable()
-        createFilter(moves[moveName]["ingameName"], "Move")
-    })
-    */
     row.addEventListener('click', function () {
         createPopupForMove(moves[moveName])
         overlay.style.display = 'block'

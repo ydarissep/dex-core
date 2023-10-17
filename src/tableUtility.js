@@ -121,6 +121,39 @@ function filterLocationsTableInput(input, obj, keyArray){
 
 
 
+function filterTrainersTableInput(input){
+    const arraySanitizedInput = input.trim().split(/ /g)
+
+    mainLoop: for(let i = 0, j = trainersTracker.length; i < j; i++){
+        delete trainersTracker[i]["show"]
+        tracker[i]["filter"] = tracker[i]["filter"].filter(value => value !== "input")
+        const zone = tracker[i]["key"].split("\\")[0]
+        const trainer = tracker[i]["key"].split("\\")[1]
+        const compareZone = zone.replaceAll(/ /g, "").toUpperCase()
+        //const compareTrainer = trainer.replaceAll(/ /g, "").toUpperCase()
+        let compareArray = [compareZone, /*compareTrainer, */trainers[zone][trainer]["ingameName"].toUpperCase()]
+        
+        for(let k = 0; k < trainers[zone][trainer]["party"][checkTrainerDifficulty(zone, trainer)].length; k++){
+            compareArray.push(trainers[zone][trainer]["party"][checkTrainerDifficulty(zone, trainer)][k]["name"])
+        }
+        for(let k = 0; k < arraySanitizedInput.length; k++){
+            if(!compareArray.some(compareValue => compareValue.includes(arraySanitizedInput[k].toUpperCase()))){
+                delete trainers[zone][trainer]["match"]
+                tracker[i]["filter"].push("input")
+                continue mainLoop
+            }
+            if(trainersTracker[i]["filter"].length === 0){
+                trainers[zone][trainer]["match"] = true
+            }
+        }
+        if(input.trim().length === 0 && trainersFilterContainer.children.length === 0){
+            delete trainers[zone][trainer]["match"]
+        }
+    }
+    showRematch()
+    
+    lazyLoading(true)
+}
 
 
 
@@ -151,13 +184,22 @@ async function lazyLoading(reset = false){
         else if(tracker === locationsTracker){
             displayFunction = "appendLocationsToTable"
         }
+        else if(tracker === trainersTracker){
+            displayFunction = "appendTrainersToTable"
+            target = 20
+        }
         else{
             return
         }
 
         for(let i = 0, j = tracker.length; i < j; i++){
             if(counter < target){
-                if(tracker[i]["filter"].length === 0 && !document.getElementById(tracker[i]["key"])){
+                if(displayFunction === "appendTrainersToTable" && (tracker[i]["filter"].length === 0 || tracker[i]["show"]) && !document.getElementById(tracker[i]["key"])){
+                    if(window[displayFunction](tracker[i]["key"])){
+                        counter++
+                    }
+                }
+                else if(tracker[i]["filter"].length === 0 && !document.getElementById(tracker[i]["key"])){
                     window[displayFunction](tracker[i]["key"])
                     counter++
                 }

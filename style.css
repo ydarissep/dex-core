@@ -98,7 +98,7 @@ input[type="search"]:focus, input[type="search"]:hover {
 }
 
 @media (hover: hover) {
-    #table > table > thead > tr > th:hover, #speciesPanelMainContainer th:hover{
+    #table > table > thead > tr > th:hover, #speciesPanelMainContainer th:hover, .trainerSpeciesSprite:hover {
         background: rgba(113, 117, 126, 0.336);
         cursor: pointer;
     }
@@ -359,12 +359,44 @@ td, th {
     padding: 10px;
     border: 3px solid #ccc;
     border-radius: 14px;
+    font-size: min(max(2vw, 12px), 16px) !important;
 }
 
 #popup h2 {
     margin-top: 0;
     /*font-size: 18px;*/
     text-align: center;
+}
+
+.popupTrainerMoveTypeSplitContainer {
+    display: flex;
+    position: relative;
+    left: 27%;
+    margin-bottom: 15px;
+}
+
+.popupTrainerMoveType {
+    margin-right: 15px;
+}
+
+.popupTrainerMoveStat {
+    padding-bottom: 15px;
+    display: table-cell;
+    width: 16.66%;
+    font-weight: bold;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.popupTrainerMoveEffect {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.popupTrainerMoveDescription {
+    width: 250px;
+    text-align: justify;
+    font-style: italic;
 }
 
 #popup ul {

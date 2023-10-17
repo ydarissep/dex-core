@@ -1,5 +1,5 @@
 function sanitizeString(string){
-    const regex = /^SPECIES_|^TYPE_|^ABILITY_|^MOVE_|^SPLIT_|FLAG_|^EFFECT_|^Z_EFFECT_|^ITEM_|^EGG_GROUP_|^EVO_|^NATURE_`/ig
+    const regex = /^SPECIES_|^TYPE_|^ABILITY_|^MOVE_|^SPLIT_|FLAG_|^EFFECT_|^Z_EFFECT_|^ITEM_|^EGG_GROUP_|^EVO_|^NATURE_/ig
 
     const unsanitizedString = string.toString().replace(regex, "")
     let matchArray = unsanitizedString.match(/\w+/g)
@@ -40,6 +40,7 @@ async function fetchData(urlParams = ""){
     await fetchAbilitiesObj()
     await fetchSpeciesObj()
     await fetchLocationsObj()
+    await fetchTrainersObj()
     await fetchStrategiesObj()
     
     await fetchTypeChart()
@@ -67,7 +68,7 @@ async function fetchTypeChart(){
     catch(e){
         console.log(e.message)
         console.log(e.stack)
-        typeChart = backupData[5]
+        typeChart = backupData[6]
     }
 }
 
@@ -86,7 +87,7 @@ async function forceUpdate(){
 
 
 function exportData(){
-    console.log(`let backupData = [${JSON.stringify(moves)}, ${JSON.stringify(abilities)}, ${JSON.stringify(species)}, ${JSON.stringify(locations)}, ${JSON.stringify(strategies)}, ${JSON.stringify(typeChart)}]`)
+    console.log(`let backupData = [${JSON.stringify(moves)}, ${JSON.stringify(abilities)}, ${JSON.stringify(species)}, ${JSON.stringify(locations)}, ${JSON.stringify(trainers)}, ${JSON.stringify(strategies)}, ${JSON.stringify(typeChart)}]`)
 }
 
 
@@ -123,6 +124,18 @@ function copyToClipboard(text) {
     dummy.select();
     document.execCommand("copy");
     document.body.removeChild(dummy);
+}
+
+
+
+
+function getTextWidth(text) {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+
+    context.font = getComputedStyle(document.body).font;
+
+    return context.measureText(text).width;
 }
 
 

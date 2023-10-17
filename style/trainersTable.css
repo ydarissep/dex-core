@@ -1,0 +1,196 @@
+#trainersTable {
+    box-shadow: none !important;
+}
+
+#trainersTable > tbody > table > thead > th {
+    display: inline-block !important;
+    width: 33.3%;
+    box-sizing: border-box;
+}
+
+#trainersTable > tbody > table > thead {
+    display: block !important;
+    background: rgba(0, 0, 0, 0.15) !important;
+    font-size: 20px;
+}
+
+#trainersTable > tbody > table {
+    display: block !important;
+    margin-bottom: 50px;
+    width: 930px;
+}
+
+#trainersTable > tbody > table > tbody {
+    width: 100%;
+    display: inline-table;
+}
+
+#trainersTable > tbody > table > tbody > td {
+    border: 2px solid rgba(85, 85, 85);
+    width: 16.66%;
+    font-size: 14px;
+    font-weight: bold;
+    box-sizing: border-box;
+    display: inline-block !important;
+    height: 100%;
+    white-space: nowrap;
+}
+
+#difficultyCheckboxContainer {
+    text-align: center;
+}
+
+.trainerSpeciesSprite {
+    padding-top: 4px;
+}
+
+.trainerRematchContainer {
+    padding-bottom: 10px;
+}
+
+.trainerRematchMatch {
+    background: #4CAF50 !important;
+    color: white;
+}
+
+.trainerRematch {
+    width: 50px;
+    margin: 0px 2px 0px 2px;
+    background: #e9e9ed;
+    color: black;
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+
+.trainerRematch:hover {
+    background: rgba(215, 212, 231, 0.3) !important;
+    color: white;
+}
+
+.activeRematch {
+    background: rgba(215, 212, 231, 0.075) !important;
+    color: white;
+}
+
+.activeRematch.trainerRematchMatch {
+    background: rgba(215, 212, 231, 0.075) !important;
+    border-color: green;
+    color: #4CAF50 !important;
+}
+
+.trainerRematch.trainerRematchMatch {
+    color: white;
+}
+
+.trainerRematch.trainerRematchMatch:hover {
+    border-color: green;
+    color: #4CAF50;
+}
+
+.trainerName {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.dottedUnderline {
+    text-decoration-line: underline !important;
+    text-decoration-style: dotted !important;
+    cursor: pointer;
+}
+
+.trainerSpeciesStat {
+    font-size: 13px;
+    display: table-cell;
+    width: 16.66%;
+}
+
+.trainerSpeciesEVsContainer {
+    padding: 1px 0px 1px 0px;
+    border-top: 2px solid #c7c7c7;
+    border-bottom: 2px solid #c7c7c7;
+}
+
+.trainerSpeciesEVs {
+    background: none !important;
+    display: inline !important;
+}
+
+.trainerSpeciesIVs {
+    padding: 1px 0px 1px 0px;
+    border-bottom: 2px solid #c7c7c7;
+}
+
+.trainerSpeciesMovesContainer {
+    text-align: left;
+    display: inline-block;
+    padding: 5px 0px 3px 0px;
+}
+
+.trainerSpeciesMoveName {
+    padding-left: 3px;
+}
+
+@media 
+only screen and (max-width: 1000px) {
+    #trainersTable > tbody > table > tbody > td {
+    	width: 33.3%;
+    }
+
+    #trainersTable > tbody > table {
+        width: unset;
+    }
+
+    #trainersTable > tbody > table > tbody > td, .trainerSpeciesStat {
+        font-size: min(max(2.5vw, 11px), 14px) !important;
+    }
+
+    .trainerSpeciesEVsContainer, .trainerSpeciesIVs {
+        border-top: none;
+        border-bottom: none;
+    }
+
+    .trainerSpeciesEVsContainer {
+        padding: 10px 0px 5px 0px !important;
+    }
+
+    .trainerSpeciesIVs {
+        padding: 5px 0px 10px 0px !important;
+    }
+}
+
+@media 
+only screen and (max-width: 600px) {
+    .trainerSpeciesEVsContainer {
+        border-top: 2px solid #c7c7c7;
+        border-bottom: 2px solid #c7c7c7;
+        padding: 1px 0px 1px 0px !important;
+    }
+
+    .trainerSpeciesIVs {
+        border-bottom: 2px solid #c7c7c7;
+        padding: 1px 0px 1px 0px !important;
+    }
+}
+
+@media 
+only screen and (max-width: 400px) {
+    .trainersSpeciesMoveType {
+        font-size: 7px !important;
+        width: 2.2rem !important;
+    }
+
+    #trainersTable > tbody > table > tbody > td, .trainerSpeciesStat {
+        font-size: 9px !important;
+    }
+}
+
+@media 
+only screen and (max-width: 320px) {
+    .trainersSpeciesMoveType {
+        display: none !important;
+    }
+
+    .trainerSpeciesIVs {
+        white-space: break-spaces !important;
+    }
+}

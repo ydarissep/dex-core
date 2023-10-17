@@ -222,16 +222,31 @@ function filterBaseStats(value, label){
 
 function selectFilter(value, label){
     if(label === "Item"){
-        filterSpeciesItem(value, label)
+        if(tracker === trainersTracker){
+            trainerSpeciesMatchFilter(true)
+        }
+        else{
+            filterSpeciesItem(value, label)
+        }
     }
     else if(label === "Move"){
-        filterSpeciesMove(value, label)   
+        if(tracker === trainersTracker){
+            trainerSpeciesMatchFilter(true)
+        }
+        else{
+            filterSpeciesMove(value, label)
+        }
     }
     else if(label === "Type"){
         filterType(value, label)
     }
     else if(label === "Ability"){
-        filterSpeciesAbility(value, label)   
+        if(tracker === trainersTracker){
+            trainerSpeciesMatchFilter(true)
+        }
+        else{
+            filterSpeciesAbility(value, label)   
+        }
     }
     else if(label === "Egg Group"){
         filterSpeciesEggGroup(value, label)   
@@ -265,8 +280,9 @@ async function setFilters(){
     createFilterGroup(createFilterArray(["split"], moves), "Split", [movesFilterList])
     createFilterGroup(createFilterArray(["flags"], moves), "Flag", [movesFilterList])
     createFilterGroup(createFilterArray(["item1", "item2"], species), "Item", [speciesFilterList, locationsFilterList])
-    createFilterGroup(createFilterArray(["ingameName"], abilities, false), "Ability", [speciesFilterList, locationsFilterList])
-    createFilterGroup(createFilterArray(["ingameName"], moves, false), "Move", [speciesFilterList, locationsFilterList])
+    createFilterGroup(Array.from(new Set(JSON.stringify(trainers).match(/ITEM_\w+/g).map(value => sanitizeString(value)))), "Item", [trainersFilterList])
+    createFilterGroup(createFilterArray(["ingameName"], abilities, false), "Ability", [speciesFilterList, locationsFilterList, trainersFilterList])
+    createFilterGroup(createFilterArray(["ingameName"], moves, false), "Move", [speciesFilterList, locationsFilterList, trainersFilterList])
     createFilterGroup(createFilterArray(["eggGroup1", "eggGroup2"], species), "Egg Group", [speciesFilterList, locationsFilterList])
     createFilterGroup(["HP", "Atk", "Def", "SpA", "SpD", "Spe", "BST"], "Base Stats", [speciesFilterList, locationsFilterList], true)
 }
@@ -440,8 +456,8 @@ function createFilter(value, label){
     const newFilter = document.createElement("div")
     newFilter.innerText = `${label}: ${value}`
     newFilter.classList = "filter crossOnHover newFilter"
-    selectFilter(value, label)
     tableFilterContainer.append(newFilter)
+    selectFilter(value, label)
 
     newFilter.addEventListener("click", () => {
         for(let i = 0, j = tracker.length; i < j; i++){
@@ -452,6 +468,9 @@ function createFilter(value, label){
             }
         }
         newFilter.remove()
+        if(trainersFilter === activeFilter){
+            trainerSpeciesMatchFilter(false)
+        }
         lazyLoading(true)
     })
 
@@ -502,13 +521,97 @@ function deleteFiltersFromTable(){
 
 
 
+function trainerSpeciesMatchFilter(resetInput = true){
+    const trainersFilter = trainersFilterContainer.children
+    trainersTrackerLoop: for(let i = 0, j = trainersTracker.length; i < j; i++){
+        delete trainersTracker[i]["show"]
+        if(resetInput){
+            trainersTracker[i]["filter"] = []
+        }
+        else{
+            trainersTracker[i]["filter"] = trainersTracker[i]["filter"].filter(filter => filter === "input")
+        }
+        const zone = trainersTracker[i]["key"].split("\\")[0]
+        const trainer = trainersTracker[i]["key"].split("\\")[1]
+        const difficulty = checkTrainerDifficulty(zone, trainer)
+        delete trainers[zone][trainer]["match"]
+        delete trainersTracker[i]["show"]
 
 
 
+        let ignoreTrainerTeamIndex = []
+        filterContainer: for(let k = 0; k < trainersFilter.length; k++){
 
 
 
+            const label = trainersFilter[k].innerText.split(":")[0]
+            const value = trainersFilter[k].innerText.replace(" ", "").split(":")[1]
+            let trainerTeam = trainers[zone][trainer]["party"][difficulty]
+            let trainerMatch = false
 
+
+            trainerTeamLoop: for(let l = 0; l < trainerTeam.length; l++){
+                if(ignoreTrainerTeamIndex.includes(l)){
+                    continue trainerTeamLoop
+                }
+                const speciesObj = trainerTeam[l]
+                if(label === "Ability"){
+                    let abilityName = null
+                    Object.keys(abilities).forEach(ability => {
+                        if(abilities[ability]["ingameName"] === value){
+                            abilityName = ability
+                        }
+                    })
+                    if(abilityName){
+                        if(species[speciesObj["name"]]["abilities"][speciesObj["ability"]] === abilityName){
+                            trainerMatch = true
+                            continue trainerTeamLoop
+                        }
+                        else if(typeof innatesDefined !== "undefined"){
+                            if(species[speciesObj["name"]]["innates"].includes(abilityName)){
+                                trainerMatch = true
+                                continue trainerTeamLoop
+                            }
+                        }
+                    }
+                }
+                else if(label === "Move"){
+                    let moveName = null
+                    Object.keys(moves).forEach(move => {
+                        if(moves[move]["ingameName"] === value){
+                            moveName = move
+                        }
+                    })
+                    if(moveName){
+                        if(speciesObj["moves"].includes(moveName)){
+                            trainerMatch = true
+                            continue trainerTeamLoop
+                        }
+                    }
+                }
+                else if(label === "Item"){
+                    if(sanitizeString(speciesObj["item"]) === value){
+                        trainerMatch = true
+                        continue trainerTeamLoop
+                    }
+                }
+                ignoreTrainerTeamIndex.push(l)
+            }
+            if(!trainerMatch){
+                trainersTracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+                continue trainersTrackerLoop
+            }
+        }
+        if(trainersTracker[i]["filter"].length === 0){
+            trainers[zone][trainer]["match"] = true
+        }
+        if(trainersInput.value.trim().length === 0 && trainersFilter.length === 0){
+            delete trainers[zone][trainer]["match"]
+        }
+    }
+
+    showRematch()
+}
 
 
 
