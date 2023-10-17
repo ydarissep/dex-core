@@ -31,6 +31,18 @@ async function displaySetup(){
 
 
 
+function allAreEqual(array) {
+    if (array.length > 0) {
+      const result = array.every(element => {
+        if(element === array[0]){
+          return true
+        }
+      })
+      return result
+    }
+    return false
+}
+
 
 
 
