@@ -280,8 +280,11 @@ async function setFilters(){
     createFilterGroup(createFilterArray(["split"], moves), "Split", [movesFilterList])
     createFilterGroup(createFilterArray(["flags"], moves), "Flag", [movesFilterList])
     createFilterGroup(createFilterArray(["item1", "item2"], species), "Item", [speciesFilterList, locationsFilterList])
-    if(Object.keys(trainers).length > 0){
+    try{
         createFilterGroup(Array.from(new Set(JSON.stringify(trainers).match(/ITEM_\w+/g).map(value => sanitizeString(value)))), "Item", [trainersFilterList])
+    }
+    catch{
+        
     }
     createFilterGroup(createFilterArray(["ingameName"], abilities, false), "Ability", [speciesFilterList, locationsFilterList, trainersFilterList])
     createFilterGroup(createFilterArray(["ingameName"], moves, false), "Move", [speciesFilterList, locationsFilterList, trainersFilterList])
