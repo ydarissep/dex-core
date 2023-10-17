@@ -75,6 +75,7 @@ function appendMovesToTable(moveName){
 
 
     descriptionContainer.className = "description"
+    let description = document.createElement("div")
     description.innerText = moves[moveName]["description"].join("")
     descriptionContainer.append(description)
 
