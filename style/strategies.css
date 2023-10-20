@@ -35,6 +35,7 @@
 
 .strategyTr{
     background: initial !important;
+    border: none !important
 }
 
 .strategyName, .strategyTagsContainer {
