@@ -10,25 +10,25 @@
 	width: 64px;
 }
 #speciesTableThead th.species {
-	width: 350px;
+	width: 310px;
 }
 #speciesTableThead th.types {
 	width: 80px;
 }
 #speciesTableThead th.abilities {
-	width: 175px;
+	width: 135px;
 }
 #speciesTableThead th.innates {
-    width: 175px;
+    width: 130px;
 }
 #speciesTableThead th.baseHP {
-	width: 40px;
+	width: 45px;
 }
 #speciesTableThead th.baseAttack {
-	width: 40px;
+	width: 45px;
 }
 #speciesTableThead th.baseDefense {
-	width: 40px;
+	width: 45px;
 }
 #speciesTableThead th.baseSpAttack {
 	width: 45px;
@@ -99,7 +99,7 @@ only screen and (max-width: 850px) {
 
     #speciesTable th {
         width: 60px !important;
-        /*display: none;*/
+        font-size: 13px;
     }
 
     #speciesTableThead > tr {
@@ -142,5 +142,6 @@ only screen and (max-width: 850px) {
         display: inline-block !important;
         border: none;
         padding: 0.2rem 2%;
+        font-style: italic;
     }  
 }

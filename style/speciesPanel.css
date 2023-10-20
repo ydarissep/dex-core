@@ -14,6 +14,10 @@
 	padding-top: 2rem;
 }
 
+#speciesPanelSubcontainer1, #speciesPanelSubcontainer2, #speciesBaseStatsGraphContainer, #speciesEvolutionsText, #speciesFormesText, #speciesChangesContainer {
+	margin-left: 20px;
+}
+
 #speciesName {
 	font-size: 16pt;
 }
@@ -26,16 +30,20 @@
 
 #speciesSprite {
 	padding-right: 10px;
-	width: 64px;
-    height: 64px;
-    aspect-ratio: auto 64 / 64;
+	width: 128px;
+	height: 128px;
+	image-rendering: pixelated;
 }
 
 .speciesPanelText {
 	margin-bottom: 5px;
 	font-size: 9pt !important;
 	font-weight: bold;
-	color: #777777;	
+	color: var(--theme-color);	
+}
+
+#speciesHeldItems, #speciesEggGroups {
+	font-size: 13px;
 }
 
 #speciesAbilitiesContainer {
@@ -51,15 +59,15 @@
 }
 .speciesPanelAbilitiesDescriptionPadding {
 	padding: 0px 0px 7px 15px;
+	font-size: min(max(1.5vmax, 14px), 16px);
 }
 
-#speciesEggGroupsContainer, #speciesHeldItemsContainer, #speciesChangesContainer {
-	flex: 1;
-}
-
-#speciesEggGroups, #speciesHeldItems, #speciesChanges {
-	font-size: 15px;
+#speciesChanges {
 	width: max-content;
+}
+
+#speciesChangesContainer {
+	margin-top: 16px;
 }
 
 .nerf {
@@ -96,9 +104,6 @@
 .evoMethod {
 	display: flex;
 	align-items: center;
-	/*
-	justify-content: center;
-	*/
 	cursor: pointer;
 	font-size: 18px;
 	padding: 5px 0px 5px 0px;
@@ -106,6 +111,7 @@
 
 #speciesEvoTable {
 	background: none !important;
+	border: none !important;
 }
 
 
@@ -114,32 +120,9 @@
 	margin: 0% !important;
 }
 
-
-
-
-
-
-
-
-#speciesBaseStatsGraphContainer {
-	/*
-	justify-content: center;
-	*/
-}
-
-
-
 #statsSection {
   justify-content: center;
   padding: 10px 0px 10px 0px;
-  /*
-  background: #121418;
-  color: white;
-  width: 310px;
-  padding: 5px;
-  border-radius: 20px;
-  margin: 0 auto;
-  */
 }
 
 #statsNames {
@@ -224,6 +207,7 @@
 
 .typeChartDefensive0\.25, .typeChartDefensive0\.125 {
 	background: rgb(100, 221, 23);
+	font-size: 14px;
 }
 
 .typeChartDefensive0\.5, .typeChartOffensive2 {
@@ -263,38 +247,68 @@
 	margin-bottom: 75px;
 }
 
-#speciesPanelTablesContainer {
-	font-size: min(max(1vmax, 11px), 16px)
+.speciesPanelLearnsetsEffect, .speciesPanelLearnsetsPP, .speciesPanelLearnsetsAccuracy, .speciesPanelLearnsetsPower {
+	font-size: min(max(1.5vmax, 11px), 16px);
 }
 
-
-
-
 @media 
-only screen and (max-width: 1020px) {
-	#speciesPanelSubcontainer1, #speciesPanelSubcontainer2, #speciesBaseStatsGraphContainer, #speciesEvolutionsMainContainer, #speciesFormesContainer, #speciesPanelSubcontainer4 {
-		margin-left: 20px;
+only screen and (max-width: 575px) {
+	.speciesPanelLearnsetsEffect {
+		display: none;
 	}
 }
 
 @media 
+only screen and (max-width: 425px) {
+	.speciesPanelLearnsetsPP {
+		display: none;
+	}
+}
+
+@media 
+only screen and (max-width: 375px) {
+	#speciesSprite {
+		width: 96px;
+		height: 96px;
+	}
+
+	#speciesType1, #speciesType2, #speciesType3 {
+		width: 3.5rem;
+		height: 20px;
+	}
+}
+
+@media 
+only screen and (max-width: 380px) {
+	.speciesPanelLearnsetsAccuracy {
+		display: none;
+	}
+
+	#speciesSprite {
+		padding-right: unset;
+	}
+}
+
+@media 
+only screen and (max-width: 350px) {
+	.speciesPanelLearnsetsPower {
+		display: none;
+	}
+}
+
+
+@media /* resize evo conditions */
 only screen and (max-width: 700px) {
 	.resizeEvo3 .miniSprite3 {
 		padding: 0px 5px 5px 5px !important;
 	}
-	#speciesPanelSubcontainer4 {
-		flex-direction: column;
-	}
 	.resizeEvo3 .evoMethod {
-		font-size: 10px;
+		font-size: 12px;
 	}
 }
 
-@media 
-only screen and (max-width: 525px) {
-	.speciesPanelLearnsetsEffect {
-		display: none;
-	}
+@media /* resize evo conditions */
+only screen and (max-width: 450px) {
 	.resizeEvo2 .miniSprite3 {
 		width: 32px;
 		height: 32px;
@@ -302,26 +316,9 @@ only screen and (max-width: 525px) {
 	}
 }
 
-@media 
+@media /* resize evo conditions */
 only screen and (max-width: 400px) {
-	.speciesPanelLearnsetsPP {
-		display: none;
-	}
 	.resizeEvo1#speciesEvoTable {
 		display: table-caption !important;
-	}
-}
-
-@media 
-only screen and (max-width: 350px) {
-	.speciesPanelLearnsetsAccuracy {
-		display: none;
-	}
-}
-
-@media 
-only screen and (max-width: 300px) {
-	.speciesPanelLearnsetsPower {
-		display: none;
 	}
 }

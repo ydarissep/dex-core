@@ -144,33 +144,6 @@ only screen and (max-width: 1000px) {
     #trainersTable > tbody > table > tbody > td, .trainerSpeciesStat {
         font-size: min(max(2.5vw, 11px), 14px) !important;
     }
-
-    .trainerSpeciesEVsContainer, .trainerSpeciesIVs {
-        border-top: none;
-        border-bottom: none;
-    }
-
-    .trainerSpeciesEVsContainer {
-        padding: 10px 0px 5px 0px !important;
-    }
-
-    .trainerSpeciesIVs {
-        padding: 5px 0px 10px 0px !important;
-    }
-}
-
-@media 
-only screen and (max-width: 600px) {
-    .trainerSpeciesEVsContainer {
-        border-top: 2px solid #c7c7c7;
-        border-bottom: 2px solid #c7c7c7;
-        padding: 1px 0px 1px 0px !important;
-    }
-
-    .trainerSpeciesIVs {
-        border-bottom: 2px solid #c7c7c7;
-        padding: 1px 0px 1px 0px !important;
-    }
 }
 
 @media 
@@ -181,7 +154,7 @@ only screen and (max-width: 400px) {
     }
 
     #trainersTable > tbody > table > tbody > td, .trainerSpeciesStat {
-        font-size: 9px !important;
+        font-size: 10px !important;
     }
 }
 

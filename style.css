@@ -1,5 +1,10 @@
+:root {
+    /*--theme-color: #abd9ff;*/
+    --theme-color: burlywood;
+}
+
 * {
-	font-family: sans-serif;
+	font-family: Arial, sans-serif;
 }
 
 body {
@@ -34,6 +39,7 @@ button[type='button'] {
   padding: 0.5rem 0.75rem;
   border-radius: 3px;
   border: 1px solid gray;
+  margin-top: 5px;
 }
 
 .activeButton {
@@ -69,8 +75,15 @@ tr, th {
   transition: background 0.2s ease-in-out;
 }
 
-:not(a) > tr:nth-of-type(odd), a:nth-of-type(odd) tr {  
-  background: #7f85a01a; 
+:not(a) > tbody >tr:nth-of-type(odd), tbody > a:nth-of-type(odd) > tr {  
+    background: #7f85a01a; 
+    border-top: 1px solid #454a50;
+    border-bottom: 1px solid #454a50;
+}
+
+:not(a) > tbody >tr:last-child, tbody > a > tr:last-child {  
+    border-top: 1px solid #454a50;
+    border-bottom: 1px solid #454a50;
 }
 
 input[type="search"] {
@@ -160,12 +173,6 @@ table {
     box-shadow: 0 0 15px 0 rgba(27, 27, 27, 0.568);
 }
 
-td, th {
-    /*
-    border: 1px solid rgba(255, 255, 255, 0.048);
-    */
-}
-
 #tableFilter {
     max-width: 1000px;
     margin: auto;
@@ -202,8 +209,9 @@ td, th {
     font-weight: bold;
     font-size: 0.6rem;
     text-transform: uppercase;
-    text-shadow: 1px 1px rgba(54, 61, 61, 0.788);
-    padding: 1px 0px 1px 0px;
+    text-shadow: 1px 1px #000000bd;
+    padding: 1px 2px 1px 2px;
+    font-family: sans-serif, Arial;
 }
 
 .background2 {
@@ -217,8 +225,9 @@ td, th {
     font-weight: bold;
     font-size: 0.6rem;
     text-transform: uppercase;
-    text-shadow: 1px 1px rgba(54, 61, 61, 0.788);
+    text-shadow: 1px 1px #000000bd;
     padding: 0px 2px 0px 2px;
+    font-family: sans-serif, Arial;
 }
 
 .background3 {
@@ -233,8 +242,9 @@ td, th {
     font-weight: bold;
     /*font-size: 0.6rem;*/
     text-transform: uppercase;
-    text-shadow: 1px 1px rgba(54, 61, 61, 0.788);
+    text-shadow: 1px 1px #000000bd;
     padding: 0px 2px 0px 2px;
+    font-family: sans-serif, Arial;
 }
 
 .background4 {
@@ -249,8 +259,20 @@ td, th {
     font-weight: bold;
     font-size: 0.6rem;
     text-transform: uppercase;
-    text-shadow: 1px 1px rgba(54, 61, 61, 0.788);
+    text-shadow: 1px 1px #000000bd;
     padding: 0px 2px 0px 2px;
+    font-family: sans-serif, Arial;
+}
+
+@media
+only screen and (max-width: 500px) {
+	#speciesDefensiveTypeChart .background3, #speciesDefensiveTypeChart .background2 {
+		width: 2rem;
+	}
+
+    #speciesOffensiveTypeChart .background3, #speciesOffensiveTypeChart .background2 {
+		width: 2rem;
+	}
 }
 
 .TYPE_NORMAL {background: #A8A77A;}
@@ -323,7 +345,6 @@ td, th {
 }
 
 .flexCenter {
-    /*justify-content: center;*/
     align-items: center;
 }
 
@@ -359,12 +380,10 @@ td, th {
     padding: 10px;
     border: 3px solid #ccc;
     border-radius: 14px;
-    font-size: min(max(2vw, 12px), 16px) !important;
 }
 
 #popup h2 {
     margin-top: 0;
-    /*font-size: 18px;*/
     text-align: center;
 }
 

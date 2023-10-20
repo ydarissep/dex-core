@@ -201,10 +201,10 @@ async function createSpeciesPanel(name){
     speciesEvoTable.style.display = "ruby"
     speciesEvoTable.className = ""
 
-    if(speciesEvoTable.offsetWidth > 525){
+    if(speciesEvoTable.offsetWidth > 600){
         speciesEvoTable.classList.add("resizeEvo1")
     }
-    if(speciesEvoTable.offsetWidth > 400){
+    if(speciesEvoTable.offsetWidth > 500){
         speciesEvoTable.classList.add("resizeEvo2")
     }
     if(speciesEvoTable.offsetWidth > 350){
@@ -215,19 +215,23 @@ async function createSpeciesPanel(name){
 
     
 
-    while (speciesFormes.firstChild)
+    while (speciesFormes.firstChild){
         speciesFormes.removeChild(speciesFormes.firstChild)
+    }
 
-
-    if(species[name]["forms"].length <= 1)
-        speciesFormesText.classList.add("hide")
-    else
-        speciesFormesText.classList.remove("hide")
 
     if(species[name]["forms"].length > 1){
         for (let i = 0; i < species[name]["forms"].length; i++){
-            speciesFormes.append(createClickableImgAndName(species[name]["forms"][i]))
+            if(!species[name]["evolutionLine"].includes(species[name]["forms"][i]) || species[name]["forms"][i] === name){
+                speciesFormes.append(createClickableImgAndName(species[name]["forms"][i]))
+            }
         }
+    }
+    if(speciesFormes.children.length <= 1){
+        speciesFormesContainer.classList.add("hide")
+    }
+    else{
+        speciesFormesContainer.classList.remove("hide")
     }
 
 
@@ -321,7 +325,7 @@ async function createSpeciesPanel(name){
         const checkType = document.createElement("span")
         const defensiveTypeEffectivenessValue = document.createElement("span")
         defensiveTypeEffectivenessContainer.className = "flex flexCenter flexColumn speciesDefensiveTypeChartMarginTop"
-        checkType.innerText = sanitizeString(type)
+        checkType.innerText = sanitizeString(type).slice(0,3)
         checkType.className = `background2 ${type}`
 
         defensiveTypeEffectivenessValue.innerText = getPokemonResistanceValueAgainstType(species[name], type)
@@ -379,7 +383,7 @@ async function createSpeciesPanel(name){
             const checkType = document.createElement("span")
             const offensiveTypeEffectivenessValue = document.createElement("span")
             offensiveTypeEffectivenessContainer.className = "flex flexCenter flexColumn speciesOffensiveTypeChartMarginTop"
-            checkType.innerText = sanitizeString(type)
+            checkType.innerText = sanitizeString(type).slice(0,3)
             checkType.className = `background2 ${type}`
     
             offensiveTypeEffectivenessValue.innerText = getPokemonEffectivenessValueAgainstType(species[name], type)
@@ -483,10 +487,12 @@ function createClickableImgAndName(speciesName, evoConditions = false, showName 
         else if(evoConditions[0].includes("EVO_GIGA")){
             evoCondition.innerText = `Giga`
         }
+        else if(evoConditions[0].includes("MAPSEC")){
+            evoCondition.innerText = `Level Up (${sanitizeString(evoConditions[1]).replace(/Mapsec */i, "")})`
+        }
         else{
             evoCondition.innerText = `${sanitizeString(evoConditions[0])} (${sanitizeString(evoConditions[1])})`
         }
-        evoCondition.innerText += ` ➝ `
         evoCondition.className = "evoMethod"
         container.append(evoCondition)
     }
@@ -587,6 +593,7 @@ function appendChangesToObj(changeMainContainer, statContainer, changeContainer,
     changeContainer.classList.add("textAlign")
     changeContainer.classList.add("changeTextAlignFlex")
     statContainer.classList.add("speciesPanelStatPadding")
+    statContainer.classList.add("bold")
     oldStatContainer.classList.add("reduceOpacity")
     newStatContainer.classList.add("bold")
 

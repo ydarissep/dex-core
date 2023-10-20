@@ -61,7 +61,6 @@ only screen and (max-width: 700px) {
 
     #movesTable th {
         width: 60px !important;
-        /*display: none;*/
     }
 
     #movesTableThead > tr {
