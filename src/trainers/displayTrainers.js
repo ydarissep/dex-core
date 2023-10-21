@@ -145,37 +145,34 @@ function createTrainerSpeciesTbody(trainerObj, key){
 function returnMovesObj(trainerSpeciesObj){
     const trainerSpeciesMovesContainer = document.createElement("div"); trainerSpeciesMovesContainer.className = "trainerSpeciesMovesContainer"
     for(let i = 0; i < trainerSpeciesObj["moves"].length; i++){
-        const trainerSpeciesMoveContainer = document.createElement("div")
-        const trainerSpeciesMoveType = document.createElement("span"); trainerSpeciesMoveType.innerText = sanitizeString(moves[trainerSpeciesObj["moves"][i]]["type"]); trainerSpeciesMoveType.className = `background2 ${moves[trainerSpeciesObj["moves"][i]]["type"]} trainersSpeciesMoveType`
-        const trainerSpeciesMoveName = document.createElement("span"); trainerSpeciesMoveName.className = "trainerSpeciesMoveName hyperlink"
-
-        let moveName = moves[trainerSpeciesObj["moves"][i]]["ingameName"]
-        let resized = false
-        while(getTextWidth(moveName + ".") >= 96){
-            moveName = moveName.slice(0, -1)
-            resized = true
-        }
-        if(resized){
-            moveName = moveName + "."
-        }
-        
-        trainerSpeciesMoveName.innerText = moveName
-
         if(trainerSpeciesObj["moves"][i] != "MOVE_NONE"){
+            const trainerSpeciesMoveContainer = document.createElement("div")
+            const trainerSpeciesMoveType = document.createElement("span"); trainerSpeciesMoveType.innerText = sanitizeString(moves[trainerSpeciesObj["moves"][i]]["type"]); trainerSpeciesMoveType.className = `background2 ${moves[trainerSpeciesObj["moves"][i]]["type"]} trainersSpeciesMoveType`
+            const trainerSpeciesMoveName = document.createElement("span"); trainerSpeciesMoveName.className = "trainerSpeciesMoveName hyperlink"
+
+            let moveName = moves[trainerSpeciesObj["moves"][i]]["ingameName"]
+            let resized = false
+            while(getTextWidth(moveName + ".") >= 96){
+                moveName = moveName.slice(0, -1)
+                resized = true
+            }
+            if(resized){
+                moveName = moveName + "."
+            }
+            
+            trainerSpeciesMoveName.innerText = moveName
+
             trainerSpeciesMoveContainer.append(trainerSpeciesMoveType)
 
-            trainerSpeciesMoveContainer.addEventListener("click", () => {
+            trainerSpeciesMoveName.addEventListener("click", () => {
                 createPopupTrainerMoves(moves[trainerSpeciesObj["moves"][i]])
                 overlay.style.display = 'block'
             })
-        }
-        else{
-            trainerSpeciesMoveName.classList.remove("hyperlink")
-        }
 
-        trainerSpeciesMoveContainer.append(trainerSpeciesMoveName)
+            trainerSpeciesMoveContainer.append(trainerSpeciesMoveName)
 
-        trainerSpeciesMovesContainer.append(trainerSpeciesMoveContainer)
+            trainerSpeciesMovesContainer.append(trainerSpeciesMoveContainer)
+        }
     }
 
     return trainerSpeciesMovesContainer
