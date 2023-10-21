@@ -2,7 +2,9 @@
 	width: 100px;
 }
 
-
+#movesTableThead th.moveID {
+    width: 40px;
+}
 #movesTableThead th.move {
 	width: 150px;
 }
