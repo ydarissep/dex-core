@@ -101,6 +101,36 @@ function returnMethodSprite(method){
     else if(method.match(/sprouted|taller|flowering|berries/i)){
         return "Berry"
     }
+    else if(method.match(/surfing/i)){
+        return "Surfing"
+    }
+    else if(method.match(/rock smash/i)){
+        return "Rock Smash"
+    }
+    else if(method.match(/old rod/i)){
+        return "Old Rod"
+    }
+    else if(method.match(/good rod/i)){
+        return "Good Rod"
+    }
+    else if(method.match(/super rod/i)){
+        return "Super Rod"
+    }
+    else if(method.match(/Morning/i)){
+        return "Morning"
+    }
+    else if(method.match(/day/i)){
+        return "Day"
+    }
+    else if(method.match(/evening/i)){
+        return "Evening"
+    }
+    else if(method.match(/Night/i)){
+        return "Night"
+    }
+    else if(method.match(/shard/i)){
+        return "Egg"
+    }
     else{
         return method
     }
