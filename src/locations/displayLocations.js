@@ -29,6 +29,7 @@ function appendLocationsToTable(key){
 
     let row = document.createElement("tr")
     row.setAttribute("id", `${key}`)
+    row.style.backgroundImage = `linear-gradient(to right, var(--gradient${species[speciesKey]["type1"]}), var(--gradientTYPE))`
 
     let spriteContainer = document.createElement("td")
     spriteContainer.className = "sprite"

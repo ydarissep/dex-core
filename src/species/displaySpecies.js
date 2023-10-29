@@ -13,6 +13,9 @@ function appendSpeciesToTable(speciesName){
 
     const row = document.createElement("tr")
     row.setAttribute("id", `${speciesName}`)
+    if(!patchnoteModeCheckbox.checked){
+        row.style.backgroundImage = `linear-gradient(to right, var(--gradient${species[speciesName]["type1"]}), var(--gradientTYPE))`
+    }
     hrefContainer.append(row)
     tBody.append(hrefContainer)
 

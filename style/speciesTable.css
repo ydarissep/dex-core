@@ -126,7 +126,7 @@ only screen and (max-width: 850px) {
     	box-sizing: border-box;
     }
 
-    #speciesTable [class*="TYPE_"] {
+    #speciesTable [class^="TYPE_"] {
         display: inline-flex !important;
         font-weight: bold;
     }
