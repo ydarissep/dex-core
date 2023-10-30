@@ -893,7 +893,16 @@ function buildSpeciesPanelLevelUpFromPreviousEvoTable(table, name, label = "", a
                 movesArray.push(move[0])
 
                 const row = document.createElement("tr")
-                row.style.backgroundImage = `linear-gradient(to right, var(--gradient${moves[move[0]]["type"]}end), var(--gradient${moves[move[0]]["type"]}), var(--gradient${moves[move[0]]["type"]}))`
+                if(moves[move[0]]["split"] === "SPLIT_PHYSICAL" || moves[move[0]]["split"] === "SPLIT_SPECIAL"){
+                    if(species[name]["type1"] === moves[move[0]]["type"] || species[name]["type2"] === moves[move[0]]["type"]){
+                        setRowGradient(row, moves[move[0]]["type"])
+                    }
+                    else if(typeof species[name]["type3"] !== "undefined"){
+                        if(species[name]["type3"] === moves[move[0]]["type"]){
+                            setRowGradient(row, moves[move[0]]["type"])
+                        }
+                    }
+                }
     
                 const moveName = document.createElement("td")
                 moveName.innerText = moves[move[0]]["ingameName"]
@@ -979,7 +988,16 @@ function buildSpeciesPanelDoubleLearnsetsTable(table, name, input, label = "", a
 
     sortLearnsetsArray(THead, species[name][input], label, asc).forEach(move => {
         const row = document.createElement("tr")
-        row.style.backgroundImage = `linear-gradient(to right, var(--gradient${moves[move[0]]["type"]}end), var(--gradient${moves[move[0]]["type"]}), var(--gradient${moves[move[0]]["type"]}))`
+        if(moves[move[0]]["split"] === "SPLIT_PHYSICAL" || moves[move[0]]["split"] === "SPLIT_SPECIAL"){
+            if(species[name]["type1"] === moves[move[0]]["type"] || species[name]["type2"] === moves[move[0]]["type"]){
+                setRowGradient(row, moves[move[0]]["type"])
+            }
+            else if(typeof species[name]["type3"] !== "undefined"){
+                if(species[name]["type3"] === moves[move[0]]["type"]){
+                    setRowGradient(row, moves[move[0]]["type"])
+                }
+            }
+        }
 
         const level = document.createElement("td")
         level.innerText = move[1]
@@ -1060,7 +1078,16 @@ function buildSpeciesPanelSingleLearnsetsTable(table, name, input, label = "", a
 
     sortLearnsetsArray(THead, species[name][input], label, asc).forEach(move => {
         const row = document.createElement("tr")
-        row.style.backgroundImage = `linear-gradient(to right, var(--gradient${moves[move]["type"]}end), var(--gradient${moves[move]["type"]}), var(--gradient${moves[move]["type"]}))`
+        if(moves[move]["split"] === "SPLIT_PHYSICAL" || moves[move]["split"] === "SPLIT_SPECIAL"){
+            if(species[name]["type1"] === moves[move]["type"] || species[name]["type2"] === moves[move]["type"]){
+                setRowGradient(row, moves[move]["type"])
+            }
+            else if(typeof species[name]["type3"] !== "undefined"){
+                if(species[name]["type3"] === moves[move]["type"]){
+                    setRowGradient(row, moves[move]["type"])
+                }
+            }
+        }
 
         const moveName = document.createElement("td")
         moveName.innerText = moves[move]["ingameName"]
@@ -1208,6 +1235,12 @@ function sortLearnsetsArray(thead, learnsetsArray, label, asc){
     return learnsetsArray
 }
 
+
+
+
+function setRowGradient(row, type){
+    row.style.backgroundImage = `linear-gradient(to right, var(--gradient${type}), var(--gradient${type}end))`
+}
 
 
 
