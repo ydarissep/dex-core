@@ -893,7 +893,7 @@ function buildSpeciesPanelLevelUpFromPreviousEvoTable(table, name, label = "", a
                 movesArray.push(move[0])
 
                 const row = document.createElement("tr")
-                row.style.backgroundImage = `linear-gradient(to right, var(--gradient${moves[move[0]]["type"]}end), var(--gradient${moves[move[0]]["type"]}))`
+                row.style.backgroundImage = `linear-gradient(to right, var(--gradientTYPE), var(--gradientTYPE), var(--gradientTYPE), var(--gradient${moves[move[0]]["type"]}end), var(--gradient${moves[move[0]]["type"]}), var(--gradient${moves[move[0]]["type"]}), var(--gradient${moves[move[0]]["type"]}), var(--gradient${moves[move[0]]["type"]}))`
     
                 const moveName = document.createElement("td")
                 moveName.innerText = moves[move[0]]["ingameName"]
@@ -979,7 +979,7 @@ function buildSpeciesPanelDoubleLearnsetsTable(table, name, input, label = "", a
 
     sortLearnsetsArray(THead, species[name][input], label, asc).forEach(move => {
         const row = document.createElement("tr")
-        row.style.backgroundImage = `linear-gradient(to right, var(--gradient${moves[move[0]]["type"]}end), var(--gradient${moves[move[0]]["type"]}))`
+        row.style.backgroundImage = `linear-gradient(to right, var(--gradientTYPE), var(--gradientTYPE), var(--gradientTYPE), var(--gradient${moves[move[0]]["type"]}end), var(--gradient${moves[move[0]]["type"]}), var(--gradient${moves[move[0]]["type"]}), var(--gradient${moves[move[0]]["type"]}), var(--gradient${moves[move[0]]["type"]}))`
 
         const level = document.createElement("td")
         level.innerText = move[1]
@@ -1060,7 +1060,7 @@ function buildSpeciesPanelSingleLearnsetsTable(table, name, input, label = "", a
 
     sortLearnsetsArray(THead, species[name][input], label, asc).forEach(move => {
         const row = document.createElement("tr")
-        row.style.backgroundImage = `linear-gradient(to right, var(--gradient${moves[move]["type"]}end), var(--gradient${moves[move]["type"]}))`
+        row.style.backgroundImage = `linear-gradient(to right, var(--gradientTYPE), var(--gradientTYPE), var(--gradientTYPE), var(--gradient${moves[move]["type"]}end), var(--gradient${moves[move]["type"]}), var(--gradient${moves[move]["type"]}), var(--gradient${moves[move]["type"]}), var(--gradient${moves[move]["type"]}))`
 
         const moveName = document.createElement("td")
         moveName.innerText = moves[move]["ingameName"]
