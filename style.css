@@ -36,24 +36,6 @@
   --gradientTYPE_DARK: rgba(112, 87, 70, 0.4);
   --gradientTYPE_STEEL: rgba(140, 140, 158, 0.4);
   --gradientTYPE_FAIRY: rgba(214, 133, 173, 0.4);
-  --gradientTYPE_NORMALpanel: rgba(168, 167, 122, 0.3);
-  --gradientTYPE_FIREpanel: rgba(238, 129, 48, 0.3);
-  --gradientTYPE_WATERpanel: rgba(99, 144, 240, 0.3);
-  --gradientTYPE_ELECTRICpanel: rgba(207, 154, 9, 0.3);
-  --gradientTYPE_GRASSpanel: rgba(98, 161, 61, 0.3);
-  --gradientTYPE_ICEpanel: rgba(101, 161, 158, 0.3);
-  --gradientTYPE_FIGHTINGpanel: rgba(194, 46, 40, 0.3);
-  --gradientTYPE_POISONpanel: rgba(163, 62, 161, 0.3);
-  --gradientTYPE_GROUNDpanel: rgba(177, 149, 79, 0.3);
-  --gradientTYPE_FLYINGpanel: rgba(133, 113, 190, 0.3);
-  --gradientTYPE_PSYCHICpanel: rgba(249, 85, 135, 0.3);
-  --gradientTYPE_BUGpanel: rgba(128, 143, 19, 0.3);
-  --gradientTYPE_ROCKpanel: rgba(182, 161, 54, 0.3);
-  --gradientTYPE_GHOSTpanel: rgba(115, 87, 151, 0.3);
-  --gradientTYPE_DRAGONpanel: rgba(111, 53, 252, 0.3);
-  --gradientTYPE_DARKpanel: rgba(112, 87, 70, 0.3);
-  --gradientTYPE_STEELpanel: rgba(140, 140, 158, 0.3);
-  --gradientTYPE_FAIRYpanel: rgba(214, 133, 173, 0.3);
   --gradientTYPE_NORMALend: rgba(168, 167, 122, 0.1);
   --gradientTYPE_FIREend: rgba(238, 129, 48, 0.1);
   --gradientTYPE_WATERend: rgba(99, 144, 240, 0.1);
@@ -149,26 +131,12 @@ transition: background 0.2s ease-in-out;
 
 
 :not(a) > tbody >tr:nth-of-type(odd), tbody > a:nth-of-type(odd) > tr {  
-  background-color: rgba(255,255,255,0.05);
-  /*
+  background-color: rgba(255,255,255,0.02);
   border-top: 1px solid rgba(255,255,255,0.5);
   border-bottom: 1px solid rgba(255,255,255,0.5);
-  */
 }
 
-/*
 :not(a) > tbody >tr:last-child, tbody > a > tr:last-child {  
-  border-top: 1px solid rgba(255,255,255,0.5);
-  border-bottom: 1px solid rgba(255,255,255,0.5);
-}
-*/
-
-#abilitiesTableTbody > tr:nth-of-type(odd) {
-  border-top: 1px solid rgba(255,255,255,0.5);
-  border-bottom: 1px solid rgba(255,255,255,0.5);
-}
-
-#abilitiesTableTbody > tr:last-child {  
   border-top: 1px solid rgba(255,255,255,0.5);
   border-bottom: 1px solid rgba(255,255,255,0.5);
 }
