@@ -131,7 +131,7 @@ transition: background 0.2s ease-in-out;
 
 
 :not(a) > tbody >tr:nth-of-type(odd), tbody > a:nth-of-type(odd) > tr {  
-  background-color: rgba(255,255,255,0.02);
+  background-color: rgba(255,255,255,0.03);
   border-top: 1px solid rgba(255,255,255,0.5);
   border-bottom: 1px solid rgba(255,255,255,0.5);
 }
