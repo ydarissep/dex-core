@@ -487,7 +487,7 @@ function createClickableImgAndName(speciesName, evoConditions = false, showName 
         else if(evoConditions[0].includes("EVO_GIGA")){
             evoCondition.innerText = `Giga`
         }
-        else if(evoConditions[0].includes("MAPSEC")){
+        else if(evoConditions[0].includes("MAPSEC") || evoConditions[0] === "EVO_MAP"){
             evoCondition.innerText = `Level Up (${sanitizeString(evoConditions[1]).replace(/Mapsec */i, "")})`
         }
         else{
