@@ -2,7 +2,7 @@ async function displaySetup(){
     await footerP("")
 
     if(Object.keys(strategies).length === 0){
-        strategyCheckbox.classList.add("hide")
+        onlyShowStrategyPokemon.classList.add("hide")
     }
     if(Object.keys(locations).length === 0){
         locationsButton.classList.add("hide")
