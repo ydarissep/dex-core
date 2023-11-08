@@ -711,8 +711,3 @@ let fetchDatainterval = setInterval(function() {
     fetchData(searchParams)
 }, 100)  
 
-}).catch(error => {
-	console.warn(error)
-})
-
-
