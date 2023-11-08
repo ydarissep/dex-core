@@ -1,29 +1,37 @@
-#speciesPanelCloseButton {
-	float: right;
-	background-color: red;
-	border: none !important;
+#overlaySpeciesPanel {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 9000;
+	overflow-y: scroll;
 }
 
 #speciesPanelMainContainer {
 	justify-content: center;
-	background: rgba(0, 0, 0, 0.15);
-}
-
-#speciesPanelContainer {
-	width: 1000px;
-	padding-top: 2rem;
+	max-width: min(1000px, 90%);
+	margin: auto;
+	background: #1b1c1f;
+	border: 2px solid #ccc;
+  	border-radius: 14px;
 }
 
 #speciesPanelSubcontainer1, #speciesPanelSubcontainer2, #speciesBaseStatsGraphContainer, #speciesEvolutionsText, #speciesFormesText, #speciesChangesContainer {
 	margin-left: 20px;
 }
 
+#speciesPanelSubcontainer1, #speciesPanelSubcontainer3, #speciesAbilitiesMainContainer, #speciesInnatesMainContainer, #speciesChangesContainer, #speciesEvolutionsMainContainer, #speciesFormesContainer {
+	text-align: left !important;
+}
+
 #speciesName {
-	font-size: 16pt;
+	font-size: 20pt !important;
 }
 
 #speciesID {
-	font-size: 11pt;
+	font-size: 13pt !important;
 	margin-left: 5px;
 	color: #999999;
 }
@@ -37,16 +45,16 @@
 
 .speciesPanelText {
 	margin-bottom: 5px;
-	font-size: 9pt !important;
+	font-size: 11.1pt !important;
 	font-weight: bold;
 	color: var(--theme-color);	
 }
 
 #speciesHeldItems, #speciesEggGroups {
-	font-size: 13px;
+	font-size: 15px;
 }
 
-#speciesPanelSubcontainer2, #speciesEvolutionsMainContainer {
+#speciesPanelSubcontainer1, #speciesPanelSubcontainer2, #speciesEvolutionsMainContainer {
 	padding: 15px 0px 0px 0px;
 }
 
@@ -55,7 +63,6 @@
 }
 .speciesPanelAbilitiesDescriptionPadding {
 	padding: 0px 0px 7px 15px;
-	font-size: min(max(1.5vmax, 14px), 16px);
 }
 
 #speciesChanges {
@@ -101,7 +108,6 @@
 	display: flex;
 	align-items: center;
 	cursor: pointer;
-	font-size: 18px;
 	padding: 5px 0px 5px 0px;
 }
 
@@ -124,7 +130,7 @@
 #statsNames {
   display: grid;
   grid-template-rows: repeat(1fr);
-  font-size: 13px;
+  font-size: 15px;
   line-height: 0;
 }
 
@@ -155,6 +161,7 @@
   margin: 0.4rem 0;
   filter: opacity(90%);
   border-radius: 3px;
+  transition: background 0s ease-in-out !important;
 }
 
 
@@ -186,6 +193,11 @@
 	width: 48px;
   	height: 48px;
   	aspect-ratio: auto 48 / 48;
+}
+
+[class*="typeChartOffensive"], [class*="typeChartDefensive"] {
+	margin-top: 2px;
+	font-size: 14px;
 }
 
 #speciesDefensiveTypeChartContainer, #speciesOffensiveTypeChartContainer {
@@ -220,11 +232,15 @@
 
 .speciesDefensiveTypeChartMarginTop, .speciesOffensiveTypeChartMarginTop {
 	margin: 10px 1px 0px 1px;
+	font-family: sans-serif, Arial;
 }
 
-
-
-
+@media
+only screen and (max-width: 500px) {
+  #speciesPanelMainContainer .backgroundSmall {
+    width: 32px;
+  }
+}
 
 
 #speciesPanelTablesContainer > table {
@@ -241,22 +257,26 @@
 .speciesPanelLearnsetsTableMargin {
 	margin-top: 75px;
 	margin-bottom: 75px;
+	max-width: 95%;
+	font-size: min(max(2.5vw, 15px), 17px) !important;
 }
 
-.speciesPanelLearnsetsEffect, .speciesPanelLearnsetsPP, .speciesPanelLearnsetsAccuracy, .speciesPanelLearnsetsPower {
-	font-size: min(max(1.5vmax, 11px), 16px);
+.speciesPanelLearnsetsTableMargin th:hover, .speciesPanelLearnsetsTableMargin tbody tr:hover {
+	background: rgba(255, 255, 255, 0.2) !important;
+    cursor: pointer;
 }
 
 @media 
-only screen and (max-width: 575px) {
-	.speciesPanelLearnsetsEffect {
-		display: none;
+only screen and (max-width: 600px) {
+	#speciesPanelMainContainer {
+		max-width: revert !important;
+		border: none !important;
 	}
 }
 
 @media 
-only screen and (max-width: 425px) {
-	.speciesPanelLearnsetsPP {
+only screen and (max-width: 550px) {
+	.speciesPanelLearnsetsEffect {
 		display: none;
 	}
 }
@@ -275,23 +295,18 @@ only screen and (max-width: 375px) {
 }
 
 @media 
-only screen and (max-width: 380px) {
-	.speciesPanelLearnsetsAccuracy {
-		display: none;
-	}
-
-	#speciesSprite {
-		padding-right: unset;
+only screen and (max-width: 350px) {
+	.speciesPanelLearnsetsPP {
+		display: none !important;
 	}
 }
 
 @media 
-only screen and (max-width: 350px) {
-	.speciesPanelLearnsetsPower {
-		display: none;
+only screen and (max-width: 380px) {
+	#speciesSprite {
+		padding-right: unset;
 	}
 }
-
 
 @media /* resize evo conditions */
 only screen and (max-width: 700px) {

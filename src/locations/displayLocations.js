@@ -29,7 +29,6 @@ function appendLocationsToTable(key){
 
     let row = document.createElement("tr")
     row.setAttribute("id", `${key}`)
-    row.style.backgroundImage = `linear-gradient(to right, var(--gradient${species[speciesKey]["type1"]}), var(--gradientTYPE))`
 
     let spriteContainer = document.createElement("td")
     spriteContainer.className = "sprite"
@@ -58,9 +57,8 @@ function appendLocationsToTable(key){
     row.append(rarity)
 
     row.addEventListener("click", () => {
-        scrollToSpecies = row.id
         createSpeciesPanel(speciesKey)
-        window.scrollTo(0, 0)
+        document.getElementById("speciesPanelMainContainer").scrollIntoView(true)
     })
     
     tableTbody.append(row)

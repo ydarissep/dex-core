@@ -1,8 +1,10 @@
 async function createSpeciesPanel(name){
-    panelSpecies = name
     speciesPanel("show")
+    panelSpecies = name
 
-    const row = document.getElementById(`${name}`)
+    if(typeof refreshURLParams !== "undefined"){
+        refreshURLParams()
+    }
 
     speciesName.innerText = sanitizeString(name)
     speciesID.innerText = `#${species[name]["ID"]}`
@@ -326,11 +328,11 @@ async function createSpeciesPanel(name){
         const defensiveTypeEffectivenessValue = document.createElement("span")
         defensiveTypeEffectivenessContainer.className = "flex flexCenter flexColumn speciesDefensiveTypeChartMarginTop"
         checkType.innerText = sanitizeString(type).slice(0,3)
-        checkType.className = `background2 ${type}`
+        checkType.className = `backgroundSmall ${type}`
 
         defensiveTypeEffectivenessValue.innerText = getPokemonResistanceValueAgainstType(species[name], type)
 
-        defensiveTypeEffectivenessValue.className = `typeChartDefensive${defensiveTypeEffectivenessValue.innerText} background3`
+        defensiveTypeEffectivenessValue.className = `typeChartDefensive${defensiveTypeEffectivenessValue.innerText} backgroundSmall`
         defensiveTypeEffectivenessContainer.append(checkType)
         defensiveTypeEffectivenessContainer.append(defensiveTypeEffectivenessValue)
         speciesDefensiveTypeChart.append(defensiveTypeEffectivenessContainer)
@@ -384,11 +386,11 @@ async function createSpeciesPanel(name){
             const offensiveTypeEffectivenessValue = document.createElement("span")
             offensiveTypeEffectivenessContainer.className = "flex flexCenter flexColumn speciesOffensiveTypeChartMarginTop"
             checkType.innerText = sanitizeString(type).slice(0,3)
-            checkType.className = `background2 ${type}`
+            checkType.className = `backgroundSmall ${type}`
     
             offensiveTypeEffectivenessValue.innerText = getPokemonEffectivenessValueAgainstType(species[name], type)
     
-            offensiveTypeEffectivenessValue.className = `typeChartOffensive${offensiveTypeEffectivenessValue.innerText} background3`
+            offensiveTypeEffectivenessValue.className = `typeChartOffensive${offensiveTypeEffectivenessValue.innerText} backgroundSmall`
             offensiveTypeEffectivenessContainer.append(checkType)
             offensiveTypeEffectivenessContainer.append(offensiveTypeEffectivenessValue)
             speciesOffensiveTypeChart.append(offensiveTypeEffectivenessContainer)
@@ -462,11 +464,6 @@ function createClickableImgAndName(speciesName, evoConditions = false, showName 
     const container = document.createElement("div")
     const sprite = document.createElement("img")
     const name = document.createElement("span")
-    
-    const hrefContainer = document.createElement("a")
-    hrefContainer.href = `${window.location.origin + window.location.pathname}?species=${speciesName}`
-    hrefContainer.onclick = function(){return false}
-    hrefContainer.classList.add("hrefContainer")
 
     container.className = "flexCenter flex flexRow hyperlink"
 
@@ -487,7 +484,7 @@ function createClickableImgAndName(speciesName, evoConditions = false, showName 
         else if(evoConditions[0].includes("EVO_GIGA")){
             evoCondition.innerText = `Giga`
         }
-        else if(evoConditions[0].includes("MAPSEC") || evoConditions[0] === "EVO_MAP"){
+        else if(evoConditions[0].includes("MAPSEC")){
             evoCondition.innerText = `Level Up (${sanitizeString(evoConditions[1]).replace(/Mapsec */i, "")})`
         }
         else{
@@ -508,9 +505,7 @@ function createClickableImgAndName(speciesName, evoConditions = false, showName 
         createSpeciesPanel(speciesName)
     })
 
-    hrefContainer.append(container)
-
-    return hrefContainer
+    return container
 }
 
 
@@ -579,8 +574,8 @@ function createChange(stat, oldStat = [""], newStat = [""], speciesName, obj){
             }
         }
         else if(stat === "type1" || stat === "type2"){
-            oldStatContainer.className = `${oldStat} background2`
-            newStatContainer.className = `${newStat} background2`
+            oldStatContainer.className = `${oldStat} background`
+            newStatContainer.className = `${newStat} background`
         }
         appendChangesToObj(changeMainContainer, statContainer, changeContainer, oldStatContainer, newStatContainer, obj)   
     }
@@ -893,16 +888,6 @@ function buildSpeciesPanelLevelUpFromPreviousEvoTable(table, name, label = "", a
                 movesArray.push(move[0])
 
                 const row = document.createElement("tr")
-                if(moves[move[0]]["split"] === "SPLIT_PHYSICAL" || moves[move[0]]["split"] === "SPLIT_SPECIAL"){
-                    if(species[name]["type1"] === moves[move[0]]["type"] || species[name]["type2"] === moves[move[0]]["type"]){
-                        setRowGradient(row, moves[move[0]]["type"])
-                    }
-                    else if(typeof species[name]["type3"] !== "undefined"){
-                        if(species[name]["type3"] === moves[move[0]]["type"]){
-                            setRowGradient(row, moves[move[0]]["type"])
-                        }
-                    }
-                }
     
                 const moveName = document.createElement("td")
                 moveName.innerText = moves[move[0]]["ingameName"]
@@ -988,16 +973,6 @@ function buildSpeciesPanelDoubleLearnsetsTable(table, name, input, label = "", a
 
     sortLearnsetsArray(THead, species[name][input], label, asc).forEach(move => {
         const row = document.createElement("tr")
-        if(moves[move[0]]["split"] === "SPLIT_PHYSICAL" || moves[move[0]]["split"] === "SPLIT_SPECIAL"){
-            if(species[name]["type1"] === moves[move[0]]["type"] || species[name]["type2"] === moves[move[0]]["type"]){
-                setRowGradient(row, moves[move[0]]["type"])
-            }
-            else if(typeof species[name]["type3"] !== "undefined"){
-                if(species[name]["type3"] === moves[move[0]]["type"]){
-                    setRowGradient(row, moves[move[0]]["type"])
-                }
-            }
-        }
 
         const level = document.createElement("td")
         level.innerText = move[1]
@@ -1078,16 +1053,6 @@ function buildSpeciesPanelSingleLearnsetsTable(table, name, input, label = "", a
 
     sortLearnsetsArray(THead, species[name][input], label, asc).forEach(move => {
         const row = document.createElement("tr")
-        if(moves[move]["split"] === "SPLIT_PHYSICAL" || moves[move]["split"] === "SPLIT_SPECIAL"){
-            if(species[name]["type1"] === moves[move]["type"] || species[name]["type2"] === moves[move]["type"]){
-                setRowGradient(row, moves[move]["type"])
-            }
-            else if(typeof species[name]["type3"] !== "undefined"){
-                if(species[name]["type3"] === moves[move]["type"]){
-                    setRowGradient(row, moves[move]["type"])
-                }
-            }
-        }
 
         const moveName = document.createElement("td")
         moveName.innerText = moves[move]["ingameName"]
@@ -1238,14 +1203,6 @@ function sortLearnsetsArray(thead, learnsetsArray, label, asc){
 
 
 
-function setRowGradient(row, type){
-    row.style.backgroundImage = `linear-gradient(to right, var(--gradient${type}), var(--gradient${type}end))`
-}
-
-
-
-
-
 let interval = setInterval(function() {
     if (document.querySelectorAll("#speciesPanelLevelUpFromPreviousEvoTableTHead, #speciesPanelLevelUpTableTHead, #speciesPanelTMHMTableTHead, #speciesPanelTutorTableTHead, #speciesPanelEggMovesTableTHead").length == 0){
         return
@@ -1296,21 +1253,48 @@ let interval = setInterval(function() {
 
 
 
-async function speciesPanel(param){
+async function speciesPanel(param){  
     if(typeof speciesPanelMainContainer !== "undefined"){
         if(param === "hide"){
+            body.classList.remove("fixed")
+            overlaySpeciesPanel.style.display = "none"
             speciesPanelMainContainer.classList.add("hide")
+            if(typeof refreshURLParams !== "undefined"){
+                refreshURLParams()
+            }
+            if(table.getBoundingClientRect().top < 0){
+                utilityButton.innerText = "↑"
+            }
+            else{
+                utilityButton.innerText = "☰"
+            }
         }
         else if(param === "show"){
+            utilityButton.innerText = "X"
+            body.classList.add("fixed")
+            overlaySpeciesPanel.style.display = "block"
             speciesPanelMainContainer.classList.remove("hide")
         }
         else{
             speciesPanelMainContainer.classList.toggle("hide")
-        }
-
-        
-        if(typeof refreshURLParams !== "undefined"){
-            refreshURLParams()
+            if(speciesPanelMainContainer.classList.contains("hide")){
+                overlaySpeciesPanel.style.display = "none"
+                body.classList.remove("fixed")
+                if(typeof refreshURLParams !== "undefined"){
+                    refreshURLParams()
+                }
+                if(table.getBoundingClientRect().top < 0){
+                    utilityButton.innerText = "↑"
+                }
+                else{
+                    utilityButton.innerText = "☰"
+                }
+            }
+            else {
+                utilityButton.innerText = "X"
+                overlaySpeciesPanel.style.display = "block"
+                body.classList.add("fixed")
+            }
         }
     }
 }

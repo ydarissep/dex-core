@@ -6,18 +6,9 @@ function appendSpeciesToTable(speciesName){
 
     const tBody = speciesTableTbody
 
-    const hrefContainer = document.createElement("a")
-    hrefContainer.href = `${window.location.origin + window.location.pathname}?species=${speciesName}`
-    hrefContainer.onclick = function(){return false}
-    hrefContainer.classList.add("hrefContainer")
-
     const row = document.createElement("tr")
     row.setAttribute("id", `${speciesName}`)
-    if(!patchnoteModeCheckbox.checked){
-        row.style.backgroundImage = `linear-gradient(to right, var(--gradient${species[speciesName]["type1"]}), var(--gradientTYPE))`
-    }
-    hrefContainer.append(row)
-    tBody.append(hrefContainer)
+    tBody.append(row)
 
     let IDcontainer = document.createElement("td")
     let ID = document.createElement("div")
@@ -62,12 +53,12 @@ function appendSpeciesToTable(speciesName){
 
     for (let k = 0; k < species[speciesName]["changes"].length; k++){
         if(species[speciesName]["changes"][k][0] === "type1"){
-            if(species[speciesName]["type1"] !== species[speciesName]["changes"][k][1] && patchnoteModeCheckbox.checked){
+            if(species[speciesName]["type1"] !== species[speciesName]["changes"][k][1] && changelogMode.classList.contains("activeSetting")){
                 type1.classList.add("typeChanged")
             }
         }
         else if(species[speciesName]["changes"][k][0] === "type2"){
-            if(species[speciesName]["type2"] !== species[speciesName]["changes"][k][1] && patchnoteModeCheckbox.checked){
+            if(species[speciesName]["type2"] !== species[speciesName]["changes"][k][1] && changelogMode.classList.contains("activeSetting")){
                 type2.classList.add("typeChanged")
             }
         }
@@ -107,7 +98,7 @@ function appendSpeciesToTable(speciesName){
 
             for (let k = 0; k < species[speciesName]["changes"].length; k++){
                 if(species[speciesName]["changes"][k][0] === "abilities"){
-                    if(species[speciesName]["abilities"][j] !== species[speciesName]["changes"][k][1][j] && patchnoteModeCheckbox.checked){
+                    if(species[speciesName]["abilities"][j] !== species[speciesName]["changes"][k][1][j] && changelogMode.classList.contains("activeSetting")){
                         const changelogAbilities = document.createElement("span")
                         changelogAbilities.className = "changelogAbilities"
                         changelogAbilities.innerText = "new"
@@ -136,6 +127,9 @@ function appendSpeciesToTable(speciesName){
         }
         row.append(innatesContainer)
     }
+    else{
+        abilitiesContainer.classList.add("noInnates")
+    }
 
     let speciesObj = species[speciesName]
 
@@ -155,8 +149,7 @@ function appendSpeciesToTable(speciesName){
 
     row.addEventListener("click", () => {
         createSpeciesPanel(speciesName)
-        scrollToSpecies = row.id
-        window.scrollTo(0, 0)
+        document.getElementById("speciesPanelMainContainer").scrollIntoView(true)
     })
 }
 
@@ -165,7 +158,7 @@ function appendSpeciesToTable(speciesName){
 function createBaseStatsContainer(headerText, stats, speciesObj){
     let baseStatsContainer = document.createElement("td")
     let baseStats = document.createElement("div")
-    let baseStatsHeader = document.createElement("em")
+    let baseStatsHeader = document.createElement("div"); baseStatsHeader.className = "italic"
 
 
     baseStatsHeader.innerText = headerText
@@ -176,7 +169,7 @@ function createBaseStatsContainer(headerText, stats, speciesObj){
 
 
     for (let k = 0; k < speciesObj["changes"].length; k++){
-        if(speciesObj["changes"][k][0] === stats && patchnoteModeCheckbox.checked){
+        if(speciesObj["changes"][k][0] === stats && changelogMode.classList.contains("activeSetting")){
             if(speciesObj[stats] > speciesObj["changes"][k][1]){
                 baseStats.classList.add("buff", "bold")
                 baseStatsHeader.classList.add("buff", "bold")

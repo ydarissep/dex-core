@@ -1,5 +1,11 @@
-#abilitiesButton {
-	width: 100px;
+#abilitiesTableThead th:hover, #abilitiesTableTbody tr:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    cursor: pointer;
+}
+
+#abilitiesTableTbody .ability {
+    font-weight: bolder;
+	font-size: 20px;
 }
 
 #abilitiesTableThead th.abilityID {
@@ -7,15 +13,11 @@
 }
 
 #abilitiesTableThead th.ability {
-	width: 250px;
+	width: 150px;
 }
 
 #abilitiesTableThead th.description {
 	width: 400px;
-}
-
-#abilitiesFilterButton {
-	padding-bottom: 5px;
 }
 
 #abilitiesTableTbody .description {
@@ -23,8 +25,8 @@
 }
 
 @media 
-only screen and (max-width: 350px) {
-	#abilitiesTableTbody {
-		font-size: 14px;
+only screen and (max-width: 400px) {
+	#abilitiesTableTbody .description {
+		font-size: 16.5px;
 	}
 }

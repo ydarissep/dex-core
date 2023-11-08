@@ -1,353 +1,58 @@
 :root {
   --theme-color: burlywood;
-  --TYPE_NORMAL: rgb(168, 167, 122);
-  --TYPE_FIRE: rgb(238, 129, 48);
-  --TYPE_WATER: rgb(99, 144, 240);
-  --TYPE_ELECTRIC: rgb(207, 154, 9);
-  --TYPE_GRASS: rgb(98, 161, 61);
-  --TYPE_ICE: rgb(101, 161, 158);
-  --TYPE_FIGHTING: rgb(194, 46, 40);
-  --TYPE_POISON: rgb(163, 62, 161);
-  --TYPE_GROUND: rgb(177, 149, 79);
-  --TYPE_FLYING: rgb(133, 113, 190);
-  --TYPE_PSYCHIC: rgb(249, 85, 135);
-  --TYPE_BUG: rgb(128, 143, 19);
-  --TYPE_ROCK: rgb(182, 161, 54);
-  --TYPE_GHOST: rgb(115, 87, 151);
-  --TYPE_DRAGON: rgb(111, 53, 252);
-  --TYPE_DARK: rgb(112, 87, 70);
-  --TYPE_STEEL: rgb(140, 140, 158);
-  --TYPE_FAIRY: rgb(214, 133, 173);
-  --gradientTYPE_NORMAL: rgba(168, 167, 122, 0.4);
-  --gradientTYPE_FIRE: rgba(238, 129, 48, 0.4);
-  --gradientTYPE_WATER: rgba(99, 144, 240, 0.4);
-  --gradientTYPE_ELECTRIC: rgba(207, 154, 9, 0.4);
-  --gradientTYPE_GRASS: rgba(98, 161, 61, 0.4);
-  --gradientTYPE_ICE: rgba(101, 161, 158, 0.4);
-  --gradientTYPE_FIGHTING: rgba(194, 46, 40, 0.4);
-  --gradientTYPE_POISON: rgba(163, 62, 161, 0.4);
-  --gradientTYPE_GROUND: rgba(177, 149, 79, 0.4);
-  --gradientTYPE_FLYING: rgba(133, 113, 190, 0.4);
-  --gradientTYPE_PSYCHIC: rgba(249, 85, 135, 0.4);
-  --gradientTYPE_BUG: rgba(128, 143, 19, 0.4);
-  --gradientTYPE_ROCK: rgba(182, 161, 54, 0.4);
-  --gradientTYPE_GHOST: rgba(115, 87, 151, 0.4);
-  --gradientTYPE_DRAGON: rgba(111, 53, 252, 0.4);
-  --gradientTYPE_DARK: rgba(112, 87, 70, 0.4);
-  --gradientTYPE_STEEL: rgba(140, 140, 158, 0.4);
-  --gradientTYPE_FAIRY: rgba(214, 133, 173, 0.4);
-  --gradientTYPE_NORMALend: rgba(168, 167, 122, 0.1);
-  --gradientTYPE_FIREend: rgba(238, 129, 48, 0.1);
-  --gradientTYPE_WATERend: rgba(99, 144, 240, 0.1);
-  --gradientTYPE_ELECTRICend: rgba(207, 154, 9, 0.1);
-  --gradientTYPE_GRASSend: rgba(98, 161, 61, 0.1);
-  --gradientTYPE_ICEend: rgba(101, 161, 158, 0.1);
-  --gradientTYPE_FIGHTINGend: rgba(194, 46, 40, 0.1);
-  --gradientTYPE_POISONend: rgba(163, 62, 161, 0.1);
-  --gradientTYPE_GROUNDend: rgba(177, 149, 79, 0.1);
-  --gradientTYPE_FLYINGend: rgba(133, 113, 190, 0.1);
-  --gradientTYPE_PSYCHICend: rgba(249, 85, 135, 0.1);
-  --gradientTYPE_BUGend: rgba(128, 143, 19, 0.1);
-  --gradientTYPE_ROCKend: rgba(182, 161, 54, 0.1);
-  --gradientTYPE_GHOSTend: rgba(115, 87, 151, 0.1);
-  --gradientTYPE_DRAGONend: rgba(111, 53, 252, 0.1);
-  --gradientTYPE_DARKend: rgba(112, 87, 70, 0.1);
-  --gradientTYPE_STEELend: rgba(140, 140, 158, 0.1);
-  --gradientTYPE_FAIRYend: rgba(214, 133, 173, 0.1);
-  --gradientTYPE: rgba(40, 40, 40, 0.5);
+  --TYPE_NORMAL: 157, 157, 113;
+  --TYPE_FIRE: 238, 129, 48;
+  --TYPE_WATER: 99, 144, 240;
+  --TYPE_ELECTRIC: 207, 154, 9;
+  --TYPE_GRASS: 98, 161, 61;
+  --TYPE_ICE: 101, 161, 158;
+  --TYPE_FIGHTING: 194, 46, 40;
+  --TYPE_POISON: 160, 64, 160;
+  --TYPE_GROUND: 177, 149, 79;
+  --TYPE_FLYING: 135, 118, 183;
+  --TYPE_PSYCHIC: 229, 85, 125;
+  --TYPE_BUG: 128, 143, 19;
+  --TYPE_ROCK: 184, 160, 56;
+  --TYPE_GHOST: 115, 87, 151;
+  --TYPE_DRAGON: 111, 53, 252;
+  --TYPE_DARK: 112, 87, 70;
+  --TYPE_STEEL: 150, 148, 166;
+  --TYPE_FAIRY: 214, 133, 173;
+  --blue-border: #335796;
 }
 
 * {
-font-family: Arial, sans-serif;
+  transition: background 0.2s ease-in-out;
 }
 
 body {
-  background: #232529;
+  font-family: 'Pragati Narrow', 'PT Sans Narrow', 'Roboto Condensed', 'Roboto', 'Fira Sans', Arial, sans-serif;
+  /*text-shadow: 0.35px 0.35px #000000bd;*/
+  line-height: 1;
+  font-size: 18.5px;
+  text-align: center;
   color: white;
-  margin: 0;
+  background: #1b1c1f;
 }
 
-footer > p {
-  text-align: center;
-}
-
-#tableButton, #tableInput, #tableFilter {
-  text-align: center;
-  padding: 0.5em 0em 0.5em 0em;
-}
-
-[class*="hide"] {
-display: none !important
-}
-
-.addFilterButton {
-  margin-bottom: 5px !important;
-  background: rgba(215, 212, 231, 0.2) !important;
-}
-
-button[type='button'] {
-background: rgba(215, 212, 231, 0.075);
-border: none;
-outline: none;
-color: white;
-padding: 0.5rem 0.75rem;
-border-radius: 3px;
-border: 1px solid gray;
-margin-top: 5px;
-}
-
-.activeButton {
-background: rgba(215, 212, 231, 0.4) !important;
-}
-
-#table > table > thead > tr > th {
-cursor: pointer;
-  background: rgba(215, 212, 231, 0.075); 
-  color: white; 
-  font-weight: bold; 
-  padding: 0.5rem 0.5rem;
-}
-
-.th-sort-asc::after {
-content: "\25b4";
-}
-
-.th-sort-desc::after {
-content: "\25be";
-}
-
-.th-sort-asc,
-.th-sort-desc {
-background: rgba(0, 0, 0, 0.1) !important;
-}
-
-h1, td, th {
-text-align: center;
-}
-
-tr, th {
-transition: background 0.2s ease-in-out;
-}
-
-
-:not(a) > tbody >tr:nth-of-type(odd), tbody > a:nth-of-type(odd) > tr {  
-  background-color: rgba(255,255,255,0.05);
-  border-top: 1px solid rgba(255,255,255,0.5);
-  border-bottom: 1px solid rgba(255,255,255,0.5);
-}
-
-:not(a) > tbody >tr:last-child, tbody > a > tr:last-child {  
-  border-top: 1px solid rgba(255,255,255,0.5);
-  border-bottom: 1px solid rgba(255,255,255,0.5);
-}
-
-input[type="search"] {
-padding: 0.5rem;
-border-radius: 3px;
-outline: none;
-border: 2px solid rgba(255, 255, 255, 0.226);
-box-sizing: border-box;
-background: none;
-color: white;
-transition: background 0.2s ease-in-out;
-font-weight: 600;
-width: 300px;
-}
-
-@media 
-only screen and (max-width: 350px) {
-  input[type="search"] {
-      width: 200px;
-  }
-}
-
-input[type="search"]:focus, input[type="search"]:hover {
-background: rgba(255, 255, 255, 0.144);
-}
-
-@media (hover: hover) {
-  #table > table > thead > tr > th:hover, #speciesPanelMainContainer th:hover, .trainerSpeciesSprite:hover {
-      background: rgba(113, 117, 126, 0.336);
-      cursor: pointer;
-  }
-  #speciesTableTbody tr:hover, #abilitiesTableTbody tr:hover, #movesTableTbody tr:hover, #locationsTableTbody tr:hover, 
-  #speciesPanelLevelUpTableTbody tr:hover, #speciesPanelTMHMTableTbody tr:hover, #speciesPanelTutorTableTbody tr:hover, #speciesPanelEggMovesTableTbody tr:hover {
-      background-color: rgba(129, 135, 156, 0.301);
-      cursor: pointer;
-  }
-  .utilityButton:hover, #speciesPanelCloseButton:hover {
-      background: salmon;
-      cursor: pointer;
-  }
-
-  button[type='button']:hover {
-      background: rgba(215, 212, 231, 0.3);
-  }
-
-  .tableFilter:hover {
-      background: rgba(215, 212, 231, 0.5) !important;
-  }
-
-  .crossOnHover:hover {
-      cursor: pointer;
-      text-decoration: line-through !important;
-      background: rgba(215, 212, 231, 0.5) !important;
-  }
-}
-
-.utilityButton {
-font-family: monospace;
-position: fixed;
-bottom: 5px;
-right: calc(50vw - 750px);
-background: red;
-width: 50px;
-height: 50px;
-display: flex;
-z-index: 2;
-justify-content: center;
-align-items: center;
-color: white;
-font-size: 1.5rem;
-text-decoration: none;
-border-radius: 50%;
-transition: 0.2s ease-in-out;
-filter: opacity(100%);
-}
-
-@media 
-only screen and (max-width: 1500px) {
-  .utilityButton {
-      right: 5px !important;
-  }
-}
-
-table {
-  margin: auto;
-  border-collapse: collapse;
-  box-shadow: 0 0 15px 0 rgba(27, 27, 27, 0.568);
-}
-
-#tableFilter {
-  max-width: 1000px;
-  margin: auto;
-}
-
-.tableFilter, .filter {
-  padding: 6px 12px 6px 12px;
-  margin: 1px 1px 1px 1px;
-  display: inline-block;
-  border-radius: 3px;
-  border: 1px solid gray;
-  background: rgba(215, 212, 231, 0.2) !important;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.filterListContainer {
-  margin-top: 12px;
-  margin-bottom: 12px;
-}
-
-.newFilter {
-  color: rgba(0, 0, 0, 0.5) !important;
-}
-
-.background {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  width: 4rem;
-  height: 23px;
-  border-radius: 5px;
-  font-weight: bold;
-  font-size: 0.6rem;
-  text-transform: uppercase;
-  text-shadow: 1px 1px #000000bd;
-  padding: 1px 2px 1px 2px;
-  font-family: sans-serif, Arial;
-}
-
-.background2 {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  width: 3rem;
-  height: 20px;
-  border-radius: 5px;
-  font-weight: bold;
-  font-size: 0.6rem;
-  text-transform: uppercase;
-  text-shadow: 1px 1px #000000bd;
-  padding: 0px 2px 0px 2px;
-  font-family: sans-serif, Arial;
-}
-
-.background3 {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2px;
-  border: none;
-  width: 3rem;
-  height: 20px;
-  border-radius: 5px;
-  font-weight: bold;
-  /*font-size: 0.6rem;*/
-  text-transform: uppercase;
-  text-shadow: 1px 1px #000000bd;
-  padding: 0px 2px 0px 2px;
-  font-family: sans-serif, Arial;
-}
-
-.background4 {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2px;
-  border: none;
-  width: 3.5rem;
-  height: 20px;
-  border-radius: 5px;
-  font-weight: bold;
-  font-size: 0.6rem;
-  text-transform: uppercase;
-  text-shadow: 1px 1px #000000bd;
-  padding: 0px 2px 0px 2px;
-  font-family: sans-serif, Arial;
-}
-
-@media
-only screen and (max-width: 500px) {
-#speciesDefensiveTypeChart .background3, #speciesDefensiveTypeChart .background2 {
-  width: 2rem;
-}
-
-  #speciesOffensiveTypeChart .background3, #speciesOffensiveTypeChart .background2 {
-  width: 2rem;
-}
-}
-
-.TYPE_NORMAL {background: var(--TYPE_NORMAL);}
-.TYPE_FIRE {background: var(--TYPE_FIRE);}
-.TYPE_WATER {background: var(--TYPE_WATER);}
-.TYPE_ELECTRIC {background: var(--TYPE_ELECTRIC);}
-.TYPE_GRASS {background: var(--TYPE_GRASS);}
-.TYPE_ICE {background: var(--TYPE_ICE);}
-.TYPE_FIGHTING {background: var(--TYPE_FIGHTING);}
-.TYPE_POISON {background: var(--TYPE_POISON);}
-.TYPE_GROUND {background: var(--TYPE_GROUND);}
-.TYPE_FLYING {background: var(--TYPE_FLYING);}
-.TYPE_PSYCHIC {background: var(--TYPE_PSYCHIC);}
-.TYPE_BUG {background: var(--TYPE_BUG);}
-.TYPE_ROCK {background: var(--TYPE_ROCK);}
-.TYPE_GHOST {background: var(--TYPE_GHOST);}
-.TYPE_DRAGON {background: var(--TYPE_DRAGON);}
-.TYPE_DARK {background: var(--TYPE_DARK);}
-.TYPE_STEEL {background: var(--TYPE_STEEL);}
-.TYPE_FAIRY {background: var(--TYPE_FAIRY);}
+.TYPE_NORMAL {background: rgb(var(--TYPE_NORMAL));}
+.TYPE_FIRE {background: rgb(var(--TYPE_FIRE));}
+.TYPE_WATER {background: rgb(var(--TYPE_WATER));}
+.TYPE_ELECTRIC {background: rgb(var(--TYPE_ELECTRIC));}
+.TYPE_GRASS {background: rgb(var(--TYPE_GRASS));}
+.TYPE_ICE {background: rgb(var(--TYPE_ICE));}
+.TYPE_FIGHTING {background: rgb(var(--TYPE_FIGHTING));}
+.TYPE_POISON {background: rgb(var(--TYPE_POISON));}
+.TYPE_GROUND {background: rgb(var(--TYPE_GROUND));}
+.TYPE_FLYING {background: rgb(var(--TYPE_FLYING));}
+.TYPE_PSYCHIC {background: rgb(var(--TYPE_PSYCHIC));}
+.TYPE_BUG {background: rgb(var(--TYPE_BUG));}
+.TYPE_ROCK {background: rgb(var(--TYPE_ROCK));}
+.TYPE_GHOST {background: rgb(var(--TYPE_GHOST));}
+.TYPE_DRAGON {background: rgb(var(--TYPE_DRAGON));}
+.TYPE_DARK {background: rgb(var(--TYPE_DARK));}
+.TYPE_STEEL {background: rgb(var(--TYPE_STEEL));}
+.TYPE_FAIRY {background: rgb(var(--TYPE_FAIRY));}
 
 .Physical {filter: brightness(200%);}
 .Special {filter: brightness(200%);}
@@ -362,12 +67,230 @@ only screen and (max-width: 500px) {
 
 .splitIcon {width: 40px;}
 
+.credits {
+  text-align: left !important;
+  margin: 10px;
+  font-size: 16px;
+  min-width: clamp(100px, 500px, 90%);
+}
 
-.modal {
-  background: #232529;
+#tableButton, #tableInput {
+  padding: 8px 0px 8px 0px;
+}
+
+#tableButton, #footerButtonContainer, #tableFilter {
+  user-select: none;
+}
+
+[class*="hide"] {
+  display: none !important
+}
+
+button[type='button'] {
+  width: 100px;
+  background: rgba(128, 127, 139, 0.01);
+  outline: none;
+  padding: 8px;
+  border: 2px solid var(--blue-border);
+  margin-top: 5px;
+  border-radius: 12px;
+  font-weight: bolder;
   color: white;
-  padding: 1em;
-  max-width: 50ch;
+  cursor: pointer;
+}
+
+.setting {
+  font-size: 12px !important;
+  width: revert !important;
+  border: 1px solid var(--theme-color) !important;
+  padding: 6px !important;
+  border-radius: 8px !important;
+  transition: background 0s ease-in-out !important;
+}
+
+.activeButton, .activeSetting {
+  background: rgba(255, 255, 255, 0.125) !important;
+}
+
+table {
+  margin: auto;
+  border-collapse: collapse;
+  box-shadow: 0 0 15px 0 rgba(255, 255, 255, 0.02);
+}
+
+thead {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+th {
+  font-weight: bold; 
+  padding: 5px 5px;
+}
+
+.th-sort-asc::after {
+  content: "\25b4";
+}
+
+.th-sort-desc::after {
+  content: "\25be";
+}
+
+.th-sort-asc, .th-sort-desc {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+tbody > tr:nth-of-type(even) {  
+  background: #212125;
+}
+
+tbody > tr:nth-of-type(odd) {  
+  background: #2e2e33;
+  border-top: 1px solid rgba(255,255,255,0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+tbody > tr:last-child {  
+  border-top: 1px solid rgba(255,255,255,0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+input[type="search"] {
+  height: 40px;
+  padding: 8px;
+  border-radius: 3px;
+  outline: none;
+  border: 2px solid var(--blue-border);
+  background: rgba(255, 255, 255, 0.045);
+  box-sizing: border-box;
+  color: white;
+  font-weight: bolder;
+  text-align: left !important;
+  width: 300px;
+}
+
+input[type="search"]:focus, input[type="search"]:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+@media 
+only screen and (max-width: 350px) {
+  input[type="search"] {
+      width: 200px;
+  }
+}
+
+@media (hover: hover) {
+  button[type='button']:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  .utilityButton:hover {
+    background: salmon;
+    cursor: pointer;
+}
+
+  .tableFilter:hover {
+    background: rgba(255, 255, 255, 0.35) !important;
+  }
+
+  .crossOnHover:hover {
+    cursor: pointer;
+    text-decoration: line-through !important;
+    background: rgba(215, 212, 231, 0.5) !important;
+  }
+}
+
+@media 
+only screen and (max-width: 1500px) {
+  .utilityButton {
+      right: 5px !important;
+  }
+}
+
+.utilityButton {
+  font-family: sans-serif, arial;
+  position: fixed;
+  bottom: 5px;
+  right: calc(50vw - 650px);
+  background: red;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  z-index: 9998;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.5rem;
+  text-decoration: none;
+  border-radius: 50%;
+  transition: 0.2s ease-in-out;
+  filter: opacity(100%);
+  user-select: none;
+}
+
+#tableFilter {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.tableFilter, .filter {
+  padding: 6px 12px 6px 12px;
+  margin: 1px 1px 1px 1px;
+  display: inline-block;
+  border-radius: 3px;
+  border: 1px solid gray;
+  background: rgba(215, 212, 231, 0.2) !important;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+.activeFilter, .filterListContainer {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.newFilter {
+  color: rgba(0, 0, 0, 0.55) !important;
+  text-shadow: none !important;
+  transition: background 0s ease-in-out !important;
+}
+
+.background {
+  transition: background 0s ease-in-out !important;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  height: 23px;
+  width: 60px;
+  border-radius: 5px;
+  font-weight: bolder;
+  font-size: 10px;
+  text-transform: uppercase;
+  text-shadow: 1.2px 1.2px #000000bd;
+  padding: 1px 2px 1px 2px;
+  font-family: sans-serif, Arial;
+}
+
+.backgroundSmall {
+  transition: background 0s ease-in-out !important;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  height: 18px;
+  width: 47.8px;
+  border-radius: 5px;
+  font-weight: bolder;
+  font-size: 10px;
+  text-transform: uppercase;
+  text-shadow: 1.2px 1.2px #000000bd;
+  padding: 1px 2px 1px 2px;
+  font-family: sans-serif, Arial;
+}
+
+#footerName {
+  font-size: revert !important;
 }
 
 .underline {
@@ -412,6 +335,11 @@ only screen and (max-width: 500px) {
 
 .reduceOpacity {
   opacity: 0.75;
+}
+
+.fixed {
+  overflow-y: hidden;
+  height: 100%;
 }
 
 #overlay {
@@ -477,7 +405,7 @@ only screen and (max-width: 500px) {
 }
 
 #popup li {
-  margin-bottom: 5px;
+  text-align: left !important;
 }
 
 #popup p {
@@ -498,7 +426,7 @@ only screen and (max-width: 500px) {
   display: flex;
   margin: auto;
   background-color: #303134;
-  border: 1px solid gray !important;
+  border: 2px solid gray !important;
   outline: none;
   color: white;
   padding: 0.5rem 0.75rem;
@@ -508,9 +436,4 @@ only screen and (max-width: 500px) {
 .popupFilterButton:hover {
   cursor: pointer;
   background: rgba(215, 212, 231, 0.4) !important;
-}
-
-.hrefContainer {
-  display: contents !important;
-  all: inherit
 }

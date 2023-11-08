@@ -148,8 +148,9 @@ function filterTrainersTableInput(input){
         //const compareTrainer = trainer.replaceAll(/ /g, "").toUpperCase()
         let compareArray = [compareZone, /*compareTrainer, */trainers[zone][trainer]["ingameName"].toUpperCase()]
         
-        for(let k = 0; k < trainers[zone][trainer]["party"][checkTrainerDifficulty(zone, trainer)].length; k++){
-            compareArray.push(trainers[zone][trainer]["party"][checkTrainerDifficulty(zone, trainer)][k]["name"])
+        const trainerDifficulty = checkTrainerDifficulty(zone, trainer)
+        for(let k = 0; k < trainers[zone][trainer]["party"][trainerDifficulty].length; k++){
+            compareArray.push(trainers[zone][trainer]["party"][trainerDifficulty][k]["name"])
         }
         for(let k = 0; k < arraySanitizedInput.length; k++){
             if(!compareArray.some(compareValue => compareValue.includes(arraySanitizedInput[k].toUpperCase()))){

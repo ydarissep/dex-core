@@ -1,5 +1,6 @@
-#speciesButton {
-    width: 100px;
+#speciesTableThead th:hover, #speciesTableTbody tr:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    cursor: pointer;
 }
 
 #speciesTableThead th.ID {
@@ -10,50 +11,49 @@
 	width: 64px;
 }
 #speciesTableThead th.species {
-	width: 310px;
+	width: 170px;
 }
 #speciesTableThead th.types {
 	width: 80px;
 }
 #speciesTableThead th.abilities {
-	width: 135px;
+	width: 130px;
 }
 #speciesTableThead th.innates {
     width: 130px;
 }
 #speciesTableThead th.baseHP {
-	width: 45px;
+	width: 40px;
 }
 #speciesTableThead th.baseAttack {
-	width: 45px;
+	width: 40px;
 }
 #speciesTableThead th.baseDefense {
-	width: 45px;
+	width: 40px;
 }
 #speciesTableThead th.baseSpAttack {
-	width: 45px;
+	width: 40px;
 }
 #speciesTableThead th.baseSpDefense {
-	width: 45px;
+	width: 40px;
 }
 #speciesTableThead th.baseSpeed {
-	width: 45px;
+	width: 40px;
 }
 #speciesTableThead th.BST {
-	width: 45px;
+	width: 40px;
+}
+
+#speciesTableTbody .nameContainer {
+    width: min-content;
 }
 
 #speciesTable .background {
-    margin: 2px auto;   
+    margin: 2px 0px 2px 0px;
 }
 
-.abilities :not(th) {
+.abilities:not(th), .innates:not(th) {
     font-style: italic;
-    font-size: 0.9rem;
-}
-
-.innates :not(th) {
-    font-size: 0.9rem;   
 }
 
 #speciesTableTbody .nameContainer {
@@ -61,27 +61,9 @@
 }
 
 .changelogAbilities {
-    font-size: 11px !important;
+    font-size: 13px !important;
     font-weight: bold;
     opacity: 75%;
-}
-
-#speciesTableTbody .sprite {
-    border-right: none !important;
-}
-#speciesTableTbody .nameContainer {
-    border-left: none !important;
-}
-
-#showOnlyChangedPokemonCheckbox {
-    margin-bottom: 10px;
-}
-
-#speciesFilterMainButton, #speciesFilterButton {
-    padding-bottom: 5px;
-}
-
-.changelogAbilities {
     color: #03a9f4;
 }
 
@@ -91,29 +73,10 @@
 
 @media 
 only screen and (max-width: 850px) {
-    #speciesTable, #speciesTableThead, #speciesTableTbody, #speciesTable td, #speciesTable tr { 
-        padding: 0.3rem 0;
+    #speciesTableThead {
         display: block;
-        border: none;
     }
-
-    #speciesTable th {
-        width: 60px !important;
-        font-size: 13px;
-    }
-
-    #speciesTableThead > tr {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(calc(60px + 1rem), 1fr));
-        justify-items: center;
-        gap: 3px;
-    }
-
-    td.ID, td.sprite, #speciesTableTbody td.nameContainer {
-    	display: inline-block !important;
-    	width: 33.3%;
-    	box-sizing: border-box;
-    }
+    
     .baseHPContainer, 
     .baseAttackContainer, 
     .baseDefenseContainer, 
@@ -121,27 +84,105 @@ only screen and (max-width: 850px) {
     .baseSpDefenseContainer,
     .baseSpeedContainer,
     .BSTContainer {
-    	display: inline-block !important;
-    	width: 14%;
+    	display: inline-block;
+    	width: 5.5%;
     	box-sizing: border-box;
     }
 
-    #speciesTable [class^="TYPE_"] {
-        display: inline-flex !important;
-        font-weight: bold;
-    }
-    
-    .abilities div {
-        display: inline-block !important;
-        border: none;
-        padding: 0.2rem 2%;
-        font-style: italic;
+    #speciesTableTbody .sprite {
+        display: inline-block;
+    	width: 11.5%;
+    	box-sizing: border-box;
     }
 
-    .innates div {
+    #speciesTableTbody .types {
+        display: inline-block;
+    	width: 11.5%;
+    	box-sizing: border-box;
+    }
+
+    #speciesTableTbody .abilities, #speciesTableTbody .innates {
+        display: inline-block;
+    	width: 17.5%;
+    	box-sizing: border-box;
+    }
+
+    #speciesTableTbody .ID, #speciesTableTbody .nameContainer {
+        display: none;
+    }
+
+    /* ----------------------- no innates ----------------------- */
+    .noInnates .nameContainer {
         display: inline-block !important;
-        border: none;
-        padding: 0.2rem 2%;
-        font-style: italic;
-    }  
+        width: 15%;
+        box-sizing: border-box;
+    }
+
+    .noInnates .abilities {
+    	width: 20%;
+    }
+}
+
+@media 
+only screen and (max-width: 600px) {
+    .baseHPContainer, 
+    .baseAttackContainer, 
+    .baseDefenseContainer, 
+    .baseSpAttackContainer,
+    .baseSpDefenseContainer,
+    .baseSpeedContainer,
+    .BSTContainer {
+    	width: 14%;
+    }
+
+    #speciesTableTbody .sprite {
+    	width: 22%;
+    }
+
+    #speciesTableTbody .types {
+    	width: 20%;
+    }
+
+    #speciesTableTbody .abilities, #speciesTableTbody .innates {
+    	width: 29%;
+    }
+
+    /* ----------------------- no innates ----------------------- */
+    .noInnates .nameContainer {
+        width: 23% !important;
+    }
+
+    .noInnates .types {
+    	width: 20% !important;
+    }
+
+    .noInnates .sprite {
+        width: 20% !important;
+    }
+
+    .noInnates .abilities {
+    	width: 32% !important;
+    }
+}
+
+@media
+only screen and (max-width: 650px){
+    #speciesTable{
+        font-size: 16px !important;
+    }
+
+    #speciesTableTbody .background {
+        height: 20px !important;
+        width: 50px !important;
+        font-size: 8px;
+    }
+}
+
+@media 
+only screen and (max-width: 500px) {
+    #speciesTableThead th {
+        display: inline-block;
+        width: 43px !important;
+        font-size: 14.5px;
+    }
 }

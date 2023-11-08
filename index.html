@@ -8,6 +8,7 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <title>Yda Dex</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pragati+Narrow|PT+Sans+Narrow|Roboto+Condensed|Roboto|Fira+Sans">
   <link rel="icon" type="favicon" href="https://raw.githubusercontent.com/ydarissep/Dex-Helper/main/Pok%C3%A9_Ball_icon.ico">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="style/speciesTable.css">
@@ -60,183 +61,184 @@
 
 
 
-<body>
-  <div id="speciesPanelMainContainer" class="hide flex">
-   <div id="speciesPanelContainer" class="flex flexColumn">
-      <div id="speciesPanelSubcontainer1">
-        <span id="speciesName"></span>
-        <span id="speciesID"></span>
-        <button type="button" id="speciesPanelCloseButton" class="bold">X</button>
-        <input type="search" id="speciesPanelInputSpecies" list="speciesPanelInputSpeciesDataList">
-        <datalist id="speciesPanelInputSpeciesDataList"></datalist>
-      </div>
-      <div id="speciesPanelSubcontainer2" class="flex">
-        <img id="speciesSprite">
-        <div id="speciesPanelSubcontainer3">
-          <div id="speciesTypesMainContainer">
-            <span id="speciesTypesText" class="speciesPanelText">Types:</span>
-            <div id="speciesTypesContainer" class="flex speciesPanelTextPadding">
-              <span id="speciesType1"></span>
-              <span id="speciesType2"></span>
-              <span id="speciesType3"></span>
-            </div>
-          </div>
-          <div id="speciesHeldItemsContainer">
-          <div id="speciesHeldItemsText" class="speciesPanelText">Held Items:</div>
-          <div id="speciesHeldItems" class="flex flexColumn wrap speciesPanelTextPadding bold"></div>
+<body id="body">
+  <div id="overlaySpeciesPanel">
+    <div id="speciesPanelMainContainer" class="hide flex">
+    <div id="speciesPanelContainer" class="flex flexColumn">
+        <div id="speciesPanelSubcontainer1">
+          <span id="speciesName"></span>
+          <span id="speciesID"></span>
+          <input type="search" id="speciesPanelInputSpecies" list="speciesPanelInputSpeciesDataList">
+          <datalist id="speciesPanelInputSpeciesDataList"></datalist>
         </div>
-        <div id="speciesEggGroupsContainer">
-          <div id="speciesEggGroupsText" class="speciesPanelText">Egg Groups:</div>
-          <div id="speciesEggGroups" class="flex flexColumn wrap speciesPanelTextPadding bold"></div>
-        </div>
-        </div>
-      </div>
-      <div id="speciesAbilitiesMainContainer" class="speciesPanelTextPadding">
-            <span id="speciesAbilitiesText" class="speciesPanelText">Abilities:</span>
-            <div id="speciesAbilitiesContainer" class="speciesPanelTextPadding">
-              <span id="speciesAbilities"></span>
+        <div id="speciesPanelSubcontainer2" class="flex">
+          <img id="speciesSprite">
+          <div id="speciesPanelSubcontainer3">
+            <div id="speciesTypesMainContainer">
+              <span id="speciesTypesText" class="speciesPanelText">Types:</span>
+              <div id="speciesTypesContainer" class="flex speciesPanelTextPadding">
+                <span id="speciesType1"></span>
+                <span id="speciesType2"></span>
+                <span id="speciesType3"></span>
+              </div>
             </div>
+            <div id="speciesHeldItemsContainer">
+            <div id="speciesHeldItemsText" class="speciesPanelText">Held Items:</div>
+            <div id="speciesHeldItems" class="flex flexColumn wrap speciesPanelTextPadding bold"></div>
           </div>
-          <div id="speciesInnatesMainContainer" class="hide speciesPanelTextPadding">
-            <span id="speciesInnatesText" class="speciesPanelText">Innates:</span>
-            <div id="speciesInnatesContainer" class="speciesPanelTextPadding">
-              <span id="speciesInnates"></span>
+          <div id="speciesEggGroupsContainer">
+            <div id="speciesEggGroupsText" class="speciesPanelText">Egg Groups:</div>
+            <div id="speciesEggGroups" class="flex flexColumn wrap speciesPanelTextPadding bold"></div>
+          </div>
+          </div>
+        </div>
+        <div id="speciesAbilitiesMainContainer" class="speciesPanelTextPadding">
+              <span id="speciesAbilitiesText" class="speciesPanelText">Abilities:</span>
+              <div id="speciesAbilitiesContainer" class="speciesPanelTextPadding">
+                <span id="speciesAbilities"></span>
+              </div>
             </div>
-          </div>
-      <div id="speciesBaseStatsGraphContainer" class="flex">
-        <section id="statsSection" class="flex">
-          <div id="statsNames">
-            <p>HP:<span class="statsGraphHeader"></span></p>
-            <p>AtK:<span class="statsGraphHeader"></span></p>
-            <p>Def:<span class="statsGraphHeader"></span></p>
-            <p>SpA:<span class="statsGraphHeader"></span></p>
-            <p>SpD:<span class="statsGraphHeader"></span></p>
-            <p>Spe:<span class="statsGraphHeader"></span></p>
-            <p>BST:<span class="statsGraphHeader"></span></p>
-          </div>
-          <div id="statsGraph">
-            <div id="statsGraphHP"></div>
-            <div id="statsGraphAttack"></div>
-            <div id="statsGraphDefense"></div>
-            <div id="statsGraphSpAttack"></div>
-            <div id="statsGraphSpDefense"></div>
-            <div id="statsGraphSpeed"></div>
-            <div id="statsGraphBST"></div>
-          </div>
-        </section>
+            <div id="speciesInnatesMainContainer" class="hide speciesPanelTextPadding">
+              <span id="speciesInnatesText" class="speciesPanelText">Innates:</span>
+              <div id="speciesInnatesContainer" class="speciesPanelTextPadding">
+                <span id="speciesInnates"></span>
+              </div>
+            </div>
+        <div id="speciesBaseStatsGraphContainer" class="flex">
+          <section id="statsSection" class="flex">
+            <div id="statsNames">
+              <p>HP:<span class="statsGraphHeader"></span></p>
+              <p>AtK:<span class="statsGraphHeader"></span></p>
+              <p>Def:<span class="statsGraphHeader"></span></p>
+              <p>SpA:<span class="statsGraphHeader"></span></p>
+              <p>SpD:<span class="statsGraphHeader"></span></p>
+              <p>Spe:<span class="statsGraphHeader"></span></p>
+              <p>BST:<span class="statsGraphHeader"></span></p>
+            </div>
+            <div id="statsGraph">
+              <div id="statsGraphHP"></div>
+              <div id="statsGraphAttack"></div>
+              <div id="statsGraphDefense"></div>
+              <div id="statsGraphSpAttack"></div>
+              <div id="statsGraphSpDefense"></div>
+              <div id="statsGraphSpeed"></div>
+              <div id="statsGraphBST"></div>
+            </div>
+          </section>
+        </div>
+        <div id="speciesChangesContainer" class="hide">
+          <div id="speciesChangesText" class="speciesPanelText">Changes:</div>
+          <div id="speciesChanges" class="speciesPanelTextPadding"></div>
+        </div>
+        <div id="speciesEvolutionsMainContainer">
+          <div id="speciesEvolutionsText" class="speciesPanelText">Evolution:</div>
+          <table id="speciesEvoTableContainer"><tbody><tr id="speciesEvoTable"></tr></tbody></table>
+        </div>
+        <div id="speciesFormesContainer">
+          <div id="speciesFormesText" class="speciesPanelText">Formes:</div>
+          <div id="speciesFormes" class="flex wrap"></div>
+        </div>
+        <div id="speciesDefensiveTypeChartContainer" class="flex flexCenter flexColumn">
+          <div class="bold">Defensive</div>
+          <div id="speciesDefensiveTypeChart" class="flex wrap"></div>
+        </div>
+        <div id="recommendedCoverageContainer">
+          <div class="bold">Coverage</div>
+          <div id="recommendedCoverage" class="bold flexCenter flex"></div>
+        </div>
+        <div id="speciesOffensiveTypeChartContainer" class="flex flexCenter flexColumn">
+          <div class="bold">Offensive</div>
+          <div id="speciesOffensiveTypeChart" class="flex wrap"></div>
+        </div>
+        <div id="speciesStrategiesContainer">
+          <h2 class="strategyName">Strategies</h2>
+          <div id="speciesStrategies"></div>
+        </div>
+        <div id="speciesPanelTablesContainer">
+          <table id="speciesPanelLevelUpFromPreviousEvoTable" class="speciesPanelLearnsetsTableMargin">
+            <caption class="bold">Level-Up From Previous Evolution</caption>
+            <thead id="speciesPanelLevelUpFromPreviousEvoTableTHead">
+              <tr>
+                <!-- <th>Level</th> -->
+                <th>Name</th>
+                <th>Type</th>
+                <th>Split</th>
+                <th class="speciesPanelLearnsetsPower">Power</th>
+                <th class="speciesPanelLearnsetsAccuracy">Acc</th>
+                <th class="speciesPanelLearnsetsPP">PP</th>
+                <th class="speciesPanelLearnsetsEffect">Effect</th>
+              </tr>
+            </thead>
+            <tbody id="speciesPanelLevelUpTableTbody"></tbody>
+          </table>
+          <table id="speciesPanelLevelUpTable" class="speciesPanelLearnsetsTableMargin">
+            <caption class="bold">Level-Up</caption>
+            <thead id="speciesPanelLevelUpTableTHead">
+              <tr>
+                <th>Level</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Split</th>
+                <th class="speciesPanelLearnsetsPower">Power</th>
+                <th class="speciesPanelLearnsetsAccuracy">Acc</th>
+                <th class="speciesPanelLearnsetsPP">PP</th>
+                <th class="speciesPanelLearnsetsEffect">Effect</th>
+              </tr>
+            </thead>
+            <tbody id="speciesPanelLevelUpTableTbody"></tbody>
+          </table>
+          <table id="speciesPanelTMHMTable" class="speciesPanelLearnsetsTableMargin">
+            <caption class="bold">TM/HM</caption>
+            <thead id="speciesPanelTMHMTableTHead">
+              <tr>
+                <!-- <th>TM</th> -->
+                <th>Name</th>
+                <th>Type</th>
+                <th>Split</th>
+                <th class="speciesPanelLearnsetsPower">Power</th>
+                <th class="speciesPanelLearnsetsAccuracy">Acc</th>
+                <th class="speciesPanelLearnsetsPP">PP</th>
+                <th class="speciesPanelLearnsetsEffect">Effect</th>
+              </tr>
+            </thead>
+            <tbody id="speciesPanelTMHMTableTbody"></tbody>
+          </table>
+          <table id="speciesPanelTutorTable" class="speciesPanelLearnsetsTableMargin">
+            <caption class="bold">Tutor</caption>
+            <thead id="speciesPanelTutorTableTHead">
+              <tr>
+                <!-- <th>Tutor</th> -->
+                <th>Name</th>
+                <th>Type</th>
+                <th>Split</th>
+                <th class="speciesPanelLearnsetsPower">Power</th>
+                <th class="speciesPanelLearnsetsAccuracy">Acc</th>
+                <th class="speciesPanelLearnsetsPP">PP</th>
+                <th class="speciesPanelLearnsetsEffect">Effect</th>
+              </tr>
+            </thead>
+            <tbody id="speciesPanelTutorTableTbody"></tbody>
+          </table>
+          <table id="speciesPanelEggMovesTable" class="speciesPanelLearnsetsTableMargin">
+            <caption class="bold">Egg Moves</caption>
+            <thead id="speciesPanelEggMovesTableTHead">
+              <tr>
+                <th class="hide">Hide</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Split</th>
+                <th class="speciesPanelLearnsetsPower">Power</th>
+                <th class="speciesPanelLearnsetsAccuracy">Acc</th>
+                <th class="speciesPanelLearnsetsPP">PP</th>
+                <th class="speciesPanelLearnsetsEffect">Effect</th>
+              </tr>
+            </thead>
+            <tbody id="speciesPanelEggMovesTableTbody"></tbody>
+          </table>
+        </div>
       </div>
-      <div id="speciesChangesContainer" class="hide">
-        <div id="speciesChangesText" class="speciesPanelText">Changes:</div>
-        <div id="speciesChanges" class="speciesPanelTextPadding"></div>
-      </div>
-      <div id="speciesEvolutionsMainContainer">
-        <div id="speciesEvolutionsText" class="speciesPanelText">Evolution:</div>
-        <table id="speciesEvoTableContainer"><tbody><tr id="speciesEvoTable"></tr></tbody></table>
-      </div>
-      <div id="speciesFormesContainer">
-        <div id="speciesFormesText" class="speciesPanelText">Formes:</div>
-        <div id="speciesFormes" class="flex wrap"></div>
-      </div>
-      <div id="speciesDefensiveTypeChartContainer" class="flex flexCenter flexColumn">
-        <div class="bold">Defensive</div>
-        <div id="speciesDefensiveTypeChart" class="flex wrap"></div>
-      </div>
-      <div id="recommendedCoverageContainer">
-        <div class="bold">Coverage</div>
-        <div id="recommendedCoverage" class="bold flexCenter flex"></div>
-      </div>
-      <div id="speciesOffensiveTypeChartContainer" class="flex flexCenter flexColumn">
-        <div class="bold">Offensive</div>
-        <div id="speciesOffensiveTypeChart" class="flex wrap"></div>
-      </div>
-      <div id="speciesStrategiesContainer">
-        <h2 class="strategyName">Strategies</h2>
-        <div id="speciesStrategies"></div>
-      </div>
-      <div id="speciesPanelTablesContainer">
-        <table id="speciesPanelLevelUpFromPreviousEvoTable" class="speciesPanelLearnsetsTableMargin">
-          <caption class="bold">Level-Up From Previous Evolution</caption>
-          <thead id="speciesPanelLevelUpFromPreviousEvoTableTHead">
-            <tr>
-              <!-- <th>Level</th> -->
-              <th>Name</th>
-              <th>Type</th>
-              <th>Split</th>
-              <th class="speciesPanelLearnsetsPower">Power</th>
-              <th class="speciesPanelLearnsetsAccuracy">Acc</th>
-              <th class="speciesPanelLearnsetsPP">PP</th>
-              <th class="speciesPanelLearnsetsEffect">Effect</th>
-            </tr>
-          </thead>
-          <tbody id="speciesPanelLevelUpTableTbody"></tbody>
-        </table>
-        <table id="speciesPanelLevelUpTable" class="speciesPanelLearnsetsTableMargin">
-          <caption class="bold">Level-Up</caption>
-          <thead id="speciesPanelLevelUpTableTHead">
-            <tr>
-              <th>Level</th>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Split</th>
-              <th class="speciesPanelLearnsetsPower">Power</th>
-              <th class="speciesPanelLearnsetsAccuracy">Acc</th>
-              <th class="speciesPanelLearnsetsPP">PP</th>
-              <th class="speciesPanelLearnsetsEffect">Effect</th>
-            </tr>
-          </thead>
-          <tbody id="speciesPanelLevelUpTableTbody"></tbody>
-        </table>
-        <table id="speciesPanelTMHMTable" class="speciesPanelLearnsetsTableMargin">
-          <caption class="bold">TM/HM</caption>
-          <thead id="speciesPanelTMHMTableTHead">
-            <tr>
-              <!-- <th>TM</th> -->
-              <th>Name</th>
-              <th>Type</th>
-              <th>Split</th>
-              <th class="speciesPanelLearnsetsPower">Power</th>
-              <th class="speciesPanelLearnsetsAccuracy">Acc</th>
-              <th class="speciesPanelLearnsetsPP">PP</th>
-              <th class="speciesPanelLearnsetsEffect">Effect</th>
-            </tr>
-          </thead>
-          <tbody id="speciesPanelTMHMTableTbody"></tbody>
-        </table>
-        <table id="speciesPanelTutorTable" class="speciesPanelLearnsetsTableMargin">
-          <caption class="bold">Tutor</caption>
-          <thead id="speciesPanelTutorTableTHead">
-            <tr>
-              <!-- <th>Tutor</th> -->
-              <th>Name</th>
-              <th>Type</th>
-              <th>Split</th>
-              <th class="speciesPanelLearnsetsPower">Power</th>
-              <th class="speciesPanelLearnsetsAccuracy">Acc</th>
-              <th class="speciesPanelLearnsetsPP">PP</th>
-              <th class="speciesPanelLearnsetsEffect">Effect</th>
-            </tr>
-          </thead>
-          <tbody id="speciesPanelTutorTableTbody"></tbody>
-        </table>
-        <table id="speciesPanelEggMovesTable" class="speciesPanelLearnsetsTableMargin">
-          <caption class="bold">Egg Moves</caption>
-          <thead id="speciesPanelEggMovesTableTHead">
-            <tr>
-              <th class="hide">Hide</th>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Split</th>
-              <th class="speciesPanelLearnsetsPower">Power</th>
-              <th class="speciesPanelLearnsetsAccuracy">Acc</th>
-              <th class="speciesPanelLearnsetsPP">PP</th>
-              <th class="speciesPanelLearnsetsEffect">Effect</th>
-            </tr>
-          </thead>
-          <tbody id="speciesPanelEggMovesTableTbody"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>  
+    </div>  
+  </div>
   
   
   
@@ -300,20 +302,12 @@
   
       <div id="speciesFilter" class="activeFilter">
   
-        <div>
-          <label for="patchnoteModeCheckbox">Changelog Mode</label>
-          <input type="checkbox" id="patchnoteModeCheckbox">
-        </div>
-  
-        <div>
-          <label for="onlyShowChangedPokemonCheckbox">Only show changed Pokemon</label>
-          <input type="checkbox" id="onlyShowChangedPokemonCheckbox">
-        </div>
-  
-        <div id="strategyCheckbox">
-          <label for="onlyShowStrategyPokemonCheckbox">Only show Pokemon with a strategy</label>
-          <input type="checkbox" id="onlyShowStrategyPokemonCheckbox">
-        </div>
+        <button id="changelogMode" type="button" class="setting">Changelog</button>
+        
+        <button id="onlyShowChangedPokemon" type="button" class="setting">Changed</button>
+
+        <button id="onlyShowStrategyPokemon" type="button" class="setting">Strategy</button>
+
         <div id="speciesFilterList" class="filterList"></div>
         <div id="speciesFilterContainer" class="filterContainer"></div>
       </div>
@@ -398,7 +392,7 @@
       </table>
 
       <table id="trainersTable" class="hide">
-        <thead id="difficultyCheckboxContainer"></thead>
+        <thead id="difficultyButtonContainer"></thead>
         <tbody id="trainersTableTbody"></tbody>
       </table>
     </div>
@@ -409,30 +403,12 @@
   
   <footer id="footer" class="flex flexCenter flexColumn">
     <h1 id="footerName">Ydarissep Pokedex</h1>
-  
     <noscript>This page requires JavaScript.</noscript>
-    
-    <button type="button" id="openCredits" class="hide">Credits</button>
-    <dialog class="modal hide" id="modal">
-      <ul>  
-        <li>Credit to ris#0001 for
-          <ul>
-            <li>Night theme</li>
-            <li>Sprite background removal function</li>
-            <li>Back to top button</li>
-            <li>Species stats graph</li>
-            <li>Helping with CSS</li>
-            <li>Bitching and moaning about my CSS while this is literally my first ever website.</li>
-          </ul>  
-        </li>
-      </li>  
-      </ul>
-      <button type="button" id="closeCredits">OK</button>
-    </dialog>
-  
-    <button type="button" id="update" class="hide">Update</button>
-    <button type="button" id="backup" class="hide">Backup</button>
-    
+    <div id="footerButtonContainer">
+      <button type="button" id="credits" class="hide">Credits</button> 
+      <button type="button" id="update" class="hide">Update</button>
+      <button type="button" id="backup" class="hide">Backup</button>
+    </div>
   </footer>
   
   </html>

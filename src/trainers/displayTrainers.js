@@ -89,8 +89,8 @@ function appendTrainersToTable(key){
 function createTrainerSpeciesTbody(trainerObj, key){
     const trainerTbody = document.createElement("tbody"); trainerTbody.className = "trainerTbody"
     let difficulty = "Normal"
-    if(trainerObj["party"][returnDifficulty()]){
-        difficulty = returnDifficulty()
+    if(trainerObj["party"][trainersDifficulty]){
+        difficulty = trainersDifficulty
     }
 
     for(let i = 0; i < trainerObj["party"][difficulty].length; i++){
@@ -103,9 +103,8 @@ function createTrainerSpeciesTbody(trainerObj, key){
         speciesSpriteContainer.append(speciesSprite)
         trainerSpeciesContainer.append(speciesSpriteContainer)
         speciesSpriteContainer.addEventListener("click", () => {
-            scrollToSpecies = key
             createSpeciesPanel(trainerSpeciesObj["name"])
-            window.scrollTo(0, 0)
+            document.getElementById("speciesPanelMainContainer").scrollIntoView(true)
         })
 
         const trainerSpeciesAbility = document.createElement("div"); trainerSpeciesAbility.innerText = abilities[species[trainerSpeciesObj["name"]]["abilities"][trainerSpeciesObj["ability"]]]["ingameName"]; trainerSpeciesAbility.className = "hyperlink bold trainerSpeciesAbility"
@@ -147,12 +146,12 @@ function returnMovesObj(trainerSpeciesObj){
     for(let i = 0; i < trainerSpeciesObj["moves"].length; i++){
         if(trainerSpeciesObj["moves"][i] != "MOVE_NONE"){
             const trainerSpeciesMoveContainer = document.createElement("div")
-            const trainerSpeciesMoveType = document.createElement("span"); trainerSpeciesMoveType.innerText = sanitizeString(moves[trainerSpeciesObj["moves"][i]]["type"]); trainerSpeciesMoveType.className = `background2 ${moves[trainerSpeciesObj["moves"][i]]["type"]} trainersSpeciesMoveType`
+            const trainerSpeciesMoveType = document.createElement("span"); trainerSpeciesMoveType.innerText = sanitizeString(moves[trainerSpeciesObj["moves"][i]]["type"]).slice(0,3); trainerSpeciesMoveType.className = `backgroundSmall ${moves[trainerSpeciesObj["moves"][i]]["type"]} trainersSpeciesMoveType`
             const trainerSpeciesMoveName = document.createElement("span"); trainerSpeciesMoveName.className = "trainerSpeciesMoveName hyperlink"
 
             let moveName = moves[trainerSpeciesObj["moves"][i]]["ingameName"]
             let resized = false
-            while(getTextWidth(moveName + ".") >= 96){
+            while(getTextWidth(moveName + ".") >= 90){
                 moveName = moveName.slice(0, -1)
                 resized = true
             }
@@ -441,23 +440,12 @@ function replaceTbody(key, zone, trainer){
     
 }
 
-function returnDifficulty(){
-    let difficulty = "Normal"
-    Array.from(difficultyCheckboxContainer.getElementsByTagName("input")).forEach(difficultyCheckbox => {
-        if(difficultyCheckbox.checked){
-            difficulty = difficultyCheckbox.id.replace(/^difficulty/, "")
-        }
-    })
-
-    return difficulty
-}
-
 
 
 
 function checkTrainerDifficulty(zone, trainer){
-    if(trainers[zone][trainer]["party"][returnDifficulty()]){
-        return returnDifficulty()
+    if(trainers[zone][trainer]["party"][trainersDifficulty]){
+        return trainersDifficulty
     }
     else{
         return "Normal"

@@ -371,7 +371,7 @@ function createFilterGroup(values, labelValue, tableFilterListArray, operator = 
             valueContainer.innerText = value
             valueContainer.className = "filterValue"
             if(labelValue.includes("Type")){
-                valueContainer.className = `TYPE_${value.toUpperCase()} background4 filterValue`
+                valueContainer.className = `TYPE_${value.toUpperCase()} background filterValue`
             }
 
             container.append(label)

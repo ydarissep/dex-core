@@ -1,5 +1,31 @@
+#trainersTable .setting:hover {
+    background: none;
+}
+
+.trainerSpeciesSprite:hover, #trainersTable .activeSetting {
+    background: rgba(255, 255, 255, 0.2) !important;
+    cursor: pointer;
+}
+
 #trainersTable {
     box-shadow: none !important;
+}
+
+#difficultyButtonContainer {
+    background: none !important;
+}
+
+#difficultyButtonContainer .setting {
+    font-size: 15px !important;
+    margin-bottom: 10px;
+}
+
+.trainerTbody td {
+    text-align: center;
+}
+
+.trainerTbody {
+    text-align: left !important;
 }
 
 #trainersTable > tbody > table > thead > th {
@@ -11,7 +37,7 @@
 #trainersTable > tbody > table > thead {
     display: block !important;
     background: rgba(0, 0, 0, 0.15) !important;
-    font-size: 20px;
+    font-size: 22px;
 }
 
 #trainersTable > tbody > table {
@@ -28,7 +54,7 @@
 #trainersTable > tbody > table > tbody > td {
     border: 2px solid rgba(85, 85, 85);
     width: 16.66%;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     box-sizing: border-box;
     display: inline-block !important;
@@ -36,8 +62,8 @@
     white-space: nowrap;
 }
 
-#difficultyCheckboxContainer {
-    text-align: center;
+#trainersTable .backgroundSmall {
+    width: 32px;
 }
 
 .trainerSpeciesSprite {
@@ -46,6 +72,7 @@
 
 .trainerRematchContainer {
     padding-bottom: 10px;
+    transition: background 0s ease-in-out !important;
 }
 
 .trainerRematchMatch {
@@ -60,6 +87,7 @@
     color: black;
     border: 1px solid gray;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .trainerRematch:hover {
@@ -92,14 +120,8 @@
     margin-bottom: 10px;
 }
 
-.dottedUnderline {
-    text-decoration-line: underline !important;
-    text-decoration-style: dotted !important;
-    cursor: pointer;
-}
-
 .trainerSpeciesStat {
-    font-size: 13px;
+    font-size: 15px;
     display: table-cell;
     width: 16.66%;
 }
@@ -141,20 +163,23 @@ only screen and (max-width: 1000px) {
         width: unset;
     }
 
-    #trainersTable > tbody > table > tbody > td, .trainerSpeciesStat {
-        font-size: min(max(2.5vw, 11px), 14px) !important;
+    #trainersTable > tbody > table > tbody > td {
+        font-size: min(max(2.5vw, 15px), 17px) !important;
     }
 }
 
 @media 
 only screen and (max-width: 400px) {
-    .trainersSpeciesMoveType {
-        font-size: 7px !important;
-        width: 2.2rem !important;
+    .trainerSpeciesStat, .trainerSpeciesIVs {
+        font-size: 14px;
     }
 
-    #trainersTable > tbody > table > tbody > td, .trainerSpeciesStat {
-        font-size: 10px !important;
+    .trainerSpeciesMoveName {
+        font-size: 13.5px;
+    }
+
+    #trainersTable .backgroundSmall {
+        width: 25px !important;
     }
 }
 

@@ -9,7 +9,6 @@ function appendMovesToTable(moveName){
     let row = document.createElement("tr")
 
     row.setAttribute("id", `${moveName}`)
-    row.style.backgroundImage = `linear-gradient(to right, var(--gradient${moves[moveName]["type"]}end), var(--gradient${moves[moveName]["type"]}))`
 
     if(moves[moveName]["ID"]){
         let movesID = document.createElement("td")

@@ -1,8 +1,8 @@
 window.tracker
 window.panelSpecies = ""
-window.scrollToSpecies = ""
 window.historyObj = []
 window.timeout = false
+window.trainersDifficulty = "Normal"
 
 
 
@@ -11,18 +11,18 @@ window.tableFilter = document.getElementById("tableFilter")
 
 
 
-window.openCredits = document.getElementById("openCredits")
-window.closeCredits = document.getElementById("closeCredits")
+window.body = document.getElementById("body")
+window.credits = document.getElementById("credits")
 window.modal = document.getElementById("modal")
 window.update = document.getElementById("update")
 window.backup = document.getElementById("backup")
 window.overlay = document.getElementById('overlay')
+window.overlaySpeciesPanel = document.getElementById('overlaySpeciesPanel')
 window.popup = document.getElementById('popup')
 
-window.patchnoteModeCheckbox = document.getElementById("patchnoteModeCheckbox")
-window.onlyShowChangedPokemonCheckbox = document.getElementById("onlyShowChangedPokemonCheckbox")
-window.onlyShowStrategyPokemonCheckbox = document.getElementById("onlyShowStrategyPokemonCheckbox")
-window.strategyCheckbox = document.getElementById("strategyCheckbox")
+window.changelogMode = document.getElementById("changelogMode")
+window.onlyShowChangedPokemon = document.getElementById("onlyShowChangedPokemon")
+window.onlyShowStrategyPokemon = document.getElementById("onlyShowStrategyPokemon")
 
 
 
@@ -34,7 +34,6 @@ window.statDisplays = [...document.querySelectorAll(".statsGraphHeader")]
 
 
 window.speciesPanelMainContainer = document.getElementById("speciesPanelMainContainer")
-window.speciesPanelCloseButton = document.getElementById("speciesPanelCloseButton")
 window.speciesName = document.getElementById("speciesName")
 window.speciesID = document.getElementById("speciesID")
 window.speciesPanelInputSpecies = document.getElementById("speciesPanelInputSpecies")
@@ -108,7 +107,7 @@ window.movesInputDataList = document.getElementById("movesInputDataList")
 window.trainersInput = document.getElementById("trainersInput")
 window.trainersButton = document.getElementById("trainersButton")
 window.trainersTable = document.getElementById("trainersTable")
-window.difficultyCheckboxContainer = document.getElementById("difficultyCheckboxContainer")
+window.difficultyButtonContainer = document.getElementById("difficultyButtonContainer")
 window.trainersTableTbody = document.getElementById("trainersTableTbody")
 window.trainersFilter = document.getElementById("trainersFilter")
 
@@ -351,7 +350,6 @@ speciesPanelInputSpecies.addEventListener("input", e => {
     if(speciesIngameNameArray.includes(value)){
         const species = `SPECIES_${value.replaceAll(" ", "_").toUpperCase()}`
         createSpeciesPanel(species)
-        window.scrollTo(0, 0)
         speciesPanelInputSpecies.blur()
         speciesPanelInputSpecies.value = ""
     }
@@ -390,13 +388,16 @@ trainersButton.addEventListener("click", async () => {
 
 
 
-patchnoteModeCheckbox.addEventListener("change", e => {
+changelogMode.addEventListener("click", () => {
+    changelogMode.classList.toggle("activeSetting")
     lazyLoading(true)
 })
 
-onlyShowChangedPokemonCheckbox.addEventListener("change", e => {
+onlyShowChangedPokemon.addEventListener("click", () => {
+    onlyShowChangedPokemon.classList.toggle("activeSetting")
+
     for(let i = 0, j = speciesTracker.length; i < j; i++){
-        if(e.target.checked){
+        if(onlyShowChangedPokemon.classList.contains("activeSetting")){
             if(species[speciesTracker[i]["key"]]["changes"].length === 0){
                 speciesTracker[i]["filter"].push("changed")
             }
@@ -407,9 +408,10 @@ onlyShowChangedPokemonCheckbox.addEventListener("change", e => {
     }
     lazyLoading(true)
 })
-onlyShowStrategyPokemonCheckbox.addEventListener("change", e => {
+onlyShowStrategyPokemon.addEventListener("click", () => {
+    onlyShowStrategyPokemon.classList.toggle("activeSetting")
     for(let i = 0, j = speciesTracker.length; i < j; i++){
-        if(e.target.checked){
+        if(onlyShowStrategyPokemon.classList.contains("activeSetting")){
             if(!strategies[speciesTracker[i]["key"]]){
                 speciesTracker[i]["filter"].push("strategy")
             }
@@ -430,24 +432,16 @@ onlyShowStrategyPokemonCheckbox.addEventListener("change", e => {
 
 
 
-openCredits.addEventListener("click", () => {
-    modal.classList.remove("hide")
-    if(typeof document.createElement('dialog').showModal === 'function'){
-        modal.showModal()
+credits.addEventListener("click", () => {
+    while(popup.firstChild){
+        popup.removeChild(popup.firstChild)
     }
-    else if(typeof document.createElement('dialog').show === 'function'){
-        modal.show()
-    }
+    const creditMainContainer = document.createElement("div")
+    const creditRis = document.createElement("div"); creditRis.className = "credits"; creditRis.innerText = `Credit to ris (previously ris#0000 on discord) for:\n- Night theme\n- Sprite background removal function\n- Red button design\n- Species stats graph\n- Helping with CSS\n- Bitching and moaning about my CSS while this is literally my first ever website.`
+    creditMainContainer.append(creditRis)
+    popup.append(creditMainContainer)
 
-})
-closeCredits.addEventListener("click", () => {
-    modal.classList.add("hide")
-    if(typeof document.createElement('dialog').close === 'function'){
-        modal.close()
-    }
-})
-speciesPanelCloseButton.addEventListener("click", () => {
-    speciesPanel("hide")
+    overlay.style.display = 'block'
 })
 
 
@@ -471,12 +465,12 @@ const options = {
 function footerIsTouching(entries){
     if(entries[0].isIntersecting){
         lazyLoading(false)
-        openCredits.classList.remove("hide")
+        credits.classList.remove("hide")
         update.classList.remove("hide")
         backup.classList.remove("hide")
     }
     else{
-        openCredits.classList.add("hide")   
+        credits.classList.add("hide")   
         update.classList.add("hide")
         backup.classList.add("hide")
     }
@@ -485,12 +479,10 @@ function footerIsTouching(entries){
 
 function speciesPanelIsTouching(entries){
     if(entries[0].isIntersecting){
-        utilityButton.innerText = "↓"
+        utilityButton.innerText = "X"
     }
     else{
-
         speciesPanel("hide")
-
         if(table.getBoundingClientRect().top < 0){
             utilityButton.innerText = "↑"
         }
@@ -514,7 +506,7 @@ function tableIsTouching(entries){
     }
 }
 
-function openCreditsIsTouching(entries){
+function CreditsIsTouching(entries){
     if(entries[0].isIntersecting){
         lazyLoading(false)
     }
@@ -529,8 +521,8 @@ observeTable.observe(document.getElementById("observerCheck"))
 const observeSpeciesPanel = new IntersectionObserver(speciesPanelIsTouching, options)
 observeSpeciesPanel.observe(speciesPanelMainContainer)
 
-const observeOpenCredits = new IntersectionObserver(openCreditsIsTouching, options)
-observeOpenCredits.observe(openCredits)
+const observeCredits = new IntersectionObserver(CreditsIsTouching, options)
+observeCredits.observe(credits)
 
 
 
@@ -544,29 +536,35 @@ document.addEventListener("keydown", e => {
         if(e.code === "Space"){
             e.preventDefault()
             utilityButtonOnClick()
+            if(typeof refreshURLParams !== "undefined"){
+                refreshURLParams()
+            }
         }    
         else if(e.code === "Enter" && panelSpecies !== ""){
             speciesPanel("toggle")
-            window.scrollTo({ top: 0})
+            if(typeof refreshURLParams !== "undefined"){
+                refreshURLParams()
+            }
         }
         else if(e.code === "Escape" || e.code === "Delete"){
             speciesPanel("hide")
+            if(typeof refreshURLParams !== "undefined"){
+                refreshURLParams()
+            }
         }
     }
 })
 function utilityButtonOnClick(){
-    if(utilityButton.innerText === "↓"){
-        speciesPanel("hide")
-        if(document.getElementById(`${scrollToSpecies}`)){
-            document.getElementById(`${scrollToSpecies}`).scrollIntoView({ block: "center" })
-        }
-    }
-    else if(utilityButton.innerText === "☰" && panelSpecies !== ""){
+    if(utilityButton.innerText === "☰" && panelSpecies !== ""){
         speciesPanel("show")
-        window.scrollTo({ top: 0})
+        document.getElementById("speciesPanelMainContainer").scrollIntoView(true)
+    }
+    else if(utilityButton.innerText === "X"){
+        speciesPanel("hide")
     }
     else{
         window.scrollTo({top: 0})
+        utilityButton.innerText = "☰"
     }
 }
 
@@ -575,6 +573,11 @@ function utilityButtonOnClick(){
 overlay.addEventListener('click', function (event) {
     if (event.target === overlay) {
         overlay.style.display = 'none'
+    }
+})
+overlaySpeciesPanel.addEventListener('click', function (event) {
+    if (event.target === overlaySpeciesPanel) {
+        speciesPanel("hide")
     }
 })
 
@@ -706,4 +709,10 @@ let fetchDatainterval = setInterval(function() {
     clearInterval(fetchDatainterval);
 
     fetchData(searchParams)
-}, 100) 
+}, 100)  
+
+}).catch(error => {
+	console.warn(error)
+})
+
+
