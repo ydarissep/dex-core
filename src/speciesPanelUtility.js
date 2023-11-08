@@ -58,9 +58,6 @@ async function createSpeciesPanel(name){
             if(i === 2){
                 abilityName.className = "bold"
             }
-            else{
-                abilityName.className = "italic"
-            }
 
             abilityName.classList.add("hyperlink")
 
@@ -98,8 +95,6 @@ async function createSpeciesPanel(name){
 
                 abilityName.innerText = abilities[ability]["ingameName"]
                 abilityDescription.innerText = abilities[ability]["description"]
-
-                abilityName.className = "italic"
 
                 abilityName.classList.add("hyperlink")
 

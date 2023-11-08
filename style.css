@@ -32,7 +32,6 @@ body {
   text-align: center;
   color: white;
   background: #1b1c1f;
-  letter-spacing: 0.3px;
 }
 
 .TYPE_NORMAL {background: rgb(var(--TYPE_NORMAL));}
@@ -296,10 +295,6 @@ only screen and (max-width: 1500px) {
   text-decoration: underline;
 }
 
-.italic {
-  font-style: italic;
-}
-
 .bold {
   font-weight: 700;
 }
@@ -396,7 +391,6 @@ only screen and (max-width: 1500px) {
 .popupTrainerMoveDescription {
   width: 250px;
   text-align: justify;
-  font-style: italic;
 }
 
 #popup ul {

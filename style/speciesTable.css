@@ -52,10 +52,6 @@
     margin: 2px 0px 2px 0px;
 }
 
-.abilities:not(th), .innates:not(th) {
-    font-style: italic;
-}
-
 #speciesTableTbody .nameContainer {
     font-weight: 700;
 }
