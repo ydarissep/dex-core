@@ -128,7 +128,7 @@ function appendSpeciesToTable(speciesName){
         row.append(innatesContainer)
     }
     else{
-        abilitiesContainer.classList.add("noInnates")
+        row.classList.add("noInnates")
     }
 
     let speciesObj = species[speciesName]
