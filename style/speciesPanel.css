@@ -249,7 +249,7 @@ only screen and (max-width: 500px) {
 
 #speciesPanelTablesContainer > table > thead > tr > th {
     background: rgba(215, 212, 231, 0.075); 
-    color: white; 
+    color: #f1f1f1; 
     font-weight: 700;
     padding: 0.5rem 0.5rem;
 }

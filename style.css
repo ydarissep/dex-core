@@ -29,7 +29,7 @@
     font-family: 'Roboto Condensed', 'Pragati Narrow', Arial, sans-serif;
     font-size: 18px;
     text-align: center;
-    color: white;
+    color: #f1f1f1;
     background: #1b1c1f;
   }
   
@@ -93,7 +93,7 @@
     margin-top: 5px;
     border-radius: 12px;
     font-weight: 700;
-    color: white;
+    color: #f1f1f1;
     cursor: pointer;
   }
   
@@ -160,7 +160,7 @@
     border: 2px solid var(--blue-border);
     background: rgba(255, 255, 255, 0.045);
     box-sizing: border-box;
-    color: white;
+    color: #f1f1f1;
     font-weight: 700;
     text-align: left !important;
     width: 300px;
@@ -217,7 +217,7 @@
     z-index: 9998;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: #f1f1f1;
     font-size: 1.5rem;
     text-decoration: none;
     border-radius: 50%;
@@ -420,7 +420,7 @@
     background-color: #303134;
     border: 2px solid gray !important;
     outline: none;
-    color: white;
+    color: #f1f1f1;
     padding: 0.5rem 0.75rem;
     border-radius: 3px;
   }

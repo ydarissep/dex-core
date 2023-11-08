@@ -77,7 +77,7 @@
 
 .trainerRematchMatch {
     background: #4CAF50 !important;
-    color: white;
+    color: #f1f1f1;
 }
 
 .trainerRematch {
@@ -92,12 +92,12 @@
 
 .trainerRematch:hover {
     background: rgba(215, 212, 231, 0.3) !important;
-    color: white;
+    color: #f1f1f1;
 }
 
 .activeRematch {
     background: rgba(215, 212, 231, 0.075) !important;
-    color: white;
+    color: #f1f1f1;
 }
 
 .activeRematch.trainerRematchMatch {
@@ -107,7 +107,7 @@
 }
 
 .trainerRematch.trainerRematchMatch {
-    color: white;
+    color: #f1f1f1;
 }
 
 .trainerRematch.trainerRematchMatch:hover {
