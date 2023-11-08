@@ -57,12 +57,12 @@
 }
 
 #speciesTableTbody .nameContainer {
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .changelogAbilities {
     font-size: 13px !important;
-    font-weight: bold;
+    font-weight: 700;
     opacity: 75%;
     color: #03a9f4;
 }

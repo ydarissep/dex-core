@@ -46,7 +46,7 @@
 .speciesPanelText {
 	margin-bottom: 5px;
 	font-size: 11.1pt !important;
-	font-weight: bold;
+	font-weight: 700;
 	color: var(--theme-color);	
 }
 
@@ -140,13 +140,13 @@
   justify-content: space-between;
   gap: 0.5rem;
   margin-right: 5px;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 
 
 .statsGraphHeader {
-  font-weight: 800;
+	font-weight: 700;
 }
 
 
@@ -250,7 +250,7 @@ only screen and (max-width: 500px) {
 #speciesPanelTablesContainer > table > thead > tr > th {
     background: rgba(215, 212, 231, 0.075); 
     color: white; 
-    font-weight: bold; 
+    font-weight: 700;
     padding: 0.5rem 0.5rem;
 }
 

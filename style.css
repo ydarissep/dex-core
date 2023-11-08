@@ -26,13 +26,13 @@
 }
 
 body {
-  font-family: 'Pragati Narrow', 'PT Sans Narrow', 'Roboto Condensed', 'Roboto', 'Fira Sans', Arial, sans-serif;
-  /*text-shadow: 0.35px 0.35px #000000bd;*/
+  font-family: 'Pragati Narrow', Arial, sans-serif;
   line-height: 1;
   font-size: 18.5px;
   text-align: center;
   color: white;
   background: #1b1c1f;
+  letter-spacing: 0.3px;
 }
 
 .TYPE_NORMAL {background: rgb(var(--TYPE_NORMAL));}
@@ -94,7 +94,7 @@ button[type='button'] {
   border: 2px solid var(--blue-border);
   margin-top: 5px;
   border-radius: 12px;
-  font-weight: bolder;
+  font-weight: 700;
   color: white;
   cursor: pointer;
 }
@@ -123,7 +123,7 @@ thead {
 }
 
 th {
-  font-weight: bold; 
+  font-weight: 700;
   padding: 5px 5px;
 }
 
@@ -163,7 +163,7 @@ input[type="search"] {
   background: rgba(255, 255, 255, 0.045);
   box-sizing: border-box;
   color: white;
-  font-weight: bolder;
+  font-weight: 700;
   text-align: left !important;
   width: 300px;
 }
@@ -240,7 +240,7 @@ only screen and (max-width: 1500px) {
   border-radius: 3px;
   border: 1px solid gray;
   background: rgba(215, 212, 231, 0.2) !important;
-  font-weight: bolder;
+  font-weight: 700;
   cursor: pointer;
 }
 
@@ -251,7 +251,6 @@ only screen and (max-width: 1500px) {
 
 .newFilter {
   color: rgba(0, 0, 0, 0.55) !important;
-  text-shadow: none !important;
   transition: background 0s ease-in-out !important;
 }
 
@@ -264,7 +263,7 @@ only screen and (max-width: 1500px) {
   height: 23px;
   width: 60px;
   border-radius: 5px;
-  font-weight: bolder;
+  font-weight: 700;
   font-size: 10px;
   text-transform: uppercase;
   text-shadow: 1.2px 1.2px #000000bd;
@@ -281,7 +280,7 @@ only screen and (max-width: 1500px) {
   height: 18px;
   width: 47.8px;
   border-radius: 5px;
-  font-weight: bolder;
+  font-weight: 700;
   font-size: 10px;
   text-transform: uppercase;
   text-shadow: 1.2px 1.2px #000000bd;
@@ -302,7 +301,7 @@ only screen and (max-width: 1500px) {
 }
 
 .bold {
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .wrap {
@@ -384,7 +383,7 @@ only screen and (max-width: 1500px) {
   padding-bottom: 15px;
   display: table-cell;
   width: 16.66%;
-  font-weight: bold;
+  font-weight: 700;
   white-space: nowrap;
   text-align: center;
 }
