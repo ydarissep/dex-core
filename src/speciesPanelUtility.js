@@ -1,6 +1,6 @@
 async function createSpeciesPanel(name){
-    speciesPanel("show")
     panelSpecies = name
+    speciesPanel("show")
 
     if(typeof refreshURLParams !== "undefined"){
         refreshURLParams()
@@ -161,7 +161,6 @@ async function createSpeciesPanel(name){
     }
 
     if(species[name]["evolutionLine"].length > 1){
-        speciesEvolutionsText.classList.remove("hide")
         let speciesArray = [species[name]["evolutionLine"][0]]
         let targetSpeciesArray = []
         const rootContainer = document.createElement("td")
@@ -178,10 +177,12 @@ async function createSpeciesPanel(name){
                     if(species[targetSpecies]["evolutionLine"].indexOf(targetSpecies) >= species[targetSpecies]["evolutionLine"].indexOf(species[targetSpecies]["evolution"][j][2])){ // prevent infinite loop (dialga)
                         break mainLoop
                     }
-                    speciesEvoTableContainer.append(createClickableImgAndName(species[targetSpecies]["evolution"][j][2], species[targetSpecies]["evolution"][j], false, false))
-                    speciesEvoTable.append(speciesEvoTableContainer)
+                    if(species[species[targetSpecies]["evolution"][j][2]]["baseSpeed"] > 0){
+                        speciesEvoTableContainer.append(createClickableImgAndName(species[targetSpecies]["evolution"][j][2], species[targetSpecies]["evolution"][j], false, false))
+                        speciesEvoTable.append(speciesEvoTableContainer)
 
-                    targetSpeciesArray.push(species[targetSpecies]["evolution"][j][2])
+                        targetSpeciesArray.push(species[targetSpecies]["evolution"][j][2])
+                    }
                 }
             }
 
@@ -191,8 +192,11 @@ async function createSpeciesPanel(name){
             targetSpeciesArray = []
         }
     }
+    if(speciesEvoTable.children.length <= 1){
+        speciesEvolutionsMainContainer.classList.add("hide")
+    }
     else{
-        speciesEvolutionsText.classList.add("hide")
+        speciesEvolutionsMainContainer.classList.remove("hide")
     }
 
     speciesEvoTable.style.display = "ruby"
@@ -219,7 +223,7 @@ async function createSpeciesPanel(name){
 
     if(species[name]["forms"].length > 1){
         for (let i = 0; i < species[name]["forms"].length; i++){
-            if(!species[name]["evolutionLine"].includes(species[name]["forms"][i]) || species[name]["forms"][i] === name){
+            if((!species[name]["evolutionLine"].includes(species[name]["forms"][i]) || species[name]["forms"][i] === name) && species[species[name]["forms"][i]]["baseSpeed"] > 0){
                 speciesFormes.append(createClickableImgAndName(species[name]["forms"][i]))
             }
         }
@@ -1250,7 +1254,7 @@ let interval = setInterval(function() {
 
 async function speciesPanel(param){  
     if(typeof speciesPanelMainContainer !== "undefined"){
-        if(param === "hide"){
+        if(param === "hide" || species[panelSpecies]["baseSpeed"] <= 0){
             body.classList.remove("fixed")
             overlaySpeciesPanel.style.display = "none"
             speciesPanelMainContainer.classList.add("hide")

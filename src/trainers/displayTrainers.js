@@ -95,37 +95,39 @@ function createTrainerSpeciesTbody(trainerObj, key){
 
     for(let i = 0; i < trainerObj["party"][difficulty].length; i++){
         const trainerSpeciesObj = trainerObj["party"][difficulty][i]
-        const trainerSpeciesContainer = document.createElement("td")
+        if(species[trainerSpeciesObj["name"]]["baseSpeed"] > 0){
+            const trainerSpeciesContainer = document.createElement("td")
 
-        const speciesSpriteContainer = document.createElement("div"); speciesSpriteContainer.className = "trainerSpeciesSprite"
-        let speciesName = trainerSpeciesObj["name"]
-        const speciesSprite = document.createElement("img"); speciesSprite.className = `sprite${speciesName}`; speciesSprite.src = getSpeciesSpriteSrc(speciesName)
-        speciesSpriteContainer.append(speciesSprite)
-        trainerSpeciesContainer.append(speciesSpriteContainer)
-        speciesSpriteContainer.addEventListener("click", () => {
-            createSpeciesPanel(trainerSpeciesObj["name"])
-            document.getElementById("speciesPanelMainContainer").scrollIntoView(true)
-        })
+            const speciesSpriteContainer = document.createElement("div"); speciesSpriteContainer.className = "trainerSpeciesSprite"
+            let speciesName = trainerSpeciesObj["name"]
+            const speciesSprite = document.createElement("img"); speciesSprite.className = `sprite${speciesName}`; speciesSprite.src = getSpeciesSpriteSrc(speciesName)
+            speciesSpriteContainer.append(speciesSprite)
+            trainerSpeciesContainer.append(speciesSpriteContainer)
+            speciesSpriteContainer.addEventListener("click", () => {
+                createSpeciesPanel(trainerSpeciesObj["name"])
+                document.getElementById("speciesPanelMainContainer").scrollIntoView(true)
+            })
 
-        const trainerSpeciesAbility = document.createElement("div"); trainerSpeciesAbility.innerText = abilities[species[trainerSpeciesObj["name"]]["abilities"][trainerSpeciesObj["ability"]]]["ingameName"]; trainerSpeciesAbility.className = "hyperlink bold trainerSpeciesAbility"
-        trainerSpeciesAbility.addEventListener('click', () => {
-            createPopupTrainerAbility(trainerSpeciesObj)
-            overlay.style.display = 'block'
-        }) 
-        trainerSpeciesContainer.append(trainerSpeciesAbility)
+            const trainerSpeciesAbility = document.createElement("div"); trainerSpeciesAbility.innerText = abilities[species[trainerSpeciesObj["name"]]["abilities"][trainerSpeciesObj["ability"]]]["ingameName"]; trainerSpeciesAbility.className = "hyperlink bold trainerSpeciesAbility"
+            trainerSpeciesAbility.addEventListener('click', () => {
+                createPopupTrainerAbility(trainerSpeciesObj)
+                overlay.style.display = 'block'
+            }) 
+            trainerSpeciesContainer.append(trainerSpeciesAbility)
 
-        trainerSpeciesContainer.append(getLvlNatureEl(trainerSpeciesObj))
+            trainerSpeciesContainer.append(getLvlNatureEl(trainerSpeciesObj))
 
-        const trainerSpeciesItem = document.createElement("div"); trainerSpeciesItem.innerText = sanitizeString(trainerSpeciesObj["item"]); trainerSpeciesItem.className = "bold trainerSpeciesItem"
-        trainerSpeciesContainer.append(trainerSpeciesItem)
+            const trainerSpeciesItem = document.createElement("div"); trainerSpeciesItem.innerText = sanitizeString(trainerSpeciesObj["item"]); trainerSpeciesItem.className = "bold trainerSpeciesItem"
+            trainerSpeciesContainer.append(trainerSpeciesItem)
 
-        trainerSpeciesContainer.append(returnEVsObj(trainerSpeciesObj["evs"]))
+            trainerSpeciesContainer.append(returnEVsObj(trainerSpeciesObj["evs"]))
 
-        trainerSpeciesContainer.append(returnIVsObj(trainerSpeciesObj["ivs"]))
+            trainerSpeciesContainer.append(returnIVsObj(trainerSpeciesObj["ivs"]))
 
-        trainerSpeciesContainer.append(returnMovesObj(trainerSpeciesObj))
+            trainerSpeciesContainer.append(returnMovesObj(trainerSpeciesObj))
 
-        trainerTbody.append(trainerSpeciesContainer)
+            trainerTbody.append(trainerSpeciesContainer)
+        }
     }
 
     return trainerTbody
