@@ -97,6 +97,9 @@ function returnMethodSprite(method){
     else if(method.match(/headbutt/i)){
         return "Headbutt"
     }
+    else if(method.match(/hidden/i)){
+        return "Hidden"
+    }
     else if(method.match(/sprouted|taller|flowering|berries/i)){
         return "Berry"
     }
