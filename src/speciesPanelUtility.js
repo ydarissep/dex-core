@@ -47,7 +47,7 @@ async function createSpeciesPanel(name){
         else if(i === 2 && (ability === species[name]["abilities"][0] || ability === "ABILITY_NONE") && (ability === species[name]["abilities"][1] || ability === "ABILITY_NONE")){
             continue
         }
-        if(species[name]["abilities"][i] !== "ABILITY_NONE"){
+        if(species[name]["abilities"][i] !== "ABILITY_NONE" && abilities[species[name]["abilities"][i]]){
             const abilityContainer = document.createElement("div")
             const abilityName = document.createElement("span")
             const abilityDescription = document.createElement("span")
