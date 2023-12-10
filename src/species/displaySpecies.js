@@ -90,7 +90,7 @@ function appendSpeciesToTable(speciesName){
         else if(j === 2 && (abilityName === species[speciesName]["abilities"][0] || abilityName === "ABILITY_NONE") && (abilityName === species[speciesName]["abilities"][1] || abilityName === "ABILITY_NONE")){
             continue
         }
-        if(abilityName !== "ABILITY_NONE"){
+        if(abilityName !== "ABILITY_NONE" && abilities[abilityName]){
             ability.innerText = `${abilities[abilityName]["ingameName"]} `
             if(j === 2){
                 ability.style.fontWeight = "bold"
