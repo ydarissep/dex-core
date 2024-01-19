@@ -1,7 +1,7 @@
 function appendMovesToTable(moveName){
 
     if(moves[moveName]["PP"] <= 0 || moves[moveName]["description"] == ""){
-        return
+        return false
     }
 
     let tBody = movesTableTbody
@@ -112,6 +112,7 @@ function appendMovesToTable(moveName){
     }) 
 
     tBody.append(row)
+    return true
 }
 
 

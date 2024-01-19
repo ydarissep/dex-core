@@ -216,8 +216,9 @@ async function lazyLoading(reset = false){
                     }
                 }
                 else if(tracker[i]["filter"].length === 0 && !document.getElementById(tracker[i]["key"])){
-                    window[displayFunction](tracker[i]["key"])
-                    counter++
+                    if(window[displayFunction](tracker[i]["key"])){
+                        counter++
+                    }
                 }
             }
             else{

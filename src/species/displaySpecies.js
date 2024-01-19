@@ -1,7 +1,7 @@
 function appendSpeciesToTable(speciesName){
 
     if(species[speciesName]["baseSpeed"] <= 0){
-        return
+        return false
     }
 
     const tBody = speciesTableTbody
@@ -151,6 +151,8 @@ function appendSpeciesToTable(speciesName){
         createSpeciesPanel(speciesName)
         document.getElementById("speciesPanelMainContainer").scrollIntoView(true)
     })
+
+    return true
 }
 
 

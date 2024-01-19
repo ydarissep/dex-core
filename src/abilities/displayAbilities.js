@@ -1,7 +1,7 @@
 function appendAbilitiesToTable(abilitiesName){
 
     if(!abilities[abilitiesName]["description"] || !/[1-9aA-zZ]/.test(abilities[abilitiesName]["ingameName"])){
-        return
+        return false
     }
     
     let tBody = abilitiesTableTbody
@@ -43,4 +43,5 @@ function appendAbilitiesToTable(abilitiesName){
     })
 
     tBody.append(row)
+    return true
 }

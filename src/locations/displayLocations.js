@@ -24,7 +24,7 @@ function appendLocationsToTable(key){
     }
 
     if(!(speciesKey in species)){
-        return
+        return false
     }
 
     let row = document.createElement("tr")
@@ -62,6 +62,7 @@ function appendLocationsToTable(key){
     })
     
     tableTbody.append(row)
+    return true
 }
 
 function createRowHeader(location, method){
