@@ -296,8 +296,8 @@ function getLvlNatureEl(trainerSpeciesObj){
 
 
 function createPopupTrainerAbility(trainerSpeciesObj){
-    while(popup.firstChild){
-        popup.removeChild(popup.firstChild)
+    while(popupAbilities.firstChild){
+        popupAbilities.removeChild(popupAbilities.firstChild)
     }
 
     let abilityArray = [species[trainerSpeciesObj["name"]]["abilities"][trainerSpeciesObj["ability"]]]
@@ -319,7 +319,7 @@ function createPopupTrainerAbility(trainerSpeciesObj){
         }
     }
 
-    popup.append(abilityMainContainer)
+    popupAbilities.append(abilityMainContainer)
 }
 
 
