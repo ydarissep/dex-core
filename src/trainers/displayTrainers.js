@@ -111,7 +111,8 @@ function createTrainerSpeciesTbody(trainerObj, key){
             const trainerSpeciesAbility = document.createElement("div"); trainerSpeciesAbility.innerText = abilities[species[trainerSpeciesObj["name"]]["abilities"][trainerSpeciesObj["ability"]]]["ingameName"]; trainerSpeciesAbility.className = "hyperlink bold trainerSpeciesAbility"
             trainerSpeciesAbility.addEventListener('click', () => {
                 createPopupTrainerAbility(trainerSpeciesObj)
-                overlay.style.display = 'block'
+                overlayAbilities.style.display = 'block'
+                body.classList.add("fixedAbilities")
             }) 
             trainerSpeciesContainer.append(trainerSpeciesAbility)
 
@@ -168,6 +169,7 @@ function returnMovesObj(trainerSpeciesObj){
             trainerSpeciesMoveName.addEventListener("click", () => {
                 createPopupTrainerMoves(moves[trainerSpeciesObj["moves"][i]])
                 overlay.style.display = 'block'
+                body.classList.add("fixed")
             })
 
             trainerSpeciesMoveContainer.append(trainerSpeciesMoveName)

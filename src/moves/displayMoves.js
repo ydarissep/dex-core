@@ -109,6 +109,7 @@ function appendMovesToTable(moveName){
     row.addEventListener('click', function () {
         createPopupForMove(moves[moveName])
         overlay.style.display = 'block'
+        body.classList.add("fixed")
     }) 
 
     tBody.append(row)
@@ -201,6 +202,7 @@ function createPopupForMove(move){
                 deleteFiltersFromTable()
                 createFilter(sanitizeString(move["flags"][i]), "Flag")
                 overlay.style.display = 'none'
+                body.classList.remove("fixed")
                 speciesPanel("hide")
                 window.scrollTo({ top: 0})
             })

@@ -1262,7 +1262,7 @@ let interval = setInterval(function() {
 async function speciesPanel(param){  
     if(typeof speciesPanelMainContainer !== "undefined"){
         if(param === "hide" || species[panelSpecies]["baseSpeed"] <= 0){
-            body.classList.remove("fixed")
+            body.classList.remove("fixedPanel")
             overlaySpeciesPanel.style.display = "none"
             speciesPanelMainContainer.classList.add("hide")
             if(typeof refreshURLParams !== "undefined"){
@@ -1277,7 +1277,7 @@ async function speciesPanel(param){
         }
         else if(param === "show"){
             utilityButton.innerText = "X"
-            body.classList.add("fixed")
+            body.classList.add("fixedPanel")
             overlaySpeciesPanel.style.display = "block"
             speciesPanelMainContainer.classList.remove("hide")
         }
@@ -1285,7 +1285,7 @@ async function speciesPanel(param){
             speciesPanelMainContainer.classList.toggle("hide")
             if(speciesPanelMainContainer.classList.contains("hide")){
                 overlaySpeciesPanel.style.display = "none"
-                body.classList.remove("fixed")
+                body.classList.remove("fixedPanel")
                 if(typeof refreshURLParams !== "undefined"){
                     refreshURLParams()
                 }
@@ -1299,7 +1299,7 @@ async function speciesPanel(param){
             else {
                 utilityButton.innerText = "X"
                 overlaySpeciesPanel.style.display = "block"
-                body.classList.add("fixed")
+                body.classList.add("fixedPanel")
             }
         }
     }

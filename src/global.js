@@ -444,6 +444,7 @@ credits.addEventListener("click", () => {
     popup.append(creditMainContainer)
 
     overlay.style.display = 'block'
+    body.classList.add("fixed")
 })
 
 
@@ -575,11 +576,13 @@ function utilityButtonOnClick(){
 overlay.addEventListener('click', function (event) {
     if (event.target === overlay) {
         overlay.style.display = 'none'
+        body.classList.remove("fixed")
     }
 })
 overlayAbilities.addEventListener('click', function (event) {
-    if (event.target === overlay) {
-        overlay.style.display = 'none'
+    if (event.target === overlayAbilities) {
+        overlayAbilities.style.display = 'none'
+        body.classList.remove("fixedAbilities")
     }
 })
 overlaySpeciesPanel.addEventListener('click', function (event) {

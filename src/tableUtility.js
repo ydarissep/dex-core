@@ -237,6 +237,7 @@ async function lazyLoading(reset = false){
 
 
 async function tableButtonClick(input){
+    body.classList.remove("fixed", "fixedPanel", "fixedAbilities")
     const activeTable = await document.querySelectorAll(".activeTable")
     const activeButton = await document.querySelectorAll(".activeButton")
     const activeInput = await document.querySelectorAll(".activeInput")

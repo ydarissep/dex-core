@@ -330,7 +330,7 @@
     opacity: 0.75;
   }
   
-  .fixed {
+  .fixed, .fixedPanel, .fixedAbilities {
     overflow-y: hidden;
     height: 100%;
   }
