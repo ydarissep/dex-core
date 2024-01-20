@@ -444,7 +444,6 @@ credits.addEventListener("click", () => {
     popup.append(creditMainContainer)
 
     overlay.style.display = 'block'
-    body.classList.add("fixed")
 })
 
 
