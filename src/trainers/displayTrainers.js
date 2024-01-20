@@ -308,10 +308,13 @@ function createPopupTrainerAbility(trainerSpeciesObj){
     for(let i = 0; i < abilityArray.length; i++){
         const abilityContainer = document.createElement("li")
         const abilityName = document.createElement("span"); abilityName.innerText = `${abilities[abilityArray[i]]["ingameName"]}: `; abilityName.className = "bold"
-        const abilityDescription = document.createElement("span"); abilityDescription.innerText = abilities[abilityArray[i]]["description"]
+        const abilityDescription = document.createElement("span"); abilityDescription.innerText = `${abilities[abilityArray[i]]["description"]}\n`
         abilityContainer.append(abilityName)
         abilityContainer.append(abilityDescription)
         abilityMainContainer.append(abilityContainer)
+        if(i < abilityArray.length - 1){
+            abilityMainContainer.innerHTML += "<br />"
+        }
     }
 
     popup.append(abilityMainContainer)
