@@ -359,7 +359,9 @@
   }
 
   #popupAbilities {
-    width: 90%;
+    width: 75%;
+    text-align: left;
+    font-size: min(max(2.5vw, 14px), 20px) !important;
   }
   
   #popup h2 {
