@@ -36,7 +36,7 @@ async function createSpeciesPanel(name){
 
 
 
-        while (speciesAbilities.firstChild)
+    while (speciesAbilities.firstChild)
         speciesAbilities.removeChild(speciesAbilities.firstChild)
 
     for (let i = 0; i < species[name]["abilities"].length; i++){
@@ -81,6 +81,13 @@ async function createSpeciesPanel(name){
             speciesAbilities.append(abilityContainer)
         }
     }
+    if(speciesAbilities.children.length > 0){
+        speciesAbilitiesMainContainer.classList.remove("hide")
+    }
+    else{
+        speciesAbilitiesMainContainer.classList.add("hide")
+    }
+    
 
     if(typeof innatesDefined !== "undefined"){
         while (speciesInnates.firstChild)
