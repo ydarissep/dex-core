@@ -110,9 +110,11 @@ function createTrainerSpeciesTbody(trainerObj, key){
 
             const trainerSpeciesAbility = document.createElement("div"); trainerSpeciesAbility.innerText = abilities[species[trainerSpeciesObj["name"]]["abilities"][trainerSpeciesObj["ability"]]]["ingameName"]; trainerSpeciesAbility.className = "hyperlink bold trainerSpeciesAbility"
             trainerSpeciesAbility.addEventListener('click', () => {
-                createPopupTrainerAbility(trainerSpeciesObj)
-                overlayAbilities.style.display = 'block'
-                body.classList.add("fixedAbilities")
+                let abilityArray = [species[trainerSpeciesObj["name"]]["abilities"][trainerSpeciesObj["ability"]]]
+                if(typeof innatesDefined !== "undefined"){
+                    abilityArray = abilityArray.concat(species[trainerSpeciesObj["name"]]["innates"])
+                }
+                createPopupAbility(abilityArray)
             }) 
             trainerSpeciesContainer.append(trainerSpeciesAbility)
 
@@ -295,14 +297,12 @@ function getLvlNatureEl(trainerSpeciesObj){
 
 
 
-function createPopupTrainerAbility(trainerSpeciesObj){
+function createPopupAbility(abilityArray){
+    overlayAbilities.style.display = 'block'
+    body.classList.add("fixedAbilities")
+
     while(popupAbilities.firstChild){
         popupAbilities.removeChild(popupAbilities.firstChild)
-    }
-
-    let abilityArray = [species[trainerSpeciesObj["name"]]["abilities"][trainerSpeciesObj["ability"]]]
-    if(typeof innatesDefined !== "undefined"){
-        abilityArray = abilityArray.concat(species[trainerSpeciesObj["name"]]["innates"])
     }
 
     const abilityMainContainer = document.createElement("ul")
