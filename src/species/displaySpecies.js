@@ -1,5 +1,6 @@
-function appendSpeciesToTable(speciesName){
+window.speciesMoveFilter = null
 
+function appendSpeciesToTable(speciesName){
     if(species[speciesName]["baseSpeed"] <= 0){
         return false
     }
@@ -9,6 +10,26 @@ function appendSpeciesToTable(speciesName){
     const row = document.createElement("tr")
     row.setAttribute("id", `${speciesName}`)
     tBody.append(row)
+
+    if(!speciesMoveFilter){
+        for(let i = 0; i < speciesFilterContainer.children.length; i++){
+            if(speciesFilterContainer.children[i].innerText.split(":")[0] == "Move"){
+                if(Number.isInteger(speciesMoveFilter)){
+                    speciesMoveFilter = null
+                    break
+                }
+                speciesMoveFilter = i
+            }
+        }
+        if(Number.isInteger(speciesMoveFilter)){
+            speciesMoveFilter = speciesFilterContainer.children[speciesMoveFilter].innerText.replace(" ", "").split(":")[1]
+            Object.keys(moves).forEach(moveName => {
+                if(moves[moveName]["ingameName"] === speciesMoveFilter){
+                    speciesMoveFilter = moveName
+                }
+            })
+        }
+    }
 
     let IDcontainer = document.createElement("td")
     let ID = document.createElement("div")

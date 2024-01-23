@@ -72,6 +72,7 @@ function filterSpeciesAbility(value, label){
 }
 
 function filterSpeciesMove(value, label){
+    speciesMoveFilter = null
     let moveName = null
     Object.keys(moves).forEach(move => {
         if(moves[move]["ingameName"] === value){
@@ -510,6 +511,7 @@ function createOperatorFilter(label, operator, number){
 function deleteFiltersFromTable(){
     const activeFilter = document.getElementsByClassName("activeFilter")[0]
     const tableFilterContainer = activeFilter.getElementsByClassName("filterContainer")[0]
+    speciesMoveFilter = null
 
     for(let i = 0, j = tracker.length; i < j; i++){
         for(let k = 0; k < tracker[i]["filter"].length; k++){
