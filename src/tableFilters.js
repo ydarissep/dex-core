@@ -474,6 +474,7 @@ function createFilter(value, label){
             }
         }
         newFilter.remove()
+        speciesMoveFilter = null
         if(trainersFilter === activeFilter){
             trainerSpeciesMatchFilter(false)
         }
