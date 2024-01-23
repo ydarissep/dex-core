@@ -321,7 +321,7 @@ async function getHistoryState(){
 
 
 async function displayHistoryObj(historyStateObj){
-    deleteFiltersFromTable()
+    await deleteFiltersFromTable()
     if(historyStateObj){
         if("species" in historyStateObj){
             scrollToSpecies = historyStateObj["species"]
@@ -334,7 +334,7 @@ async function displayHistoryObj(historyStateObj){
         if("table" in historyStateObj){
             await tableButtonClick(historyStateObj["table"].replace("Table", ""))
 
-            deleteFiltersFromTable()
+            await deleteFiltersFromTable()
             if("filter" in historyStateObj){
                 Object.keys(historyStateObj["filter"]).forEach(key => {
                     if(key === historyStateObj["table"].replace("Table", "")){

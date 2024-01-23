@@ -69,7 +69,7 @@ async function createSpeciesPanel(name){
                     tracker = speciesTracker
                     await tableButtonClick("species")
                 }
-                deleteFiltersFromTable()
+                await deleteFiltersFromTable()
 
                 createFilter(abilities[ability]["ingameName"], "Ability")
                 speciesPanel("hide")
@@ -113,7 +113,7 @@ async function createSpeciesPanel(name){
                         tracker = speciesTracker
                         await tableButtonClick("species")
                     }
-                    deleteFiltersFromTable()
+                    await deleteFiltersFromTable()
 
                     createFilter(abilities[ability]["ingameName"], "Ability")
                     speciesPanel("hide")

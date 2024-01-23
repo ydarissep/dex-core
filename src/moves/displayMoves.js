@@ -199,7 +199,7 @@ function createPopupForMove(move){
                     tracker = movesTracker
                     await tableButtonClick("moves")
                 }
-                deleteFiltersFromTable()
+                await deleteFiltersFromTable()
                 createFilter(sanitizeString(move["flags"][i]), "Flag")
                 overlay.style.display = 'none'
                 body.classList.remove("fixed")
@@ -219,7 +219,7 @@ function createPopupForMove(move){
         }
         overlay.style.display = 'none'
         speciesPanel("hide")
-        deleteFiltersFromTable()
+        await deleteFiltersFromTable()
         createFilter(move["ingameName"], "Move")
         window.scrollTo({ top: 0})
     })

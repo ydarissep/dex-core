@@ -38,7 +38,7 @@ function appendAbilitiesToTable(abilitiesName){
             await tableButtonClick("species")
         }
         window.scrollTo({ top: 0})
-        deleteFiltersFromTable()
+        await deleteFiltersFromTable()
         createFilter(abilities[abilitiesName]["ingameName"], "Ability")
     })
 

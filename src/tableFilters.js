@@ -509,7 +509,7 @@ function createOperatorFilter(label, operator, number){
 
 
 
-function deleteFiltersFromTable(){
+async function deleteFiltersFromTable(){
     const activeFilter = document.getElementsByClassName("activeFilter")[0]
     const tableFilterContainer = activeFilter.getElementsByClassName("filterContainer")[0]
     speciesMoveFilter = null
