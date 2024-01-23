@@ -509,13 +509,13 @@ function createOperatorFilter(label, operator, number){
 
 
 
-async function deleteFiltersFromTable(){
+function deleteFiltersFromTable(){
     const activeFilter = document.getElementsByClassName("activeFilter")[0]
     const tableFilterContainer = activeFilter.getElementsByClassName("filterContainer")[0]
     speciesMoveFilter = null
 
     for(let i = 0, j = tracker.length; i < j; i++){
-        for(let k = 0; k < tracker[i]["filter"].length; k++){
+        for(let k = tracker[i]["filter"].length - 1; k >= 0; k--){
             if(tracker[i]["filter"][k].includes("filter")){
                 tracker[i]["filter"].splice(k, 1)
             }
