@@ -30,11 +30,24 @@ function appendSpeciesToTable(speciesName){
             })
         }
     }
-
     let IDcontainer = document.createElement("td")
     let ID = document.createElement("div")
     IDcontainer.className = "ID"
     ID.innerText = species[speciesName]["ID"]
+    if(speciesMoveFilter){
+        const moveMethod = speciesCanLearnMove(species[speciesName], speciesMoveFilter)
+        let moveFilter = document.createElement("div")
+        moveFilter.className = "bold moveFilter"
+        if(moveMethod === "levelUpLearnsets")
+            moveFilter.innerText = "Level"
+        else if(moveMethod === "eggMovesLearnsets")
+            moveFilter.innerText = "Egg"
+        else if(moveMethod === "TMHMLearnsets")
+            moveFilter.innerText = "TM"
+        else if(moveMethod === "tutorLearnsets")
+            moveFilter.innerText = "Tutor"
+        IDcontainer.append(moveFilter)
+    }
     IDcontainer.append(ID)
     row.append(IDcontainer)
 
