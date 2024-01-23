@@ -356,7 +356,7 @@ async function displayHistoryObj(historyStateObj){
 
 
 function speciesCanLearnMove(speciesObj, moveName){
-    const index = ["levelUpLearnsets", "TMHMLearnsets", "eggMovesLearnsets", "tutorLearnsets"]
+    const index = ["levelUpLearnsets", "eggMovesLearnsets", "TMHMLearnsets", "tutorLearnsets"]
     for(let i = 0; i < index.length; i++){
         if(index[i] in speciesObj){
             for(let j = 0; j < speciesObj[index[i]].length; j++){
