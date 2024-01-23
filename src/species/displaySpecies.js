@@ -4,6 +4,7 @@ function appendSpeciesToTable(speciesName){
     if(species[speciesName]["baseSpeed"] <= 0){
         return false
     }
+    let moveMethod = null
 
     const tBody = speciesTableTbody
 
@@ -35,9 +36,9 @@ function appendSpeciesToTable(speciesName){
     IDcontainer.className = "ID"
     ID.innerText = species[speciesName]["ID"]
     if(speciesMoveFilter){
-        const moveMethod = speciesCanLearnMove(species[speciesName], speciesMoveFilter)
+        moveMethod = speciesCanLearnMove(species[speciesName], speciesMoveFilter)
         let moveFilter = document.createElement("div")
-        moveFilter.className = "bold moveFilter"
+        moveFilter.className = `bold ${moveMethod}`
         if(moveMethod === "levelUpLearnsets")
             moveFilter.innerText = "Level"
         else if(moveMethod === "eggMovesLearnsets")
@@ -65,6 +66,9 @@ function appendSpeciesToTable(speciesName){
     let name = document.createElement("div")
     let ingameName = document.createElement("div")
     nameContainer.className = "nameContainer"
+    if(moveMethod){
+        nameContainer.classList.add(`${moveMethod}`)
+    }
     name.className = "key hide"
     name.innerText = species[speciesName]["name"]
     ingameName.className = "species"

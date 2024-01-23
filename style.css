@@ -62,6 +62,11 @@
   .Ability, .Flag {color: #FFF86E;}
   .EggGroup {color: #ACAAFF;}
   .Form {color: #FFAFAF;}
+
+  .levelUpLearnsets {color: #6BFF43 !important;}
+  .eggMovesLearnsets {color: #FC74FC !important;}
+  .TMHMLearnsets {color: #00FFFF !important;}
+  .tutorLearnsets {color: #FFFF00 !important;}
   
   .splitIcon {width: 40px;}
   
