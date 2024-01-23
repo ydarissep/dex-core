@@ -38,7 +38,6 @@ function appendSpeciesToTable(speciesName){
     if(speciesMoveFilter){
         moveMethod = speciesCanLearnMove(species[speciesName], speciesMoveFilter)
         let moveFilter = document.createElement("div")
-        console.log(moveMethod)
         moveFilter.className = "bold"
         if(Number.isInteger(moveMethod)){
             moveFilter.innerText = `Lv ${moveMethod}`
