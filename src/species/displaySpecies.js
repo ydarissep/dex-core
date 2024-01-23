@@ -38,15 +38,24 @@ function appendSpeciesToTable(speciesName){
     if(speciesMoveFilter){
         moveMethod = speciesCanLearnMove(species[speciesName], speciesMoveFilter)
         let moveFilter = document.createElement("div")
-        moveFilter.className = `bold ${moveMethod}`
-        if(moveMethod === "levelUpLearnsets")
-            moveFilter.innerText = "Level"
-        else if(moveMethod === "eggMovesLearnsets")
+        console.log(moveMethod)
+        moveFilter.className = "bold"
+        if(Number.isInteger(moveMethod)){
+            moveFilter.innerText = `Lv ${moveMethod}`
+            moveFilter.classList.add("levelUpLearnsets")
+        }
+        else if(moveMethod === "eggMovesLearnsets"){
             moveFilter.innerText = "Egg"
-        else if(moveMethod === "TMHMLearnsets")
+            moveFilter.classList.add("eggMovesLearnsets")
+        }
+        else if(moveMethod === "TMHMLearnsets"){
             moveFilter.innerText = "TM"
-        else if(moveMethod === "tutorLearnsets")
+            moveFilter.classList.add("TMHMLearnsets")
+        }            
+        else if(moveMethod === "tutorLearnsets"){
             moveFilter.innerText = "Tutor"
+            moveFilter.classList.add("tutorLearnsets")
+        }
         IDcontainer.append(moveFilter)
     }
     IDcontainer.append(ID)
@@ -66,8 +75,11 @@ function appendSpeciesToTable(speciesName){
     let name = document.createElement("div")
     let ingameName = document.createElement("div")
     nameContainer.className = "nameContainer"
-    if(moveMethod){
-        nameContainer.classList.add(`${moveMethod}`)
+    if(Number.isInteger(moveMethod)){
+        nameContainer.classList.add("levelUpLearnsets")
+    }
+    else if(moveMethod){
+        nameContainer.classList.add(moveMethod)
     }
     name.className = "key hide"
     name.innerText = species[speciesName]["name"]

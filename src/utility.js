@@ -362,6 +362,9 @@ function speciesCanLearnMove(speciesObj, moveName){
             for(let j = 0; j < speciesObj[index[i]].length; j++){
                 if(typeof(speciesObj[index[i]][j]) == "object"){
                     if(speciesObj[index[i]][j][0] == moveName){
+                        if(index[i] === "levelUpLearnsets"){
+                            return speciesObj[index[i]][j][1]
+                        }
                         return index[i]
                     }
                 }
