@@ -362,12 +362,12 @@ function speciesCanLearnMove(speciesObj, moveName){
             for(let j = 0; j < speciesObj[index[i]].length; j++){
                 if(typeof(speciesObj[index[i]][j]) == "object"){
                     if(speciesObj[index[i]][j][0] == moveName){
-                        return true
+                        return index[i]
                     }
                 }
                 else if(typeof(speciesObj[index[i]][j] == "string")){
                     if(speciesObj[index[i]][j] == moveName){
-                        return true
+                        return index[i]
                     }
                 }
             }
