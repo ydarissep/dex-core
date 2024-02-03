@@ -347,39 +347,6 @@ async function createSpeciesPanel(name){
 
 
 
-    /*
-    while (recommendedCoverage.children.length > 0)
-        recommendedCoverage.removeChild(recommendedCoverage.firstChild)
-
-    try{
-        for(const type of getSpeciesBestCoverageTypes(species[name])){
-            const recommendationContainer = document.createElement("span"); recommendationContainer.className = "speciesOffensiveTypeChartMarginTop"
-            const recommendationType = document.createElement("span")
-            const recommendationScore = document.createElement("div")
-    
-            recommendationType.innerText = sanitizeString(type[0])
-            recommendationType.className = `background ${type[0]}`
-    
-            recommendationScore.innerText = type[1].toFixed(2)
-    
-            recommendationContainer.append(recommendationType)
-            recommendationContainer.append(recommendationScore)
-            recommendedCoverage.append(recommendationContainer)
-        }
-    }
-    catch{
-        console.log(`Couldn't get recommended coverage type for ${name}`)
-    }
-
-    if(recommendedCoverage.children.length === 0){
-        recommendedCoverageContainer.classList.add("hide")
-    }
-    else{
-        recommendedCoverageContainer.classList.remove("hide")
-    }
-    */
-
-
 
 
 

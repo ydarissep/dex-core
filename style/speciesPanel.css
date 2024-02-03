@@ -87,19 +87,6 @@
 	text-align: right;
 }
 
-#recommendedCoverage > span > div {
-	text-align: center;
-}
-
-#recommendedCoverageContainer {
-	padding-top: 20px;
-	text-align: center;
-}
-
-#recommendedCoverage {
-	justify-content: center;
-}
-
 .speciesPanelStatPadding {
 	padding-right: 15px;
 }
