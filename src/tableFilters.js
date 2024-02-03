@@ -44,7 +44,7 @@ function filterSpeciesItem(value, label){
     }
 }
 
-function filterSpeciesAbility(value, label){
+function filterSpeciesAbility(value = "Placeholder", label = "Placeholder"){
     let abilityName = null
     Object.keys(abilities).forEach(ability => {
         if(abilities[ability]["ingameName"] === value){
