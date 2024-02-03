@@ -150,7 +150,7 @@ async function setDataList(){
         }
         const option = document.createElement("option")
         option.innerText = sanitizeString(name)
-        speciesIngameNameArray.push(option.innerText)
+        speciesIngameNameArray.push(sanitizeString(name))
         speciesPanelInputSpeciesDataList.append(option)
     }
 
@@ -161,7 +161,7 @@ async function setDataList(){
         }
         const option = document.createElement("option")
         option.innerText = abilities[abilityName]["ingameName"]
-        abilitiesIngameNameArray.push(option.innerText)
+        abilitiesIngameNameArray.push(abilities[abilityName]["ingameName"])
         abilitiesInputDataList.append(option)
     }
 }
