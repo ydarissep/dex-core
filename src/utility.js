@@ -45,7 +45,7 @@ async function fetchData(urlParams = ""){
     
     await fetchTypeChart()
 
-    //await setDataList()
+    await setDataList()
     await setFilters()
     await displaySetup()
     await displayParams(urlParams)
@@ -142,7 +142,7 @@ function getTextWidth(text) {
 
 
 
-function setDataList(){
+async function setDataList(){
     window.speciesIngameNameArray = []
     for(const name in species){
         if(species[name]["baseSpeed"] <= 0){
