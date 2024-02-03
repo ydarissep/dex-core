@@ -347,7 +347,7 @@ async function createSpeciesPanel(name){
 
 
 
-
+    /*
     while (recommendedCoverage.children.length > 0)
         recommendedCoverage.removeChild(recommendedCoverage.firstChild)
 
@@ -377,6 +377,7 @@ async function createSpeciesPanel(name){
     else{
         recommendedCoverageContainer.classList.remove("hide")
     }
+    */
 
 
 

@@ -110,7 +110,7 @@ function createTrainerSpeciesTbody(trainerObj, key){
 
             const trainerSpeciesAbility = document.createElement("div"); trainerSpeciesAbility.innerText = abilities[species[trainerSpeciesObj["name"]]["abilities"][trainerSpeciesObj["ability"]]]["ingameName"]; trainerSpeciesAbility.className = "hyperlink bold trainerSpeciesAbility"
             trainerSpeciesAbility.addEventListener('click', () => {
-                let abilityArray = [species[trainerSpeciesObj["name"]]["abilities"][trainerSpeciesObj["ability"]]]
+            let abilityArray = [species[trainerSpeciesObj["name"]]["abilities"][trainerSpeciesObj["ability"]]]
                 if(typeof innatesDefined !== "undefined"){
                     abilityArray = abilityArray.concat(species[trainerSpeciesObj["name"]]["innates"])
                 }
