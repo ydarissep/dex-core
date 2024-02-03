@@ -45,13 +45,9 @@ async function fetchData(urlParams = ""){
     
     await fetchTypeChart()
 
-    footerP("setDataList")
     await setDataList()
-    footerP("setFilters")
     await setFilters()
-    footerP("displaySetup")
     await displaySetup()
-    footerP("displayParams")
     await displayParams(urlParams)
 
     await window.scrollTo(0, 0)

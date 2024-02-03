@@ -272,24 +272,35 @@ function selectFilter(value, label){
 
 
 async function setFilters(){
+    footerP("clear tableFilter")
     document.querySelectorAll(".tableFilter").forEach(el => {
         el.remove()
     })
 
+    footerP("createFilterGroup Form")
     createFilterGroup(["Mega", "Alolan", "Galarian", "Hisuian", "Seviian"], "Form", [speciesFilterList, locationsFilterList])
+    footerP("createFilterGroup Type")
     createFilterGroup(createFilterArray(["type"], moves), "Type", [speciesFilterList, movesFilterList, locationsFilterList])
+    footerP("createFilterGroup Split")
     createFilterGroup(createFilterArray(["split"], moves), "Split", [movesFilterList])
+    footerP("createFilterGroup Flags")
     createFilterGroup(createFilterArray(["flags"], moves), "Flag", [movesFilterList])
+    footerP("createFilterGroup Item")
     createFilterGroup(createFilterArray(["item1", "item2"], species), "Item", [speciesFilterList, locationsFilterList])
+    footerP("createFilterGroup Item Trainers")
     try{
         createFilterGroup(Array.from(new Set(JSON.stringify(trainers).match(/ITEM_\w+/g).map(value => sanitizeString(value)))), "Item", [trainersFilterList])
     }
     catch{
         
     }
+    footerP("createFilterGroup Ability")
     createFilterGroup(createFilterArray(["ingameName"], abilities, false), "Ability", [speciesFilterList, locationsFilterList, trainersFilterList])
+    footerP("createFilterGroup Move")
     createFilterGroup(createFilterArray(["ingameName"], moves, false), "Move", [speciesFilterList, locationsFilterList, trainersFilterList])
+    footerP("createFilterGroup Egg Group")
     createFilterGroup(createFilterArray(["eggGroup1", "eggGroup2"], species), "Egg Group", [speciesFilterList, locationsFilterList])
+    footerP("createFilterGroup Base Stats")
     createFilterGroup(["HP", "Atk", "Def", "SpA", "SpD", "Spe", "BST"], "Base Stats", [speciesFilterList, locationsFilterList], true)
 }
 
