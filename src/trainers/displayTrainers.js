@@ -39,7 +39,7 @@ function appendTrainersToTable(key){
         trainerThead.append(trainerLocation)
 
         trainerMainContainer.append(trainerThead)
-        trainerMainContainer.append(createTrainerSpeciesTbody(trainers[zone][trainer], key))
+        trainerMainContainer.append(createTrainerSpeciesTbody(trainers[zone][trainer]))
 
         trainersTableTbody.append(trainerMainContainer)
 
@@ -86,7 +86,7 @@ function appendTrainersToTable(key){
 }
 
 
-function createTrainerSpeciesTbody(trainerObj, key){
+function createTrainerSpeciesTbody(trainerObj){
     const trainerTbody = document.createElement("tbody"); trainerTbody.className = "trainerTbody"
     let difficulty = "Normal"
     if(trainerObj["party"][trainersDifficulty]){
@@ -433,7 +433,7 @@ function replaceTbody(key, zone, trainer){
     if(trainerEl){
         let format = "Singles"
 
-        trainerEl.getElementsByClassName("trainerTbody")[0].replaceWith(createTrainerSpeciesTbody(trainers[zone][trainer], key))
+        trainerEl.getElementsByClassName("trainerTbody")[0].replaceWith(createTrainerSpeciesTbody(trainers[zone][trainer]))
 
         if(trainers[zone][trainer]["double"]){
             format = "Doubles"
