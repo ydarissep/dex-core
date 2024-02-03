@@ -45,7 +45,7 @@ async function fetchData(urlParams = ""){
     
     await fetchTypeChart()
 
-    await setDataList()
+    //await setDataList()
     await setFilters()
     await displaySetup()
     await displayParams(urlParams)
