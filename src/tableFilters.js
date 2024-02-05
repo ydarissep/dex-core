@@ -85,7 +85,7 @@ function filterSpeciesMove(value, label){
             if(tracker === locationsTracker){
                 name = tracker[i]["key"].split("\\")[2]
             }
-            if(!speciesCanLearnMove(species[name], moveName)){
+            if(!speciesCanLearnMove(species[name], moveName) === false){
                 tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
             }
         }
