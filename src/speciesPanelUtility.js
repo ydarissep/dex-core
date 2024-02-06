@@ -857,7 +857,7 @@ function buildSpeciesPanelLevelUpFromPreviousEvoTable(table, name, label = "", a
 
     for(let i = 1; i < evolutionLineArray.length; i++){
         sortLearnsetsArray(THead, species[evolutionLineArray[i]]["levelUpLearnsets"], label, asc).forEach(move => {
-            if(!speciesCanLearnMove(species[name], move[0]) && !movesArray.includes(move[0])){
+            if(speciesCanLearnMove(species[name], move[0]) === false && !movesArray.includes(move[0])){
 
                 movesArray.push(move[0])
 
