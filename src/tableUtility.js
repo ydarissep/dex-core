@@ -82,14 +82,14 @@ function sortTableByClassName(table, obj, key, classHeader, asc = true) {
 
 
 function filterTableInput(input, obj, keyArray){
-    const sanitizedInput = input.trim().replaceAll(/-|'| |_/g, "").toLowerCase()
+    const sanitizedInput = input.trim().replaceAll(/-|'| |_|!/g, "").toLowerCase()
     const regexInput = new RegExp(sanitizedInput, "i")
 
     for(let i = 0, j = Object.keys(tracker).length; i < j; i++){
         tracker[i]["filter"].push("input")
         for (let k = 0; k < keyArray.length; k++){
             if(keyArray[k] !== "innates" || typeof innatesDefined !== "undefined"){
-                if(regexInput.test(sanitizeString("" + obj[tracker[i]["key"]][keyArray[k]]).replaceAll(/-|'| |_/g, ""))){
+                if(regexInput.test(sanitizeString("" + obj[tracker[i]["key"]][keyArray[k]]).replaceAll(/-|'| |_|!/g, ""))){
                     tracker[i]["filter"] = tracker[i]["filter"].filter(value => value !== "input")
                     break
                 }
