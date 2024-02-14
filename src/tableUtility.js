@@ -81,6 +81,43 @@ function sortTableByClassName(table, obj, key, classHeader, asc = true) {
 
 
 
+function sortTableByLearnsets(asc = true) {
+    const dirModifier = asc ? 1 : -1
+    const sortOrder = ["levelUpLearnsets", "eggMovesLearnsets", "TMHMLearnsets", "tutorLearnsets", "false"]
+
+    speciesTracker.sort((a, b) => {
+        let stringA = `${speciesCanLearnMove(species[a["key"]], speciesMoveFilter)}`
+        let stringB = `${speciesCanLearnMove(species[b["key"]], speciesMoveFilter)}`
+        
+        if(Number(stringA) && Number(stringB)){
+            return parseInt(stringA) > parseInt(stringB) ? (1 * dirModifier) : (-1 * dirModifier)
+        }
+        if(Number(stringA)){
+            stringA = "levelUpLearnsets"
+        }
+        if(Number(stringB)){
+            stringB = "levelUpLearnsets"
+        }
+
+        return sortOrder.indexOf(stringA) > sortOrder.indexOf(stringB) ? (1 * dirModifier) : (-1 * dirModifier)
+    })
+
+    lazyLoading(true)
+
+    // Remember how the column is currently sorted
+    speciesTable.querySelectorAll("th").forEach(th => th.classList.remove("th-sort-asc", "th-sort-desc"))
+    speciesTable.querySelector(`th.ID`).classList.toggle("th-sort-asc", asc)
+    speciesTable.querySelector(`th.ID`).classList.toggle("th-sort-desc", !asc)
+}
+
+
+
+
+
+
+
+
+
 function filterTableInput(input, obj, keyArray){
     const sanitizedInput = input.trim().replaceAll(/-|'| |_|!/g, "").toLowerCase()
     const regexInput = new RegExp(sanitizedInput, "i")

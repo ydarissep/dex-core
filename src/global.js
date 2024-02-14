@@ -216,10 +216,18 @@ headerMovesEffect.addEventListener("click", () => {
 
 
 headerSpeciesID.addEventListener("click", () => {
-    if(headerSpeciesID.classList.contains("th-sort-desc"))
-        sortTableByClassName(speciesTable, species, ["ID"], "ID", asc = true)
-    else
-        sortTableByClassName(speciesTable, species, ["ID"], "ID", asc = false)
+    if(speciesMoveFilter){
+        if(headerSpeciesID.classList.contains("th-sort-desc"))
+            sortTableByLearnsets(asc = true)
+        else
+            sortTableByLearnsets(asc = false)
+    }
+    else{
+        if(headerSpeciesID.classList.contains("th-sort-desc"))
+            sortTableByClassName(speciesTable, species, ["ID"], "ID", asc = true)
+        else
+            sortTableByClassName(speciesTable, species, ["ID"], "ID", asc = false)
+    }
 })
 headerSpeciesSprite.addEventListener("click", () => {
     if(headerSpeciesID.classList.contains("th-sort-desc"))

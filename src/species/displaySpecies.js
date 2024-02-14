@@ -27,6 +27,7 @@ function appendSpeciesToTable(speciesName){
             Object.keys(moves).forEach(moveName => {
                 if(moves[moveName]["ingameName"] === speciesMoveFilter){
                     speciesMoveFilter = moveName
+                    sortTableByLearnsets(true)
                 }
             })
         }
