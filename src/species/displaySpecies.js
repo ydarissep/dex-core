@@ -35,7 +35,6 @@ function appendSpeciesToTable(speciesName){
     let IDcontainer = document.createElement("td")
     let ID = document.createElement("div")
     IDcontainer.className = "ID"
-    ID.innerText = species[speciesName]["ID"]
     if(speciesMoveFilter){
         moveMethod = speciesCanLearnMove(species[speciesName], speciesMoveFilter)
         let moveFilter = document.createElement("div")
@@ -57,6 +56,9 @@ function appendSpeciesToTable(speciesName){
             moveFilter.classList.add("tutorLearnsets")
         }
         IDcontainer.append(moveFilter)
+    }
+    else{
+        ID.innerText = species[speciesName]["ID"]
     }
     IDcontainer.append(ID)
     row.append(IDcontainer)
