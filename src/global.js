@@ -217,7 +217,7 @@ headerMovesEffect.addEventListener("click", () => {
 
 headerSpeciesID.addEventListener("click", () => {
     if(speciesMoveFilter){
-        if(headerSpeciesID.classList.contains("th-sort-desc"))
+        if(headerSpeciesID.classList.contains("th-sort-asc"))
             sortTableByLearnsets(asc = false)
         else
             sortTableByLearnsets(asc = true)
