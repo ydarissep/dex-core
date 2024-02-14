@@ -75,12 +75,14 @@ function appendSpeciesToTable(speciesName){
     let name = document.createElement("div")
     let ingameName = document.createElement("div")
     nameContainer.className = "nameContainer"
+    /*
     if(Number.isInteger(moveMethod)){
         nameContainer.classList.add("levelUpLearnsets")
     }
     else if(moveMethod){
         nameContainer.classList.add(moveMethod)
     }
+    */
     name.className = "key hide"
     name.innerText = species[speciesName]["name"]
     ingameName.className = "species"
