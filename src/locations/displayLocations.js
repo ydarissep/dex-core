@@ -69,13 +69,37 @@ function appendLocationsToTable(key){
     row.append(speciesContainer)
 
     let rarity = document.createElement("td")
-    const locationsInfo = document.createElement("div")
-    rarity.className = "rarity"
-    rarity.innerText = `${locations[location][method][speciesKey]}%`
-    rarity.style.color = `hsl(${locations[location][method][speciesKey]*2},85%,45%)`
-    locationsInfo.innerText = `${location} ${method}`
-    locationsInfo.className = "locationsInfo hide"
-    rarity.append(locationsInfo)
+    if(locationsMoveFilter){
+        moveMethod = speciesCanLearnMove(species[speciesKey], locationsMoveFilter)
+        let moveFilter = document.createElement("div")
+        moveFilter.className = "bold"
+        if(Number.isInteger(moveMethod)){
+            moveFilter.innerText = `Lv ${moveMethod}`
+            moveFilter.classList.add("levelUpLearnsets")
+        }
+        else if(moveMethod === "eggMovesLearnsets"){
+            moveFilter.innerText = "Egg"
+            moveFilter.classList.add("eggMovesLearnsets")
+        }
+        else if(moveMethod === "TMHMLearnsets"){
+            moveFilter.innerText = "TM"
+            moveFilter.classList.add("TMHMLearnsets")
+        }            
+        else if(moveMethod === "tutorLearnsets"){
+            moveFilter.innerText = "Tutor"
+            moveFilter.classList.add("tutorLearnsets")
+        }
+        rarity.append(moveFilter)
+    }
+    else{
+        let locationsInfo = document.createElement("div")
+        rarity.className = "rarity"
+        rarity.innerText = `${locations[location][method][speciesKey]}%`
+        rarity.style.color = `hsl(${locations[location][method][speciesKey]*2},85%,45%)`
+        locationsInfo.innerText = `${location} ${method}`
+        locationsInfo.className = "locationsInfo hide"
+        rarity.append(locationsInfo)
+    }
     row.append(rarity)
 
     row.addEventListener("click", () => {
