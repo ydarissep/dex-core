@@ -72,12 +72,8 @@ function filterSpeciesAbility(value = "Placeholder", label = "Placeholder"){
 }
 
 function filterSpeciesMove(value, label){
-    if(tracker == speciesTracker){
-        speciesMoveFilter = null
-    }
-    else if(tracker == locationsTracker){
-        locationsMoveFilter = null
-    }
+    speciesMoveFilter = null
+    locationsMoveFilter = null
     let moveName = null
     Object.keys(moves).forEach(move => {
         if(moves[move]["ingameName"] === value){
@@ -480,6 +476,7 @@ function createFilter(value, label){
         }
         newFilter.remove()
         speciesMoveFilter = null
+        locationsMoveFilter = null
         if(trainersFilter === activeFilter){
             trainerSpeciesMatchFilter(false)
         }
@@ -518,6 +515,7 @@ function deleteFiltersFromTable(){
     const activeFilter = document.getElementsByClassName("activeFilter")[0]
     const tableFilterContainer = activeFilter.getElementsByClassName("filterContainer")[0]
     speciesMoveFilter = null
+    locationsMoveFilter = null
 
     for(let i = 0, j = tracker.length; i < j; i++){
         for(let k = tracker[i]["filter"].length - 1; k >= 0; k--){
