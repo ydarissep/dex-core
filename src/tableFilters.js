@@ -72,7 +72,12 @@ function filterSpeciesAbility(value = "Placeholder", label = "Placeholder"){
 }
 
 function filterSpeciesMove(value, label){
-    speciesMoveFilter = null
+    if(tracker == speciesTracker){
+        speciesMoveFilter = null
+    }
+    else if(tracker == locationsTracker){
+        locationsMoveFilter = null
+    }
     let moveName = null
     Object.keys(moves).forEach(move => {
         if(moves[move]["ingameName"] === value){

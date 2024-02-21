@@ -1,3 +1,5 @@
+window.locationsMoveFilter = null
+
 function appendLocationsToTable(key){
 
     const location = key.split("\\")[0]
@@ -29,6 +31,26 @@ function appendLocationsToTable(key){
 
     let row = document.createElement("tr")
     row.setAttribute("id", `${key}`)
+
+    if(!locationsMoveFilter){
+        for(let i = 0; i < locationsFilterContainer.children.length; i++){
+            if(locationsFilterContainer.children[i].innerText.split(":")[0] == "Move"){
+                if(Number.isInteger(locationsMoveFilter)){
+                    locationsMoveFilter = null
+                    break
+                }
+                locationsMoveFilter = i
+            }
+        }
+        if(Number.isInteger(locationsMoveFilter)){
+            locationsMoveFilter = locationsFilterContainer.children[locationsMoveFilter].innerText.replace(" ", "").split(":")[1]
+            Object.keys(moves).forEach(moveName => {
+                if(moves[moveName]["ingameName"] === locationsMoveFilter){
+                    locationsMoveFilter = moveName
+                }
+            })
+        }
+    }
 
     let spriteContainer = document.createElement("td")
     spriteContainer.className = "sprite"
