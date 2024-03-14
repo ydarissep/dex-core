@@ -540,6 +540,12 @@ utilityButton.onclick = () => {
     utilityButtonOnClick()
 }
 document.addEventListener("keydown", e => {
+    if(speciesPanelMainContainer.classList.contains("hide") && ((e.code == "F3") || (e.ctrlKey && e.code == "KeyF"))){ 
+        // Block CTRL + F event
+        e.preventDefault()
+        document.getElementsByClassName("activeInput")[0].focus({focusVisible: true})
+        document.getElementsByClassName("activeInput")[0].select()
+    }
     if(e.target.nodeName !== "INPUT"){
         //e.preventDefault()
         if(e.code === "Space"){
