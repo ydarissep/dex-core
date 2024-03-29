@@ -1,3 +1,10 @@
+if(localStorage.getItem("speciesPanelHistory")){
+    window.speciesPanelHistory = JSON.parse(localStorage.getItem("speciesPanelHistory"))
+}
+else{
+    window.speciesPanelHistory = []
+}
+
 async function createSpeciesPanel(name){
     panelSpecies = name
     speciesPanel("show")
@@ -5,6 +12,8 @@ async function createSpeciesPanel(name){
     if(typeof refreshURLParams !== "undefined"){
         refreshURLParams()
     }
+
+    await manageSpeciesPanelHistory(name)
 
     speciesName.innerText = sanitizeString(name)
     speciesID.innerText = `#${species[name]["ID"]}`
@@ -309,7 +318,7 @@ async function createSpeciesPanel(name){
             const stat = species[name]["changes"][i][0]
             const oldStat = species[name]["changes"][i][1]
             const newStat = species[name][stat]
-            createChange(stat, oldStat, newStat, name, speciesChanges)
+            createChange(stat, oldStat, newStat, speciesChanges)
         }
     }
     if(speciesChanges.firstChild)
@@ -489,7 +498,163 @@ function createClickableImgAndName(speciesName, evoConditions = false, showName 
 
 
 
-function createChange(stat, oldStat = [""], newStat = [""], speciesName, obj){
+async function manageSpeciesPanelHistory(speciesName){
+    if(speciesPanelHistoryContainer.children.length != speciesPanelHistory.length){
+        displaySpeciesPanelHistory()
+    }
+
+    for(let i = 0; i < speciesPanelHistoryContainer.children.length; i++){
+        speciesPanelHistoryContainer.children[i].classList.remove("historyActive")
+        if(speciesPanelHistoryContainer.children[i].classList.contains(`sprite${speciesName}`)){
+            speciesPanelHistoryContainer.children[i].classList.add("historyActive")
+        }
+    }
+
+    const maxHistory = 12
+    let index = -1
+    let locked = 0
+    for(let i = 0; i < speciesPanelHistory.length; i++){
+        if(speciesPanelHistory[i][1] == true){
+            locked++
+        }
+        else if(index < 0){
+            index = i
+        }
+    }
+
+    if(locked >= maxHistory || speciesPanelHistory.some(el => el[0] == speciesName)){
+        return
+    }
+
+    for(let i = 0; i < speciesPanelHistory.length; i++){
+        if(species[speciesPanelHistory[i][0]]["evolutionLine"].includes(speciesName) || species[speciesPanelHistory[i][0]]["forms"].includes(speciesName)){
+            speciesPanelHistory[i][0] = speciesName
+            for(let j = i; j > locked; j--){
+                const temp = speciesPanelHistory[j - 1]
+                speciesPanelHistory[j - 1] = speciesPanelHistory[j]
+                speciesPanelHistory[j] = temp
+            }
+            displaySpeciesPanelHistory()
+            localStorage.setItem("speciesPanelHistory", JSON.stringify(speciesPanelHistory))
+            return
+        }
+    }
+
+    if(index < 0){
+        index = locked
+    }
+
+    speciesPanelHistory.splice(index, 0, [speciesName, false])
+    while(speciesPanelHistory.length > maxHistory){
+        speciesPanelHistory.splice(-1, 1)
+    }
+    displaySpeciesPanelHistory()
+    localStorage.setItem("speciesPanelHistory", JSON.stringify(speciesPanelHistory))
+}
+
+function displaySpeciesPanelHistory(){
+    while(speciesPanelHistoryContainer.firstChild){
+        speciesPanelHistoryContainer.removeChild(speciesPanelHistoryContainer.firstChild)
+    }
+
+    for(let i = 0; i < speciesPanelHistory.length; i++){
+        const sprite = document.createElement("img")
+        const speciesName = speciesPanelHistory[i][0]
+
+        if(!(speciesName in species) || species[speciesName]["baseSpeed"] == 0){
+            speciesPanelHistory.splice(i, 1)
+            continue
+        }
+
+        sprite.src = getSpeciesSpriteSrc(speciesName)
+        sprite.className = `sprite${speciesName} historyAnimation`
+        if(speciesPanelHistory[i][1] == true){
+            sprite.classList.add("locked")
+        }
+        if(speciesName == panelSpecies){
+            sprite.classList.add("historyActive")
+        }
+
+        speciesPanelHistoryContainer.append(sprite)
+
+
+
+
+
+
+        let lockTimer = 0
+        let clickTimer = 0
+        function historyHandler(event, preventDefault = true){
+            if(preventDefault){
+                event.preventDefault()
+            }
+            if(event.type == "mousedown" || event.type == "mouseup"){
+                if(event.which == 2 || event.which == 3){ // if right click or mousewheel
+                    return false
+                }
+            }
+            if(event.type == "mousedown" || event.type == "touchstart"){
+                sprite.classList.add("clicked")
+                sprite.classList.add("emulateClick")
+                lockTimer = setTimeout(lockSpecies,750)
+                clickTimer = setTimeout(emulateClick, 300)
+            }
+            else if(event.type == "mouseup" || event.type == "touchend"){
+                sprite.classList.remove("clicked")
+                clearTimeout(lockTimer)
+                if(sprite.classList.contains("emulateClick") && panelSpecies != speciesName){
+                    createSpeciesPanel(speciesName)
+                }
+            }
+        }
+
+        function lockSpecies(){
+            sprite.classList.toggle("locked")
+            if(speciesPanelHistory[i][1] == false){
+                speciesPanelHistory[i][1] = true
+            }
+            else{
+                speciesPanelHistory[i][1] = false
+            }
+            updateSpeciesPanelHistoryOrder()
+        }
+
+        function emulateClick(){
+            sprite.classList.remove("emulateClick")
+        }
+        
+        sprite.addEventListener("touchstart", (event) => {historyHandler(event)})
+        sprite.addEventListener("touchend", (event) => {historyHandler(event)})
+        sprite.addEventListener("mousedown", (event) => {historyHandler(event)})
+        sprite.addEventListener("mouseup", (event) => {historyHandler(event)})
+        document.body.addEventListener("mouseup", (event) => {historyHandler(event, false)})
+    }
+}
+
+
+function updateSpeciesPanelHistoryOrder(){
+    for(let i = 0; i < speciesPanelHistory.length; i++){
+        if(speciesPanelHistory[i][1] == true){
+            for(let j = i; j > 0; j--){
+                if(speciesPanelHistory[j - 1][1] == true){
+                    break
+                }
+                else{
+                    const temp = speciesPanelHistory[j - 1]
+                    speciesPanelHistory[j - 1] = speciesPanelHistory[j]
+                    speciesPanelHistory[j] = temp
+                }
+            }
+        }
+    }
+    localStorage.setItem("speciesPanelHistory", JSON.stringify(speciesPanelHistory))
+    displaySpeciesPanelHistory()
+}
+
+
+
+
+function createChange(stat, oldStat = [""], newStat = [""], obj){
 
     if(typeof newStat == "object"){
         for (let i = 0; i < newStat.length; i++){

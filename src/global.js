@@ -12,6 +12,7 @@ window.tableFilter = document.getElementById("tableFilter")
 
 
 window.body = document.getElementById("body")
+window.settingsButton = document.getElementById("settings")
 window.credits = document.getElementById("credits")
 window.modal = document.getElementById("modal")
 window.update = document.getElementById("update")
@@ -36,6 +37,7 @@ window.statDisplays = [...document.querySelectorAll(".statsGraphHeader")]
 
 
 window.speciesPanelMainContainer = document.getElementById("speciesPanelMainContainer")
+window.speciesPanelHistoryContainer = document.getElementById("speciesPanelHistoryContainer")
 window.speciesName = document.getElementById("speciesName")
 window.speciesID = document.getElementById("speciesID")
 window.speciesPanelInputSpecies = document.getElementById("speciesPanelInputSpecies")
@@ -440,26 +442,6 @@ onlyShowStrategyPokemon.addEventListener("click", () => {
 
 
 
-credits.addEventListener("click", () => {
-    while(popup.firstChild){
-        popup.removeChild(popup.firstChild)
-    }
-    const creditMainContainer = document.createElement("div")
-    const creditRis = document.createElement("div"); creditRis.className = "credits"; creditRis.innerText = `Credit to ris (previously ris#0000 on discord) for:\n- Night theme\n- Sprite background removal function\n- Red button design\n- Species stats graph\n- Helping with CSS\n- Bitching and moaning about my CSS while this is literally my first ever website.`
-    creditMainContainer.append(creditRis)
-    popup.append(creditMainContainer)
-
-    overlay.style.display = 'block'
-    body.classList.add("fixed")
-})
-
-
-
-
-
-
-
-
 
 
 
@@ -474,11 +456,13 @@ const options = {
 function footerIsTouching(entries){
     if(entries[0].isIntersecting){
         lazyLoading(false)
+        settingsButton.classList.remove("hide")
         credits.classList.remove("hide")
         update.classList.remove("hide")
         backup.classList.remove("hide")
     }
     else{
+        settingsButton.classList.add("hide")
         credits.classList.add("hide")   
         update.classList.add("hide")
         backup.classList.add("hide")
@@ -606,8 +590,32 @@ overlaySpeciesPanel.addEventListener('click', function (event) {
 
 
 
+settingsButton.addEventListener("click", async () => {
+    while(popup.firstChild){
+        popup.removeChild(popup.firstChild)
+    }
+
+    manageSettings()
+
+    overlay.style.display = 'block'
+    body.classList.add("fixed")
+})
+
+credits.addEventListener("click", () => {
+    while(popup.firstChild){
+        popup.removeChild(popup.firstChild)
+    }
+    const creditMainContainer = document.createElement("div")
+    const creditRis = document.createElement("div"); creditRis.className = "credits"; creditRis.innerText = `Credit to ris (previously ris#0000 on discord) for:\n- Night theme\n- Sprite background removal function\n- Red button design\n- Species stats graph\n- Helping with CSS\n- Bitching and moaning about my CSS while this is literally my first ever website.`
+    creditMainContainer.append(creditRis)
+    popup.append(creditMainContainer)
+
+    overlay.style.display = 'block'
+    body.classList.add("fixed")
+})
+
 update.addEventListener("click", () => {
-    localStorage.clear()
+    clearLocalStorage()
     window.location.reload()
 })
 
@@ -619,7 +627,7 @@ backup.addEventListener("click", async () => {
 
 async function useBackup(){
     console.log("Used Backup")
-    await localStorage.clear()
+    clearLocalStorage()
     await localStorage.setItem("update", `${checkUpdate}`)
     history.pushState(null, null, location.href)
     const queryString = window.location.search

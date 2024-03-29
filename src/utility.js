@@ -47,6 +47,7 @@ async function fetchData(urlParams = ""){
 
     await setDataList()
     await setFilters()
+    await applySettings()
     await displaySetup()
     await displayParams(urlParams)
 
@@ -77,12 +78,21 @@ async function fetchTypeChart(){
 
 async function forceUpdate(){
     if(localStorage.getItem("update") != `${checkUpdate}`){
-        await localStorage.clear()
+        //await localStorage.clear()
+        await clearLocalStorage()
         await localStorage.setItem("update", `${checkUpdate}`)
         await footerP("Fetching data please wait... this is only run once")
     }
 }
 
+
+async function clearLocalStorage(){
+    Object.keys(localStorage).forEach(key => {
+        if(key != "speciesPanelHistory"){
+            localStorage.removeItem(key)
+        }
+    })
+}
 
 
 

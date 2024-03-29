@@ -40,6 +40,7 @@
   <script defer src="src/tableFilters.js"></script>
   <script defer src="src/utility.js"></script>
   <script defer src="src/tableUtility.js"></script>
+  <script defer src="src/settings.js"></script>
   <script defer src="src/speciesPanelUtility.js"></script>
   <script defer src="src/global.js"></script>
 </head>
@@ -65,6 +66,7 @@
   <div id="overlaySpeciesPanel">
     <div id="speciesPanelMainContainer" class="hide flex">
     <div id="speciesPanelContainer" class="flex flexColumn">
+        <div id="speciesPanelHistoryContainer"></div>
         <div id="speciesPanelSubcontainer1">
           <span id="speciesName"></span>
           <span id="speciesID"></span>
@@ -405,6 +407,7 @@
     <h1 id="footerName">Ydarissep Pokedex</h1>
     <noscript>This page requires JavaScript.</noscript>
     <div id="footerButtonContainer">
+      <button type="button" id="settings" class="hide">Settings</button> 
       <button type="button" id="credits" class="hide">Credits</button> 
       <button type="button" id="update" class="hide">Update</button>
       <button type="button" id="backup" class="hide">Backup</button>

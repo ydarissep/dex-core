@@ -19,6 +19,91 @@
   	border-radius: 14px;
 }
 
+#speciesPanelHistoryContainer {
+    margin: 10px 0px 5px 0px;
+    user-select: none;
+}
+
+#speciesPanelHistoryContainer.speciesPanelHistorySticky {
+    position: sticky;
+    top: 0;
+    background: #1b1c1f;
+    z-index: 100;
+}
+
+.historyAnimation {
+    margin: 0px 2px 0px 2px;
+    padding: 5px;
+    border: 2px solid grey;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 15%;
+    position: relative;
+    cursor: pointer;
+}
+
+.historyActive {
+    border: 2px solid green !important;
+}
+
+.historyAnimation.clicked:not(.locked) {
+    animation: lockAnimation 0.75s forwards;
+}
+
+.historyAnimation.clicked.locked {
+    animation: unlockAnimation 0.75s forwards;
+}
+
+.historyAnimation:hover:not(.historyActive) {
+    border: 2px solid var(--theme-color) !important;
+    transition: border 0.1s ease-in-out;
+}
+
+.locked {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+@keyframes lockAnimation {
+    100% {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+}
+
+@keyframes unlockAnimation {
+    100% {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .historyAnimation {
+        width: 50px !important;
+        height: 50px !important;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .historyAnimation {
+        width: 45px !important;
+        height: 45px !important;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .historyAnimation {
+        margin: 0px !important;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .historyAnimation {
+        padding: 3px !important;
+    }
+}
+
+#speciesAbilitiesMainContainer {
+    padding-top: 20px;
+}
+
 #speciesPanelSubcontainer1, #speciesPanelSubcontainer2, #speciesBaseStatsGraphContainer, #speciesEvolutionsText, #speciesFormesText, #speciesChangesContainer {
 	margin-left: 20px;
 }
