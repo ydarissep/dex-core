@@ -1035,8 +1035,8 @@ function buildSpeciesPanelLevelUpFromPreviousEvoTable(table, name, label = "", a
     
                 const typeContainer = document.createElement("td")
                 const type = document.createElement("div")
-                type.innerText = sanitizeString(moves[move[0]]["type"])
-                type.className = `${moves[move[0]]["type"]} background`
+                type.innerText = sanitizeString(moves[move[0]]["type"]).slice(0,3)
+                type.className = `${moves[move[0]]["type"]} backgroundSmall`
                 typeContainer.append(type)
                 row.append(typeContainer)
     
@@ -1124,8 +1124,8 @@ function buildSpeciesPanelDoubleLearnsetsTable(table, name, input, label = "", a
 
         const typeContainer = document.createElement("td")
         const type = document.createElement("div")
-        type.innerText = sanitizeString(moves[move[0]]["type"])
-        type.className = `${moves[move[0]]["type"]} background`
+        type.innerText = sanitizeString(moves[move[0]]["type"]).slice(0,3)
+        type.className = `${moves[move[0]]["type"]} backgroundSmall`
         typeContainer.append(type)
         row.append(typeContainer)
 
@@ -1200,8 +1200,8 @@ function buildSpeciesPanelSingleLearnsetsTable(table, name, input, label = "", a
 
         const typeContainer = document.createElement("td")
         const type = document.createElement("div")
-        type.innerText = sanitizeString(moves[move]["type"])
-        type.className = `${moves[move]["type"]} background`
+        type.innerText = sanitizeString(moves[move]["type"]).slice(0,3)
+        type.className = `${moves[move]["type"]} backgroundSmall`
         typeContainer.append(type)
         row.append(typeContainer)
 

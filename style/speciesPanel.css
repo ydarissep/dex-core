@@ -331,7 +331,7 @@ only screen and (max-width: 500px) {
 	margin-top: 75px;
 	margin-bottom: 75px;
 	max-width: 95%;
-	font-size: min(max(2.5vw, 15px), 17px) !important;
+	font-size: min(max(2.5vw, 14.5px), 17px) !important;
 }
 
 .speciesPanelLearnsetsTableMargin th:hover, .speciesPanelLearnsetsTableMargin tbody tr:hover {

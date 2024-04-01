@@ -156,19 +156,16 @@
 
 @media 
 only screen and (max-width: 1000px) {
+    #trainersTable > tbody > table > tbody > td {
+    	width: 20%;
+    }
+
     #trainersTable > tbody > table {
         width: unset;
     }
 
-    #trainersTable {
-        width: 100%;
-    }
-}
-
-@media 
-only screen and (max-width: 800px) {
     #trainersTable > tbody > table > tbody > td {
-        width: 20%;
+        font-size: min(max(2.5vw, 15px), 17px) !important;
     }
 }
 
@@ -206,7 +203,7 @@ only screen and (max-width: 400px) {
 }
 
 @media 
-only screen and (max-width: 335px) {
+only screen and (max-width: 320px) {
     .trainersSpeciesMoveType {
         display: none !important;
     }
