@@ -9,9 +9,10 @@ function appendTrainersToTable(key){
         const trainerNameContainer = document.createElement("th")
         const trainerLocation = document.createElement("th")
 
-        let format = "Singles"
+        let format = "Single"
         if(trainers[zone][trainer]["double"]){
-            format = "Doubles"
+            format = "Double"
+            formatContainer.classList.add("double")
         }
         formatContainer.innerText = `${format} ${checkTrainerDifficulty(zone, trainer)}`
         if(trainers[zone][trainer]["backup"]){
@@ -404,17 +405,21 @@ async function spriteRemoveTrainerBgReturnBase64(trainerSprite, url){
 function replaceTbody(key, zone, trainer){
     const trainerEl = document.getElementById(key)
     if(trainerEl){
-        let format = "Singles"
+        let format = "Single"
 
         trainerEl.getElementsByClassName("trainerTbody")[0].replaceWith(createTrainerSpeciesTbody(trainers[zone][trainer]))
+        const trainerFormat = trainerEl.getElementsByClassName("trainerFormat")[0]
+        trainerFormat.classList.remove("double")
 
         if(trainers[zone][trainer]["double"]){
-            format = "Doubles"
+            format = "Double"
+            trainerFormat.classList.add("double")
         }
 
-        trainerEl.getElementsByClassName("trainerFormat")[0].innerText = `${format} ${checkTrainerDifficulty(zone, trainer)}`
+        trainerFormat.innerText = `${format} ${checkTrainerDifficulty(zone, trainer)}`
         if(trainers[zone][trainer]["backup"]){
-            trainerEl.getElementsByClassName("trainerFormat")[0].innerText.innerText += " Backup[!]"
+            trainerFormat.innerText.innerText += " Backup[!]"
+            trainerFormat.classList.add("nerf")
         }
     }
     

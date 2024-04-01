@@ -40,6 +40,10 @@
     font-size: 22px;
 }
 
+.double {
+    color: var(--theme-color);
+}
+
 #trainersTable > tbody > table {
     display: block !important;
     margin-bottom: 50px;
