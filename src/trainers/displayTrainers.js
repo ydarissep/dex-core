@@ -30,10 +30,10 @@ function appendTrainersToTable(key){
 
         trainerSpriteContainer.append(trainerSprite)
         trainerRematchContainer.append(trainerRematch)
-        trainerNameContainer.append(trainerRematchContainer)
         trainerNameContainer.append(trainerSpriteContainer)
         trainerNameContainer.append(trainerName)
 
+        trainerThead.append(trainerRematchContainer)
         trainerThead.append(formatContainer)
         trainerThead.append(trainerNameContainer)
         trainerThead.append(trainerLocation)
@@ -118,14 +118,10 @@ function createTrainerSpeciesTbody(trainerObj){
             }) 
             trainerSpeciesContainer.append(trainerSpeciesAbility)
 
-            trainerSpeciesContainer.append(getLvlNatureEl(trainerSpeciesObj))
-
             const trainerSpeciesItem = document.createElement("div"); trainerSpeciesItem.innerText = sanitizeString(trainerSpeciesObj["item"]); trainerSpeciesItem.className = "bold trainerSpeciesItem"
             trainerSpeciesContainer.append(trainerSpeciesItem)
 
-            trainerSpeciesContainer.append(returnEVsObj(trainerSpeciesObj["evs"]))
-
-            trainerSpeciesContainer.append(returnIVsObj(trainerSpeciesObj["ivs"]))
+            trainerSpeciesContainer.append(returnEVsIVsObj(trainerSpeciesObj))
 
             trainerSpeciesContainer.append(returnMovesObj(trainerSpeciesObj))
 
@@ -148,6 +144,7 @@ function createTrainerSpeciesTbody(trainerObj){
 
 function returnMovesObj(trainerSpeciesObj){
     const trainerSpeciesMovesContainer = document.createElement("div"); trainerSpeciesMovesContainer.className = "trainerSpeciesMovesContainer"
+
     for(let i = 0; i < trainerSpeciesObj["moves"].length; i++){
         if(trainerSpeciesObj["moves"][i] != "MOVE_NONE"){
             const trainerSpeciesMoveContainer = document.createElement("div")
@@ -188,62 +185,57 @@ function returnMovesObj(trainerSpeciesObj){
 
 
 
-function returnEVsObj(array){
-    const trainerSpeciesEVsContainer = document.createElement("div"); trainerSpeciesEVsContainer.className = "trainerSpeciesEVsContainer"
+function returnEVsIVsObj(trainerSpeciesObj){
+    const stats = ["HP", "Atk", "Def", "SpA", "SpD", "Spe"]
+    const nature = returnNature(trainerSpeciesObj["nature"])
+    let EVs = trainerSpeciesObj["evs"]
+    let IVs = trainerSpeciesObj["ivs"]
 
-    const trainerSpeciesEVs = document.createElement("span"); ; trainerSpeciesEVs.className = "trainerSpeciesEVs"
-
-    const indexToString = ["HP", "Atk", "Def", "SpA", "SpD", "Spe"]
-
-    if(allAreEqual(array)){
-        const stat = document.createElement("span"); stat.innerText = `${array[0]}\nAll`; stat.className = "trainerSpeciesStat"
-        trainerSpeciesEVs.append(stat)
+    while(EVs.length < 6){
+        EVs.push(0)
     }
-    else{
-        for(let i = 0; i < array.length; i++){
-            if(i < 6){
-                if(array[i] > 0){
-                    const stat = document.createElement("span"); stat.innerText = `${array[i]}\n${indexToString[i]}`; stat.className = "trainerSpeciesStat"
-                    trainerSpeciesEVs.append(stat)
-                }
-            }
-        }
-        if(trainerSpeciesEVs.children.length === 0){
-            const stat = document.createElement("span"); stat.innerText = `0\nAll`; stat.className = "trainerSpeciesStat"
-            trainerSpeciesEVs.append(stat)
-        }
+    while(IVs.length < 6){
+        IVs.push(0)
     }
 
-    trainerSpeciesEVsContainer.append(trainerSpeciesEVs)
+    const trainerSpeciesEVsIVsMainContainer = document.createElement("fieldset"); trainerSpeciesEVsIVsMainContainer.classList = "trainerSpeciesEVsIVsMainContainer"
+    const trainerSpeciesEVsIVsLegend = document.createElement("legend"); trainerSpeciesEVsIVsLegend.innerText = `Level ${trainerSpeciesObj["lvl"]}`
+    trainerSpeciesEVsIVsMainContainer.append(trainerSpeciesEVsIVsLegend)
 
-    return trainerSpeciesEVsContainer
+    for(let i = 0; i < IVs.length; i++){
+        const trainerSpeciesEVsIVsContainer = document.createElement("span"); trainerSpeciesEVsIVsContainer.classList = "trainerSpeciesEVsIVsContainer"
+        
+        const trainerSpeciesStat = document.createElement("div"); trainerSpeciesStat.innerText = stats[i]; trainerSpeciesStat.style.fontSize = "12px"
+        if(nature[0] === stats[i]){
+            trainerSpeciesStat.classList.add("buff")
+        }
+        else if(nature[1] === stats[i]){
+            trainerSpeciesStat.classList.add("nerf")
+        }
+        
+        const trainerSpeciesEVs = document.createElement("div"); trainerSpeciesEVs.innerText = EVs[i]
+        if(EVs[i] == 0){
+            trainerSpeciesEVs.innerText = "-"
+        }
+        const trainerSpeciesIVs = document.createElement("div"); trainerSpeciesIVs.innerText = IVs[i]
+        if(IVs[i] == 0){
+            trainerSpeciesIVs.innerText = "-"
+        }
+
+        trainerSpeciesEVsIVsContainer.append(trainerSpeciesStat)
+        trainerSpeciesEVsIVsContainer.append(trainerSpeciesEVs)
+        trainerSpeciesEVsIVsContainer.append(trainerSpeciesIVs)
+        trainerSpeciesEVsIVsMainContainer.append(trainerSpeciesEVsIVsContainer)
+    }
+
+    return trainerSpeciesEVsIVsMainContainer
 }
 
 
 
 
 
-function returnIVsObj(array){
-    const trainerSpeciesIVs = document.createElement("div"); trainerSpeciesIVs.innerText = ""; trainerSpeciesIVs.className = "trainerSpeciesIVs"
-
-    for(let i = 0; i < array.length; i++){
-        if(i < 6){
-            trainerSpeciesIVs.innerText += `${array[i]} `
-        }
-    }
-    if(trainerSpeciesIVs.innerText === ""){
-        trainerSpeciesIVs.innerText = "0"
-    }
-
-    return trainerSpeciesIVs
-}
-
-
-
-
-
-
-function getLvlNatureEl(trainerSpeciesObj){
+function returnNature(nature){
     const natureArray = {
         "NATURE_ADAMANT": ["Atk", "SpA"],
         "NATURE_BASHFUL": ["-", "-"],
@@ -272,26 +264,7 @@ function getLvlNatureEl(trainerSpeciesObj){
         "NATURE_TIMID": ["Spe", "Atk"]
     }
 
-    const lvlNatureContainer = document.createElement("div")
-    if(trainerSpeciesObj["lvl"] != 0){
-        const trainerSpeciesLvl = document.createElement("span"); trainerSpeciesLvl.innerText = `Lvl ${trainerSpeciesObj["lvl"]} | `
-        lvlNatureContainer.append(trainerSpeciesLvl)
-    }
-
-    if(!natureArray[trainerSpeciesObj["nature"]]){
-        natureContainer.innerText = sanitizeString(nature)
-        return natureContainer
-    }
-    else{
-        const statsBuffed = document.createElement("span"); statsBuffed.innerText = natureArray[trainerSpeciesObj["nature"]][0]; statsBuffed.className = "buff"
-        const separator = document.createElement("span"); separator.innerText = " / "
-        const statsNerfed = document.createElement("span"); statsNerfed.innerText = natureArray[trainerSpeciesObj["nature"]][1]; statsNerfed.className = "nerf"
-
-        lvlNatureContainer.append(statsBuffed)
-        lvlNatureContainer.append(separator)
-        lvlNatureContainer.append(statsNerfed)
-        return lvlNatureContainer
-    }
+    return natureArray[nature]
 }
 
 
