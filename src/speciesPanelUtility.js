@@ -215,17 +215,9 @@ async function createSpeciesPanel(name){
         speciesEvolutionsMainContainer.classList.remove("hide")
     }
 
-    speciesEvoTable.style.display = "ruby"
-    speciesEvoTable.className = ""
-
-    if(speciesEvoTable.offsetWidth > 600){
-        speciesEvoTable.classList.add("resizeEvo1")
-    }
-    if(speciesEvoTable.offsetWidth > 500){
-        speciesEvoTable.classList.add("resizeEvo2")
-    }
-    if(speciesEvoTable.offsetWidth > 350){
-        speciesEvoTable.classList.add("resizeEvo3")
+    speciesEvoTable.removeAttribute("class")
+    if(speciesEvoTable.children.length > 3){
+        speciesEvoTable.classList.add("evoLongLineLength")
     }
 
 

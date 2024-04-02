@@ -108,7 +108,7 @@
 	margin-left: 20px;
 }
 
-#speciesPanelSubcontainer1, #speciesPanelSubcontainer3, #speciesAbilitiesMainContainer, #speciesInnatesMainContainer, #speciesChangesContainer, #speciesEvolutionsMainContainer, #speciesFormesContainer {
+#speciesPanelSubcontainer1, #speciesPanelSubcontainer3, #speciesAbilitiesMainContainer, #speciesInnatesMainContainer, #speciesEvolutionsText, #speciesChangesContainer, #speciesFormesContainer {
 	text-align: left !important;
 }
 
@@ -382,27 +382,28 @@ only screen and (max-width: 380px) {
 }
 
 @media /* resize evo conditions */
-only screen and (max-width: 700px) {
-	.resizeEvo3 .miniSprite3 {
-		padding: 0px 5px 5px 5px !important;
-	}
-	.resizeEvo3 .evoMethod {
-		font-size: 12px;
-	}
-}
-
-@media /* resize evo conditions */
-only screen and (max-width: 450px) {
-	.resizeEvo2 .miniSprite3 {
-		width: 32px;
-		height: 32px;
-		aspect-ratio: auto 32 / 32;
-	}
+only screen and (max-width: 500px) {
+    #speciesEvoTable {
+        font-size: 16px;
+    }
 }
 
 @media /* resize evo conditions */
 only screen and (max-width: 400px) {
-	.resizeEvo1#speciesEvoTable {
-		display: table-caption !important;
-	}
+    #speciesEvoTable {
+        font-size: 15px;
+    }
+
+    #speciesEvoTable img {
+        padding: 0px 5px 5px 5px !important;
+    }
+
+    .evoLongLineLength {
+        font-size: 14px !important;
+    }
+
+    .evoLongLineLength img {
+        padding: 0px 3px 5px 3px !important;
+    }
 }
+
