@@ -407,3 +407,17 @@ only screen and (max-width: 400px) {
     }
 }
 
+@media /* resize evo conditions */
+only screen and (max-width: 359px) {
+    #speciesEvoTable {
+        font-size: 14px;
+    }
+
+	.evoLongLineLength {
+        font-size: 13px !important;
+    }
+
+    .evoLongLineLength img {
+        padding: 0px 0px 5px 0px !important;
+    }
+}
