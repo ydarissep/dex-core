@@ -4,8 +4,8 @@ async function applySettings(settingsArg = []){
     if(settingsArg.length > 0){
         settings = settingsArg
     }
-    else if(localStorage.getItem("settings")){
-        settings = JSON.parse(localStorage.getItem("settings"))
+    else if(localStorage.getItem("DEXsettings")){
+        settings = JSON.parse(localStorage.getItem("DEXsettings"))
     }
 
     if(settings.includes("speciesPanelHistoryHide")){
@@ -65,7 +65,7 @@ function changeSetting(setting, enable = false){
     else{
         settings = settings.filter(value => value != setting)
     }
-    localStorage.setItem("settings", JSON.stringify(settings))
+    localStorage.setItem("DEXsettings", JSON.stringify(settings))
     applySettings(settings)
 }
 
