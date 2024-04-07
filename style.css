@@ -91,7 +91,7 @@
   
   button[type='button'] {
     width: 100px;
-    background: rgba(128, 127, 139, 0.01);
+    background: rgba(0, 0, 0, 0.5);
     outline: none;
     padding: 8px;
     border: 2px solid var(--blue-border);
