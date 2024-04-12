@@ -147,7 +147,7 @@ function returnMovesObj(trainerSpeciesObj){
     const trainerSpeciesMovesContainer = document.createElement("div"); trainerSpeciesMovesContainer.className = "trainerSpeciesMovesContainer"
 
     for(let i = 0; i < trainerSpeciesObj["moves"].length; i++){
-        if(trainerSpeciesObj["moves"][i] != "MOVE_NONE"){
+        if(trainerSpeciesObj["moves"][i] != "MOVE_NONE" && trainerSpeciesObj["moves"][i] in moves){
             const trainerSpeciesMoveContainer = document.createElement("div")
             const trainerSpeciesMoveType = document.createElement("span"); trainerSpeciesMoveType.innerText = sanitizeString(moves[trainerSpeciesObj["moves"][i]]["type"]).slice(0,3); trainerSpeciesMoveType.className = `backgroundSmall ${moves[trainerSpeciesObj["moves"][i]]["type"]} trainersSpeciesMoveType`
             const trainerSpeciesMoveName = document.createElement("span"); trainerSpeciesMoveName.className = "trainerSpeciesMoveName hyperlink"
