@@ -491,6 +491,13 @@ function createClickableImgAndName(speciesName, evoConditions = false, showName 
 
 
 async function manageSpeciesPanelHistory(speciesName){
+    for(let i = 0; i < speciesPanelHistory.length; i++){
+        if(!(speciesPanelHistory[i][0] in species) || species[speciesPanelHistory[i][0]]["baseSpeed"] == 0){
+            speciesPanelHistory.splice(i, 1)
+            i--
+        }
+    }
+
     if(speciesPanelHistoryContainer.children.length != speciesPanelHistory.length){
         displaySpeciesPanelHistory()
     }
@@ -552,11 +559,6 @@ function displaySpeciesPanelHistory(){
     for(let i = 0; i < speciesPanelHistory.length; i++){
         const sprite = document.createElement("img")
         const speciesName = speciesPanelHistory[i][0]
-
-        if(!(speciesName in species) || species[speciesName]["baseSpeed"] == 0){
-            speciesPanelHistory.splice(i, 1)
-            continue
-        }
 
         sprite.src = getSpeciesSpriteSrc(speciesName)
         sprite.className = `sprite${speciesName} historyAnimation`
