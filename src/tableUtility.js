@@ -1,5 +1,5 @@
 async function displaySetup(){    
-    await footerP("")
+    footerP("")
 
     if(Object.keys(strategies).length === 0){
         onlyShowStrategyPokemon.classList.add("hide")
@@ -9,6 +9,12 @@ async function displaySetup(){
     }
     if(Object.keys(trainers).length === 0){
         trainersButton.classList.add("hide")
+    }
+    if(Object.keys(items).length === 0){
+        itemsButton.classList.add("hide")
+    }
+    else{
+        await setupItemsButtonFilters()
     }
     if(typeof innatesDefined !== "undefined"){
         document.getElementsByClassName("innatesHeader")[0].classList.remove("hide")
@@ -208,6 +214,30 @@ function filterTrainersTableInput(input){
     lazyLoading(true)
 }
 
+function filterItemsTableInput(input, keyArray){
+    const sanitizedInput = input.trim().replaceAll(/-|'| |_|!/g, "").toLowerCase()
+    const regexInput = new RegExp(sanitizedInput, "i")
+
+    for(let i = 0, j = Object.keys(tracker).length; i < j; i++){
+        tracker[i]["filter"].push("input")
+        for (let k = 0; k < keyArray.length; k++){
+            if(regexInput.test(sanitizeString("" + items[tracker[i]["key"]][keyArray[k]]).replaceAll(/-|'| |_|!/g, ""))){
+                tracker[i]["filter"] = tracker[i]["filter"].filter(value => value !== "input")
+                break
+            }
+        }
+        Object.keys(items[tracker[i]["key"]]["locations"]).forEach(method => {
+            if(regexInput.test(sanitizeString("" + items[tracker[i]["key"]]["locations"][method]).replaceAll(/-|'| |_|!/g, ""))){
+                if(!settings.includes(method)){
+                    tracker[i]["filter"] = tracker[i]["filter"].filter(value => value !== "input")
+                }
+            }
+        })
+    }
+
+    lazyLoading(true)
+}
+
 
 
 
@@ -236,6 +266,9 @@ async function lazyLoading(reset = false){
         }
         else if(tracker === locationsTracker){
             displayFunction = "appendLocationsToTable"
+        }
+        else if(tracker === itemsTracker){
+            displayFunction = "appendItemsToTable"
         }
         else if(tracker === trainersTracker){
             displayFunction = "appendTrainersToTable"

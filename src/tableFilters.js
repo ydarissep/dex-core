@@ -213,15 +213,6 @@ function filterBaseStats(value, label){
 
 
 
-
-
-
-
-
-
-
-
-
 function selectFilter(value, label){
     if(label === "Item"){
         if(tracker === trainersTracker){
@@ -264,6 +255,9 @@ function selectFilter(value, label){
     }
     else if(label === "Flag"){
         filterMovesFlags(value, label)
+    }
+    else if(label === "Pocket"){
+        filterPocket(value, label)
     }
 }
 

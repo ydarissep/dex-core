@@ -16,9 +16,9 @@
   <link rel="stylesheet" href="style/movesTable.css">
   <link rel="stylesheet" href="style/locationsTable.css">
   <link rel="stylesheet" href="style/trainersTable.css">
+  <link rel="stylesheet" href="style/itemsTable.css">
   <link rel="stylesheet" href="style/speciesPanel.css">
   <link rel="stylesheet" href="style/strategies.css">
-  <script defer src="backup.js" id="backupFile"></script>
   <script defer src="src/species/displaySpecies.js"></script>
   <script defer src="src/species/fetchSpecies.js"></script>
   <script defer src="src/species/regexSpecies.js"></script>
@@ -31,9 +31,10 @@
   <script defer src="src/locations/displayLocations.js"></script>
   <script defer src="src/locations/fetchLocations.js"></script>
   <script defer src="src/locations/regexLocations.js"></script>
-  <script defer src="src/trainers/displayTrainers.js"></script>
-  <script defer src="src/trainers/fetchTrainers.js"></script>
-  <script defer src="src/trainers/regexTrainers.js"></script>
+  <script defer src="src/scripts/displayTrainers.js"></script>
+  <script defer src="src/scripts/displayItems.js"></script>
+  <script defer src="src/scripts/fetchScripts.js"></script>
+  <script defer src="src/scripts/regexScripts.js"></script>
   <script defer src="src/strategies/fetchStrategies.js"></script>
   <script defer src="src/strategies/regexStrategies.js"></script>
   <script defer src="src/lz-string.js"></script>
@@ -277,6 +278,7 @@
       <input type="search" id="movesInput" class="hide" list="movesInputDataList">
       <input type="search" id="locationsInput" class="hide" list="speciesInputDataList">
       <input type="search" id="trainersInput" class="hide">
+      <input type="search" id="itemsInput" class="hide">
       <datalist id="abilitiesInputDataList"></datalist>
       <datalist id="speciesInputDataList"></datalist>
       <datalist id="movesInputDataList"></datalist>
@@ -291,6 +293,7 @@
       <button type="button" id="movesButton">Moves</button>
       <button type="button" id="locationsButton">Locations</button>
       <button type="button" id="trainersButton">Trainers</button>
+      <button type="button" id="itemsButton">Items</button>
     </div>
   
   
@@ -327,6 +330,22 @@
       <div id="trainersFilter" class="hide">
         <div id="trainersFilterList" class="filterList"></div>
         <div id="trainersFilterContainer" class="filterContainer"></div>
+      </div>
+
+      <div id="itemsFilter" class="hide">
+
+        <button id="hideCrossedItems" type="button" class="setting">Hide Crossed</button>
+
+        <button id="hideEmptyItems" type="button" class="setting">Hide Empty</button>
+
+        <button id="resetCrossedItems" type="button" class="setting">Reset</button>
+
+        <div id="pocketContainer"></div>
+
+        <div id="methodContainer"></div>
+
+        <div id="itemsFilterList" class="filterList"></div>
+        <div id="itemsFilterContainer" class="filterContainer"></div>
       </div>
   
     </div>
@@ -397,6 +416,10 @@
         <thead id="difficultyButtonContainer"></thead>
         <tbody id="trainersTableTbody"></tbody>
       </table>
+
+      <table id="itemsTable" class="hide">
+        <tbody id="itemsTableTbody"></tbody>
+      </table>
     </div>
   
     <a class="utilityButton hide">↑</a>
@@ -410,7 +433,6 @@
       <button type="button" id="settings" class="hide">Settings</button> 
       <button type="button" id="credits" class="hide">Credits</button> 
       <button type="button" id="update" class="hide">Update</button>
-      <button type="button" id="backup" class="hide">Backup</button>
     </div>
   </footer>
   

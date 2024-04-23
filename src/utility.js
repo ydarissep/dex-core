@@ -1,5 +1,5 @@
 function sanitizeString(string){
-    const regex = /^SPECIES_|^TYPE_|^ABILITY_|^MOVE_|^SPLIT_|FLAG_|^EFFECT_|^Z_EFFECT_|^ITEM_|^EGG_GROUP_|^EVO_|^NATURE_/ig
+    const regex = /^SPECIES_|^TYPE_|^ABILITY_|^MOVE_|^SPLIT_|FLAG_|^EFFECT_|^Z_EFFECT_|^ITEM_|^EGG_GROUP_|^EVO_|^NATURE_|^POCKET_/ig
 
     const unsanitizedString = string.toString().replace(regex, "")
     let matchArray = unsanitizedString.match(/\w+/g)
@@ -25,10 +25,6 @@ function sanitizeString(string){
 
 
 async function fetchData(urlParams = ""){
-    setTimeout(() => {
-        timeout = true
-    }, "20000");
-
     if(urlParams == ""){
         history.pushState(null, null, location.href)
         const queryString = window.location.search
@@ -40,7 +36,7 @@ async function fetchData(urlParams = ""){
     await fetchAbilitiesObj()
     await fetchSpeciesObj()
     await fetchLocationsObj()
-    await fetchTrainersObj()
+    await fetchScripts()
     await fetchStrategiesObj()
     
     await fetchTypeChart()
@@ -69,7 +65,6 @@ async function fetchTypeChart(){
     catch(e){
         console.log(e.message)
         console.log(e.stack)
-        typeChart = backupData[6]
     }
 }
 
@@ -97,7 +92,7 @@ async function clearLocalStorage(){
 
 
 function exportData(){
-    console.log(`let backupData = [${JSON.stringify(moves)}, ${JSON.stringify(abilities)}, ${JSON.stringify(species)}, ${JSON.stringify(locations)}, ${JSON.stringify(trainers)}, ${JSON.stringify(strategies)}, ${JSON.stringify(typeChart)}]`)
+    console.log(`let backupData = [${JSON.stringify(moves)}, ${JSON.stringify(abilities)}, ${JSON.stringify(species)}, ${JSON.stringify(locations)}, ${JSON.stringify(trainers)}, ${JSON.stringify(items)}, ${JSON.stringify(strategies)}, ${JSON.stringify(typeChart)}]`)
 }
 
 
@@ -111,15 +106,6 @@ function footerP(input){
     paragraph.innerText = input
     footer.append(paragraph)
 }
-
-
-
-function checkTimeout(){
-    if(timeout){
-        throw new Error("Timed out")
-    }
-}
-
 
 
 

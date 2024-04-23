@@ -207,6 +207,21 @@ only screen and (max-width: 400px) {
     .trainerSpeciesEVsIVsContainer {
         font-size: 12px;
     }
+
+    .trainerSpeciesItem {
+        font-size: 13px;
+    }
+}
+
+@media 
+only screen and (max-width: 359px) {
+    .trainerSpeciesItem {
+        font-size: initial !important;
+    }
+
+    .trainerItemSprite {
+        display: none !important;
+    }
 }
 
 @media 
