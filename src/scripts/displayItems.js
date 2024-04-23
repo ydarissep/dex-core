@@ -123,67 +123,76 @@ function returnItemTableTbody(key){
 
 
 
-document.getElementById("hideCrossedItems").addEventListener("click", () => {
-    const hideCrossedItems = document.getElementById("hideCrossedItems")
-    hideCrossedItems.classList.toggle("activeSetting")
 
-    if(hideCrossedItems.classList.contains("activeSetting")){
-        settings.push("hideCrossedItems")
+let getItemsButtons = setInterval(function() {
+    if(!document.getElementById("hideCrossedItems") || !document.getElementById("hideEmptyItems") || !document.getElementById("resetCrossedItems")){
+        return
     }
-    else{
-        settings = settings.filter(filter => filter !== "hideCrossedItems")
-    }
+    clearInterval(getItemsButtons)
 
-    localStorage.setItem("DEXsettings", JSON.stringify(settings))
-    lazyLoading(true)
-})
 
-document.getElementById("hideEmptyItems").addEventListener("click", () => {
-    const hideEmptyItems = document.getElementById("hideEmptyItems")
-    hideEmptyItems.classList.toggle("activeSetting")
-
-    if(hideEmptyItems.classList.contains("activeSetting")){
-        settings.push("hideEmptyItems")
-    }
-    else{
-        settings = settings.filter(filter => filter !== "hideEmptyItems")
-    }
-
-    localStorage.setItem("DEXsettings", JSON.stringify(settings))
-    lazyLoading(true)
-})
-
-let resetTimer = 0
-function resetItemsHandler(event, preventDefault = true){
-    if(preventDefault){
-        event.preventDefault()
-    }
-    if(event.type == "mousedown" || event.type == "mouseup"){
-        if(event.which == 2 || event.which == 3){ // if right click or mousewheel
-            return false
+    document.getElementById("hideCrossedItems").addEventListener("click", () => {
+        const hideCrossedItems = document.getElementById("hideCrossedItems")
+        hideCrossedItems.classList.toggle("activeSetting")
+    
+        if(hideCrossedItems.classList.contains("activeSetting")){
+            settings.push("hideCrossedItems")
+        }
+        else{
+            settings = settings.filter(filter => filter !== "hideCrossedItems")
+        }
+    
+        localStorage.setItem("DEXsettings", JSON.stringify(settings))
+        lazyLoading(true)
+    })
+    
+    document.getElementById("hideEmptyItems").addEventListener("click", () => {
+        const hideEmptyItems = document.getElementById("hideEmptyItems")
+        hideEmptyItems.classList.toggle("activeSetting")
+    
+        if(hideEmptyItems.classList.contains("activeSetting")){
+            settings.push("hideEmptyItems")
+        }
+        else{
+            settings = settings.filter(filter => filter !== "hideEmptyItems")
+        }
+    
+        localStorage.setItem("DEXsettings", JSON.stringify(settings))
+        lazyLoading(true)
+    })
+    
+    let resetTimer = 0
+    function resetItemsHandler(event, preventDefault = true){
+        if(preventDefault){
+            event.preventDefault()
+        }
+        if(event.type == "mousedown" || event.type == "mouseup"){
+            if(event.which == 2 || event.which == 3){ // if right click or mousewheel
+                return false
+            }
+        }
+        if(event.type == "mousedown" || event.type == "touchstart"){
+            document.getElementById("resetCrossedItems").classList.add("clicked")
+            resetTimer = setTimeout(lockSpecies,1500)
+        }
+        else if(event.type == "mouseup" || event.type == "touchend"){
+            document.getElementById("resetCrossedItems").classList.remove("clicked")
+            clearTimeout(resetTimer)
+        }
+    
+        function lockSpecies(){
+            itemsLocations = []
+            localStorage.setItem("itemsLocations", JSON.stringify(itemsLocations))
+            document.getElementById("resetCrossedItems").classList.remove("clicked")
+            lazyLoading(true)
         }
     }
-    if(event.type == "mousedown" || event.type == "touchstart"){
-        document.getElementById("resetCrossedItems").classList.add("clicked")
-        resetTimer = setTimeout(lockSpecies,1500)
-    }
-    else if(event.type == "mouseup" || event.type == "touchend"){
-        document.getElementById("resetCrossedItems").classList.remove("clicked")
-        clearTimeout(resetTimer)
-    }
-
-    function lockSpecies(){
-        itemsLocations = []
-        localStorage.setItem("itemsLocations", JSON.stringify(itemsLocations))
-        document.getElementById("resetCrossedItems").classList.remove("clicked")
-        lazyLoading(true)
-    }
-}
-document.getElementById("resetCrossedItems").addEventListener("touchstart", (event) => {resetItemsHandler(event)})
-document.getElementById("resetCrossedItems").addEventListener("touchend", (event) => {resetItemsHandler(event)})
-document.getElementById("resetCrossedItems").addEventListener("mousedown", (event) => {resetItemsHandler(event)})
-document.getElementById("resetCrossedItems").addEventListener("mouseup", (event) => {resetItemsHandler(event)})
-document.body.addEventListener("mouseup", (event) => {resetItemsHandler(event, false)})
+    document.getElementById("resetCrossedItems").addEventListener("touchstart", (event) => {resetItemsHandler(event)})
+    document.getElementById("resetCrossedItems").addEventListener("touchend", (event) => {resetItemsHandler(event)})
+    document.getElementById("resetCrossedItems").addEventListener("mousedown", (event) => {resetItemsHandler(event)})
+    document.getElementById("resetCrossedItems").addEventListener("mouseup", (event) => {resetItemsHandler(event)})
+    document.body.addEventListener("mouseup", (event) => {resetItemsHandler(event, false)})
+}, 100)  
 
 
 
