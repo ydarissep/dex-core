@@ -83,7 +83,7 @@ async function forceUpdate(){
 
 async function clearLocalStorage(){
     Object.keys(localStorage).forEach(key => {
-        if(key != "itemsLocations" && !/settings/i.test(key)){
+        if(key != "speciesPanelHistory" && key != "itemsLocations" && !/settings/i.test(key)){
             localStorage.removeItem(key)
         }
     })
