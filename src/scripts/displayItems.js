@@ -247,7 +247,9 @@ async function setupItemsButtonFilters(){
             lazyLoading(true)
         })
 
-        pocketButtonsContainer.append(pocketButton)
+        if(pocketButton.innerText !== ""){
+            pocketButtonsContainer.append(pocketButton)
+        }
     })
 
     methods.forEach(method => {
@@ -270,7 +272,9 @@ async function setupItemsButtonFilters(){
                 lazyLoading(true)
             })
 
-            methodButtonsContainer.append(methodButton)
+            if(methodButton.innerText !== ""){
+                methodButtonsContainer.append(methodButton)
+            }
         }
     })
 }
