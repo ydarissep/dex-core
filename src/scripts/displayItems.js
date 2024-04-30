@@ -66,8 +66,7 @@ function returnItemTableTbody(key){
     Object.keys(items[key]["locations"]).forEach(method => {
         if(!settings.includes(method)){
             for(let i = 0; i < items[key]["locations"][method].length; i++){
-                if(!settings.includes("hideCrossedItems") || !itemsLocations.includes(`${key}${method}${items[key]["locations"][method][i]}`))
-                {
+                if((!settings.includes("hideCrossedItems") || !itemsLocations.includes(`${key}${method}${items[key]["locations"][method][i]}`)) && items[key]["locations"][method][i] !== "Debug"){
                     const row = document.createElement("tr")
                     const methodContainer = document.createElement("td"); methodContainer.innerText = method
                     const location = document.createElement("td"); location.innerText = items[key]["locations"][method][i]
