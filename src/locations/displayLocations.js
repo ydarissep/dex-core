@@ -6,6 +6,10 @@ function appendLocationsToTable(key){
     const method = key.split("\\")[1]
     const speciesKey = key.split("\\")[2]
 
+    if(!(speciesKey in species)){
+        return false
+    }
+
     let table = document.getElementById(`${location}${method}`)
     let tableThead = document.createElement("thead")
     let tableTbody = document.createElement("tbody")
@@ -23,10 +27,6 @@ function appendLocationsToTable(key){
         table.append(tableTbody)
         locationsTableTbody.append(table)
         table.classList = "locationsTable"
-    }
-
-    if(!(speciesKey in species)){
-        return false
     }
 
     let row = document.createElement("tr")
