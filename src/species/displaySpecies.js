@@ -65,7 +65,7 @@ function appendSpeciesToTable(speciesName){
 
     let spriteContainer = document.createElement("td")
     spriteContainer.className = "sprite"
-    let sprite = document.createElement("img")
+    let sprite = document.createElement("img"); sprite.setAttribute("width", 64); sprite.setAttribute("height", 64)
     sprite.className = `sprite${speciesName}`
     sprite.src = getSpeciesSpriteSrc(speciesName)
     spriteContainer.append(sprite)
