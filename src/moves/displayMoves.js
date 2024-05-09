@@ -130,7 +130,7 @@ function createInputContainer(headerText, input, moveObj){
 
     inputValue.className = `movesBold ${input}` //only used for mobile view
 
-    if(moveObj[input] == 0 || moveObj[input] === undefined)
+    if(moveObj[input] <= 0 || moveObj[input] === undefined)
         inputValue.innerText = "-"
     else
         inputValue.innerText = moveObj[input]
