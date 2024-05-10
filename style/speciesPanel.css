@@ -39,6 +39,8 @@
     border-radius: 15%;
     position: relative;
     cursor: pointer;
+	width: 64px;
+	height: 64px;
 }
 
 .historyActive {
