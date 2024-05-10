@@ -504,7 +504,7 @@ async function manageSpeciesPanelHistory(speciesName){
 
     for(let i = 0; i < speciesPanelHistoryContainer.children.length; i++){
         speciesPanelHistoryContainer.children[i].classList.remove("historyActive")
-        if(speciesPanelHistoryContainer.children[i].classList.contains(`sprite${speciesName}`)){
+        if(speciesPanelHistoryContainer.children[i].querySelector(`.sprite${speciesName}`)){
             speciesPanelHistoryContainer.children[i].classList.add("historyActive")
         }
     }
@@ -557,19 +557,22 @@ function displaySpeciesPanelHistory(){
     }
 
     for(let i = 0; i < speciesPanelHistory.length; i++){
+        const spriteContainer = document.createElement("span")
         const sprite = document.createElement("img")
         const speciesName = speciesPanelHistory[i][0]
 
+        spriteContainer.className = "historyAnimation"
         sprite.src = getSpeciesSpriteSrc(speciesName)
-        sprite.className = `sprite${speciesName} historyAnimation`
+        sprite.className = `sprite${speciesName}`
         if(speciesPanelHistory[i][1] == true){
-            sprite.classList.add("locked")
+            spriteContainer.classList.add("locked")
         }
         if(speciesName == panelSpecies){
-            sprite.classList.add("historyActive")
+            spriteContainer.classList.add("historyActive")
         }
 
-        speciesPanelHistoryContainer.append(sprite)
+        spriteContainer.append(sprite)
+        speciesPanelHistoryContainer.append(spriteContainer)
 
 
 
@@ -588,22 +591,22 @@ function displaySpeciesPanelHistory(){
                 }
             }
             if(event.type == "mousedown" || event.type == "touchstart"){
-                sprite.classList.add("clicked")
-                sprite.classList.add("emulateClick")
+                spriteContainer.classList.add("clicked")
+                spriteContainer.classList.add("emulateClick")
                 lockTimer = setTimeout(lockSpecies,750)
                 clickTimer = setTimeout(emulateClick, 300)
             }
             else if(event.type == "mouseup" || event.type == "touchend"){
-                sprite.classList.remove("clicked")
+                spriteContainer.classList.remove("clicked")
                 clearTimeout(lockTimer)
-                if(sprite.classList.contains("emulateClick") && panelSpecies != speciesName){
+                if(spriteContainer.classList.contains("emulateClick") && panelSpecies != speciesName){
                     createSpeciesPanel(speciesName)
                 }
             }
         }
 
         function lockSpecies(){
-            sprite.classList.toggle("locked")
+            spriteContainer.classList.toggle("locked")
             if(speciesPanelHistory[i][1] == false){
                 speciesPanelHistory[i][1] = true
             }
@@ -614,13 +617,13 @@ function displaySpeciesPanelHistory(){
         }
 
         function emulateClick(){
-            sprite.classList.remove("emulateClick")
+            spriteContainer.classList.remove("emulateClick")
         }
         
-        sprite.addEventListener("touchstart", (event) => {historyHandler(event)})
-        sprite.addEventListener("touchend", (event) => {historyHandler(event)})
-        sprite.addEventListener("mousedown", (event) => {historyHandler(event)})
-        sprite.addEventListener("mouseup", (event) => {historyHandler(event)})
+        spriteContainer.addEventListener("touchstart", (event) => {historyHandler(event)})
+        spriteContainer.addEventListener("touchend", (event) => {historyHandler(event)})
+        spriteContainer.addEventListener("mousedown", (event) => {historyHandler(event)})
+        spriteContainer.addEventListener("mouseup", (event) => {historyHandler(event)})
         document.body.addEventListener("mouseup", (event) => {historyHandler(event, false)})
     }
 }
