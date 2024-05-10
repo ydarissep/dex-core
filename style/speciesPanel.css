@@ -44,6 +44,11 @@
 	display: inline-flex;
 }
 
+.historyAnimation > img {
+    width: 64px;
+    height: 64px;
+}
+
 .historyActive {
     border: 2px solid green !important;
 }
