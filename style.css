@@ -434,7 +434,7 @@ only screen and (max-width: 1500px) {
 
 .popupFilterButton {
   display: flex;
-  margin: auto;
+  margin: 18px auto 0px auto;
   background-color: #303134;
   border: 2px solid gray !important;
   outline: none;

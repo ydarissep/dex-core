@@ -177,7 +177,7 @@ function returnMovesObj(trainerSpeciesObj){
             trainerSpeciesMoveContainer.append(trainerSpeciesMoveType)
 
             trainerSpeciesMoveName.addEventListener("click", () => {
-                createPopupTrainerMoves(moves[trainerSpeciesObj["moves"][i]])
+                createPopupForMove(moves[trainerSpeciesObj["moves"][i]], false)
                 overlay.style.display = 'block'
                 body.classList.add("fixed")
             })
@@ -333,64 +333,6 @@ function createPopupItem(itemArray){
     }
 
     popupAbilities.append(itemMainContainer)
-}
-
-
-
-
-
-function createPopupTrainerMoves(move){
-    while(popup.firstChild){
-        popup.removeChild(popup.firstChild)
-    }
-
-    const moveName = document.createElement("h2"); moveName.classList.add("bold"); moveName.innerText = move["ingameName"]
-    popup.append(moveName)
-
-    const moveTypeSplitContainer = document.createElement("div"); moveTypeSplitContainer.className = "popupTrainerMoveTypeSplitContainer"
-    const moveType = document.createElement("span"); moveType.innerText = sanitizeString(move["type"]); moveType.className = `background ${move["type"]} popupTrainerMoveType`
-    moveTypeSplitContainer.append(moveType)
-
-    const moveSplit = document.createElement("img"); moveSplit.src = `src/moves/${move["split"]}.png`; moveSplit.className = `${sanitizeString(move["split"])} splitIcon`
-    moveTypeSplitContainer.append(moveSplit)
-    popup.append(moveTypeSplitContainer)
-
-    const movePower = document.createElement("span"); movePower.innerText = `${move["power"]}\nPower`; movePower.className = "popupTrainerMoveStat"
-    if(move["power"] == 0){
-        movePower.innerText = "-\nPower"
-    }
-    popup.append(movePower)
-
-    const movePP = document.createElement("span"); movePP.innerText = `${move["PP"]}\nPP`; movePP.className = "popupTrainerMoveStat"
-    popup.append(movePP)
-
-    const moveAccuracy = document.createElement("span"); moveAccuracy.innerText = `${move["accuracy"]}\nAcc`; moveAccuracy.className = "popupTrainerMoveStat"
-    if(move["accuracy"] == 0){
-        moveAccuracy.innerText = "-\nAcc"
-    }
-    popup.append(moveAccuracy)
-
-    if(moves[move["name"]]["chance"] > 0 && moves[move["name"]]["chance"] < 100){
-        const moveEffect = document.createElement("div"); moveEffect.innerText = `${sanitizeString(moves[move["name"]]["effect"])} ${moves[move["name"]]["chance"]}%`; moveEffect.className = "bold popupTrainerMoveEffect"
-        popup.append(moveEffect)
-    }
-
-    const moveDescription = document.createElement("div"); moveDescription.innerText = move["description"].join(""); moveDescription.className = "popupTrainerMoveDescription"
-    popup.append(moveDescription)
-
-    const flagsContainer = document.createElement("div")
-    const flagsListContainer = document.createElement("ul")
-    for(let i = 0; i < move["flags"].length; i++){
-        if(move["flags"][i] !== ""){
-            const flagName = document.createElement("li"); flagName.innerText = sanitizeString(move["flags"][i])
-            flagsListContainer.append(flagName)
-        }
-    }
-
-    if(flagsListContainer.childElementCount > 0){
-        flagsContainer.append(flagsListContainer)
-    }
-    popup.append(flagsContainer)
 }
 
 
