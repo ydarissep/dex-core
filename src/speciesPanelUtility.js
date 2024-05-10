@@ -1066,16 +1066,16 @@ function buildSpeciesPanelLevelUpFromPreviousEvoTable(table, name, label = "", a
                 PP.innerText = moves[move[0]]["PP"]
                 row.append(PP)
     
-                const description = document.createElement("td")
-                description.className = "speciesPanelLearnsetsEffect"
-                description.innerText = moves[move[0]]["description"].join("")
+                const movedescription = document.createElement("td")
+                movedescription.className = "speciesPanelLearnsetsEffect"
+                movedescription.innerText = moves[move[0]]["description"].join("")
     
                 row.addEventListener('click', function () {
                     createPopupForMove(moves[move[0]])
                     overlay.style.display = 'block'
                 }) 
     
-                row.append(description)
+                row.append(movedescription)
     
                 Tbody.append(row)
             }
@@ -1155,16 +1155,16 @@ function buildSpeciesPanelDoubleLearnsetsTable(table, name, input, label = "", a
         PP.innerText = moves[move[0]]["PP"]
         row.append(PP)
 
-        const description = document.createElement("td")
-        description.className = "speciesPanelLearnsetsEffect"
-        description.innerText = moves[move[0]]["description"].join("")
+        const movedescription = document.createElement("td")
+        movedescription.className = "speciesPanelLearnsetsEffect"
+        movedescription.innerText = moves[move[0]]["description"].join("")
 
         row.addEventListener('click', function () {
             createPopupForMove(moves[move[0]])
             overlay.style.display = 'block'
         }) 
 
-        row.append(description)
+        row.append(movedescription)
 
         Tbody.append(row)
     })
@@ -1231,16 +1231,16 @@ function buildSpeciesPanelSingleLearnsetsTable(table, name, input, label = "", a
         PP.innerText = moves[move]["PP"]
         row.append(PP)
 
-        const description = document.createElement("td")
-        description.className = "speciesPanelLearnsetsEffect"
-        description.innerText += moves[move]["description"].join("")
+        const movedescription = document.createElement("td")
+        movedescription.className = "speciesPanelLearnsetsEffect"
+        movedescription.innerText += moves[move]["description"].join("")
 
         row.addEventListener('click', function () {
             createPopupForMove(moves[move])
             overlay.style.display = 'block'
         }) 
 
-        row.append(description)
+        row.append(movedescription)
 
         Tbody.append(row)
     })
