@@ -164,7 +164,7 @@ function createPopupForMove(move, interactAble = true){
     popup.append(moveTypeSplitContainer)
 
     const movePower = document.createElement("span"); movePower.innerText = `${move["power"]}\nPower`; movePower.className = "popupTrainerMoveStat"
-    if(move["power"] < 0){
+    if(move["power"] <= 0){
         movePower.innerText = "-\nPower"
     }
     popup.append(movePower)
@@ -173,7 +173,7 @@ function createPopupForMove(move, interactAble = true){
     popup.append(movePP)
 
     const moveAccuracy = document.createElement("span"); moveAccuracy.innerText = `${move["accuracy"]}\nAcc`; moveAccuracy.className = "popupTrainerMoveStat"
-    if(move["accuracy"] < 0){
+    if(move["accuracy"] <= 0){
         moveAccuracy.innerText = "-\nAcc"
     }
     popup.append(moveAccuracy)
