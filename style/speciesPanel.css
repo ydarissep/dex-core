@@ -87,6 +87,11 @@
         width: 50px !important;
         height: 50px !important;
     }
+
+	.historyAnimation > img {
+		width: 50px !important;
+		height: 50px !important;
+	}
 }
 
 @media only screen and (max-width: 425px) {
@@ -94,6 +99,11 @@
         width: 45px !important;
         height: 45px !important;
     }
+
+	.historyAnimation > img {
+		width: 45px !important;
+		height: 45px !important;
+	}
 }
 
 @media only screen and (max-width: 400px) {
