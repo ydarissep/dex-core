@@ -107,7 +107,7 @@ only screen and (max-width: 550px) {
 }
 
 @media 
-only screen and (max-width: 359px) {
+only screen and (max-width: 399px) {
     .methodTable {
         width: 100% !important;
     }
