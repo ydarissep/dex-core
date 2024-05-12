@@ -11,12 +11,8 @@ function appendLocationsToTable(key){
     }
 
     let time = method.match(timeRegex)
-    let tempMethod = null
     if(time){
         time = time[0]
-        if(time == method){
-            tempMethod = `Land ${time}`
-        }
     }
 
     if(!locationsMoveFilter){
