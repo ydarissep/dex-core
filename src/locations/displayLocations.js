@@ -62,7 +62,7 @@ function appendLocationsToTable(key){
 
 
 function appendSpeciesEl(location, method, speciesKey, methodTable){
-    const row = document.createElement("tr"); row.setAttribute("ID", `${location}\\${method}\\${speciesKey}`)
+    const row = document.createElement("tr"); row.setAttribute("ID", `${location}\\${method}\\${speciesKey}`); row.classList = "locationSpeciesRow"
 
     let spriteContainer = document.createElement("td"); spriteContainer.classList = "locationSpriteContainer"
     let sprite = document.createElement("img"); sprite.src = getSpeciesSpriteSrc(speciesKey); sprite.className = `sprite${speciesKey} miniSprite3`
@@ -137,7 +137,7 @@ function returnMethodTableThead(method, time){
 
     let methodContainer = document.createElement("th"); methodContainer.innerText = method
     if(time){
-        //methodContainer.innerText = methodContainer.innerText.replace(time, "").trim()
+        methodContainer.innerText = methodContainer.innerText.replace(time, "").trim()
     }
     row.append(methodContainer)
 

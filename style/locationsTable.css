@@ -46,6 +46,11 @@
     margin: 0 !important;
 }
 
+.locationSpeciesRow:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    cursor: pointer;
+}
+
 .locationSpriteContainer {
     width: 48px;
     height: 48px;
