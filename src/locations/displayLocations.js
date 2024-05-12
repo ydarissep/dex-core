@@ -11,8 +11,12 @@ function appendLocationsToTable(key){
     }
 
     let time = method.match(timeRegex)
+    let tempMethod = null
     if(time){
         time = time[0]
+        if(time == method){
+            tempMethod = `Land ${time}`
+        }
     }
 
     if(!locationsMoveFilter){
@@ -42,6 +46,9 @@ function appendLocationsToTable(key){
     }
 
     let methodTable = document.getElementById(`${location}${method}`)
+    if(time == method){
+        methodTable = document.getElementById(`${location}Land${method}`)
+    }
     if(!methodTable){
         methodTable = returnMethodTable(location, method, time)
         locationTable.children[1].append(methodTable)
@@ -113,6 +120,9 @@ function appendSpeciesEl(location, method, speciesKey, methodTable){
 
 function returnMethodTable(location, method, time){
     const methodTable = document.createElement("table"); methodTable.setAttribute("ID", `${location}${method}`); methodTable.classList = "methodTable"
+    if(time == method){
+        methodTable.setAttribute("ID", `${location}Land${method}`)
+    }
     const methodTableTbody = document.createElement("tbody"); methodTableTbody.classList = "methodTableTbody"
 
     methodTable.append(returnMethodTableThead(method, time))
@@ -131,7 +141,7 @@ function returnMethodTableThead(method, time){
 
     let methodContainer = document.createElement("th"); methodContainer.innerText = method
     if(time){
-        methodContainer.innerText = methodContainer.innerText.replace(time, "").trim()
+        //methodContainer.innerText = methodContainer.innerText.replace(time, "").trim()
     }
     row.append(methodContainer)
 
