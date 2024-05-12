@@ -1,7 +1,7 @@
 window.locationsMoveFilter = null
 
 function appendLocationsToTable(key){
-
+    const timeRegex = /Day|Night|Morning|Evening/i
     const location = key.split("\\")[0]
     const method = key.split("\\")[1]
     const speciesKey = key.split("\\")[2]
@@ -10,27 +10,10 @@ function appendLocationsToTable(key){
         return false
     }
 
-    let table = document.getElementById(`${location}${method}`)
-    let tableThead = document.createElement("thead")
-    let tableTbody = document.createElement("tbody")
-    if(table){
-        tableThead = table.children[0]
-        tableTbody = table.children[1]
+    let time = method.match(timeRegex)
+    if(time){
+        time = time[0]
     }
-    else{
-        const table = document.createElement("table")
-        
-        let locationTableHeader = createRowHeader(location, method)
-        table.setAttribute("id", `${location}${method}`)
-        tableThead.append(locationTableHeader)
-        table.append(tableThead)
-        table.append(tableTbody)
-        locationsTableTbody.append(table)
-        table.classList = "locationsTable"
-    }
-
-    let row = document.createElement("tr")
-    row.setAttribute("id", `${key}`)
 
     if(!locationsMoveFilter){
         for(let i = 0; i < locationsFilterContainer.children.length; i++){
@@ -52,53 +35,64 @@ function appendLocationsToTable(key){
         }
     }
 
-    let spriteContainer = document.createElement("td")
-    spriteContainer.className = "sprite"
-    let sprite = document.createElement("img")
-    sprite.src = getSpeciesSpriteSrc(speciesKey)
-    sprite.className = `sprite${speciesKey} miniSprite3`
+    let locationTable = document.getElementById(`${location}${time}`)
+    if(!locationTable){
+        locationTable = returnLocationTable(location, time)
+        locationsTableTbody.append(locationTable)
+    }
+
+    let methodTable = document.getElementById(`${location}${method}`)
+    if(!methodTable){
+        methodTable = returnMethodTable(location, method, time)
+        locationTable.children[1].append(methodTable)
+    }
+
+    appendSpeciesEl(location, method, speciesKey, methodTable)
+
+    return true
+}
+
+
+
+
+
+
+
+function appendSpeciesEl(location, method, speciesKey, methodTable){
+    const row = document.createElement("tr"); row.setAttribute("ID", `${location}\\${method}\\${speciesKey}`)
+
+    let spriteContainer = document.createElement("td"); spriteContainer.classList = "locationSpriteContainer"
+    let sprite = document.createElement("img"); sprite.src = getSpeciesSpriteSrc(speciesKey); sprite.className = `sprite${speciesKey} miniSprite3`
     spriteContainer.append(sprite)
     row.append(spriteContainer)
 
-    let speciesContainer = document.createElement("td")
-    let speciesName = document.createElement("div")
-    speciesName.className = "key hide"
-    speciesName.innerText = speciesKey
-    speciesContainer.innerText = sanitizeString(speciesKey)
-    speciesContainer.append(speciesName)
-    row.append(speciesContainer)
+    let speciesName = document.createElement("td"); speciesName.innerText = sanitizeString(speciesKey)
+    row.append(speciesName)
 
-    let rarity = document.createElement("td")
+    let rarity = document.createElement("td"); rarity.classList = "locationRarity"
     if(locationsMoveFilter){
         moveMethod = speciesCanLearnMove(species[speciesKey], locationsMoveFilter)
-        let moveFilter = document.createElement("div")
-        moveFilter.className = "bold"
+        let moveFilter = document.createElement("div"); moveFilter.className = "bold"
         if(Number.isInteger(moveMethod)){
-            moveFilter.innerText = `Lv ${moveMethod}`
-            moveFilter.classList.add("levelUpLearnsets")
+            moveFilter.innerText = `Lv ${moveMethod}`; moveFilter.classList.add("levelUpLearnsets")
         }
         else if(moveMethod === "eggMovesLearnsets"){
-            moveFilter.innerText = "Egg"
-            moveFilter.classList.add("eggMovesLearnsets")
+            moveFilter.innerText = "Egg"; moveFilter.classList.add("eggMovesLearnsets")
         }
         else if(moveMethod === "TMHMLearnsets"){
-            moveFilter.innerText = "TM"
-            moveFilter.classList.add("TMHMLearnsets")
+            moveFilter.innerText = "TM"; moveFilter.classList.add("TMHMLearnsets")
         }            
         else if(moveMethod === "tutorLearnsets"){
-            moveFilter.innerText = "Tutor"
-            moveFilter.classList.add("tutorLearnsets")
+            moveFilter.innerText = "Tutor"; moveFilter.classList.add("tutorLearnsets")
         }
         rarity.append(moveFilter)
     }
     else{
-        let locationsInfo = document.createElement("div")
-        rarity.className = "rarity"
-        rarity.innerText = `${locations[location][method][speciesKey]}%`
-        rarity.style.color = `hsl(${locations[location][method][speciesKey]*2},85%,45%)`
-        locationsInfo.innerText = `${location} ${method}`
-        locationsInfo.className = "locationsInfo hide"
-        rarity.append(locationsInfo)
+        rarity.innerText = locations[location][method][speciesKey]
+        if(Number.isInteger(parseInt(locations[location][method][speciesKey]))){
+            rarity.innerText += "%"
+            rarity.style.color = `hsl(${locations[location][method][speciesKey]*2},85%,45%)`
+        }
     }
     row.append(rarity)
 
@@ -106,30 +100,78 @@ function appendLocationsToTable(key){
         createSpeciesPanel(speciesKey)
         document.getElementById("speciesPanelMainContainer").scrollIntoView(true)
     })
+
+    methodTable.children[1].append(row)
+}
+
+
+
+
+
+
+
+
+function returnMethodTable(location, method, time){
+    const methodTable = document.createElement("table"); methodTable.setAttribute("ID", `${location}${method}`); methodTable.classList = "methodTable"
+    const methodTableTbody = document.createElement("tbody"); methodTableTbody.classList = "methodTableTbody"
+
+    methodTable.append(returnMethodTableThead(method, time))
+    methodTable.append(methodTableTbody)
+
+    return methodTable
+}
+function returnMethodTableThead(method, time){
+    const methodTableThead = document.createElement("thead"); methodTableThead.className = "methodTableThead"
+    const row = document.createElement("tr")
+
+    const spriteContainer = document.createElement("th")
+    const sprite = document.createElement("img"); sprite.src = `https://raw.githubusercontent.com/ydarissep/dex-core/main/sprites/${returnMethodSprite(method).replaceAll(" ", "_")}.png`; sprite.classList = "locationSprite"
+    spriteContainer.append(sprite)
+    row.append(spriteContainer)
+
+    let methodContainer = document.createElement("th"); methodContainer.innerText = method
+    if(time){
+        methodContainer.innerText = methodContainer.innerText.replace(time, "").trim()
+    }
+    row.append(methodContainer)
+
+    methodTableThead.append(row)
+
+    return methodTableThead
+}
+
+
+
+
+
+
+
+
+function returnLocationTable(location, time){
+    const locationTable = document.createElement("table"); locationTable.setAttribute("ID", `${location}${time}`); locationTable.classList = "locationTable"
+    const locationTableTbody = document.createElement("tbody"); locationTableTbody.classList = "locationTableTbody"
+
+    locationTable.append(returnLocationTableThead(location, time))
+    locationTable.append(locationTableTbody)
     
-    tableTbody.append(row)
-    return true
+    return locationTable
+}
+function returnLocationTableThead(location, time){
+    const locationTableThead = document.createElement("thead"); locationTableThead.classList = "locationTableThead"
+    const row = document.createElement("tr")
+
+    const locationName = document.createElement("h1"); locationName.innerText = location
+    if(time){
+        locationName.innerText += ` ${time}`
+    }
+    row.append(locationName)
+    locationTableThead.append(row)
+
+    return locationTableThead
 }
 
-function createRowHeader(location, method){
-    let locationTableHeader = document.createElement("tr")
-    locationTableHeader.className = "locationTableHeader"
 
-    let spriteHeaderContainer = document.createElement("th")
-    let spriteHeader = document.createElement("img")
-    spriteHeaderContainer.className = "sprite"
-    spriteHeader.src = `https://raw.githubusercontent.com/ydarissep/dex-core/main/sprites/${returnMethodSprite(method).replaceAll(" ", "_")}.png`
-    spriteHeaderContainer.append(spriteHeader)
-    locationTableHeader.append(spriteHeaderContainer)
 
-    let headerContainer = document.createElement("th")
-    headerContainer.innerText = `${location} ${method}`
-    headerContainer.colSpan = "2"
-    headerContainer.className = "headerContainer"
-    locationTableHeader.append(headerContainer)
-
-    return locationTableHeader
-}
 
 
 

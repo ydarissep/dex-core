@@ -1,29 +1,109 @@
-.locationsTable tbody tr:hover {
-    background-color: rgba(255, 255, 255, 0.2) !important;
-    cursor: pointer;
+.locationTable {
+    display: block !important;
+	margin-bottom: 100px;
+    width: 1500px;
 }
 
-.locationTableHeader {
-	height: 50px;
-	font-size: 22px;
+.locationTableThead {
+    display: inline-block !important;
+    background: none;
+}
+
+.locationTableTbody {
+    width: 100%;
+    display: inline-table !important;
+}
+
+.methodTable {
+    border: 2px solid rgba(85, 85, 85);
+    width: 16.66%;
+    font-weight: 700;
+    box-sizing: border-box;
+    display: inline-block !important;
+    height: 100%;
+}
+
+.methodTableThead {
+    height: 70px;
 	font-weight: 700;
 	cursor: default !important;
+    width: 100%;
+    display: inline-table !important;
+    font-size: 25px;
 }
 
-.locationsTable {
-	margin-bottom: 50px;
+.methodTableTbody {
+    width: 100%;
+    display: table !important;
 }
 
-.headerContainer {
-	width: 250px;
-}
-
-#locationsTable {
+#locationsTable table, #locationsTable {
 	box-shadow: none !important;
 }
 
-.miniSprite3 {
-	padding-left: 5px;
-	width: 48px;
-  	height: 48px;
+#locationsTable .miniSprite3 {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.locationSpriteContainer {
+    width: 48px;
+    height: 48px;
+}
+
+.locationSprite {
+    width: 42px;
+    height: 42px;
+    image-rendering: pixelated;
+}
+
+.locationRarity {
+    padding-left: 5px;
+    font-size: 17px !important;
+}
+
+@media 
+only screen and (max-width: 1525px) {
+    .locationTable {
+        width: unset !important;
+    }
+
+    #locationsTable {
+        width: 100%;
+    }
+}
+
+@media 
+only screen and (max-width: 1125px) {
+    .methodTable {
+        width: 20% !important;
+    }
+}
+
+@media 
+only screen and (max-width: 900px) {
+    .methodTable {
+        width: 25% !important;
+    }
+}
+
+@media 
+only screen and (max-width: 725px) {
+    .methodTable {
+        width: 33.33% !important;
+    }
+}
+
+@media 
+only screen and (max-width: 550px) {
+    .methodTable {
+        width: 50% !important;
+    }
+}
+
+@media 
+only screen and (max-width: 359px) {
+    .methodTable {
+        width: 100% !important;
+    }
 }

@@ -266,6 +266,7 @@ async function lazyLoading(reset = false){
         }
         else if(tracker === locationsTracker){
             displayFunction = "appendLocationsToTable"
+            target = 200
         }
         else if(tracker === itemsTracker){
             displayFunction = "appendItemsToTable"
