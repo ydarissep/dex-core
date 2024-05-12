@@ -1,7 +1,7 @@
 window.locationsMoveFilter = null
 
 function appendLocationsToTable(key){
-    const timeRegex = /Day|Night|Morning|Evening/i
+    const timeRegex = /Day|Night|Morning|Evening|Dusk|Dawn/i
     const location = key.split("\\")[0]
     const method = key.split("\\")[1]
     const speciesKey = key.split("\\")[2]
