@@ -138,6 +138,9 @@ function returnMethodTableThead(method, time){
     let methodContainer = document.createElement("th"); methodContainer.innerText = method
     if(time){
         methodContainer.innerText = methodContainer.innerText.replace(time, "").trim()
+        if(time == method){
+            methodContainer.innerText = "Land"
+        }
     }
     row.append(methodContainer)
 
