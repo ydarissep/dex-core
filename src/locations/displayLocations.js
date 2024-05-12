@@ -14,6 +14,9 @@ function appendLocationsToTable(key){
     if(time){
         time = time[0]
     }
+    else{
+        time = "Anytime"
+    }
 
     if(!locationsMoveFilter){
         for(let i = 0; i < locationsFilterContainer.children.length; i++){
