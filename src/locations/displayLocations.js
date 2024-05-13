@@ -67,18 +67,10 @@ function appendLocationsToTable(key){
 function appendSpeciesEl(location, method, speciesKey, methodTable){
     const row = document.createElement("tr"); row.setAttribute("ID", `${location}\\${method}\\${speciesKey}`); row.classList = "locationSpeciesRow"
 
-    let spriteContainer = document.createElement("td"); spriteContainer.classList = "locationSpriteContainer"
-    let sprite = document.createElement("img"); sprite.src = getSpeciesSpriteSrc(speciesKey); sprite.className = `sprite${speciesKey} miniSprite3`
-    spriteContainer.append(sprite)
-    row.append(spriteContainer)
-
-    let speciesName = document.createElement("td"); speciesName.innerText = sanitizeString(speciesKey)
-    row.append(speciesName)
-
-    let rarity = document.createElement("td"); rarity.classList = "locationRarity"
+    const rarity = document.createElement("td"); rarity.classList = "locationRarity"
     if(locationsMoveFilter){
         moveMethod = speciesCanLearnMove(species[speciesKey], locationsMoveFilter)
-        let moveFilter = document.createElement("div"); moveFilter.className = "bold"
+        const moveFilter = document.createElement("div"); moveFilter.className = "bold"
         if(Number.isInteger(moveMethod)){
             moveFilter.innerText = `Lv ${moveMethod}`; moveFilter.classList.add("levelUpLearnsets")
         }
@@ -100,6 +92,19 @@ function appendSpeciesEl(location, method, speciesKey, methodTable){
             rarity.style.color = `hsl(${locations[location][method][speciesKey]*2},85%,45%)`
         }
     }
+
+    const spriteContainer = document.createElement("td"); spriteContainer.classList = "locationSpriteContainer"
+    const sprite = document.createElement("img"); sprite.src = getSpeciesSpriteSrc(speciesKey); sprite.className = `sprite${speciesKey} miniSprite3`
+    const speciesNameHidden = document.createElement("div"); speciesNameHidden.innerText = sanitizeString(speciesKey); speciesNameHidden.classList = "locationSpeciesNameHidden hide"
+    const rarityHidden = rarity.cloneNode(true); rarityHidden.classList.add("hide"); rarityHidden.classList.add("locationRarityHidden")
+    spriteContainer.append(sprite)
+    spriteContainer.append(speciesNameHidden)
+    spriteContainer.append(rarityHidden)
+    row.append(spriteContainer)
+
+    const speciesName = document.createElement("td"); speciesName.innerText = sanitizeString(speciesKey); speciesName.classList = "locationSpeciesName"
+    row.append(speciesName)
+
     row.append(rarity)
 
     row.addEventListener("click", () => {
@@ -131,14 +136,14 @@ function returnMethodTable(location, method, time){
 }
 function returnMethodTableThead(method, time){
     const methodTableThead = document.createElement("thead"); methodTableThead.className = "methodTableThead"
-    const row = document.createElement("tr")
+    const row = document.createElement("tr"); row.classList = "methodTableTheadRow"
 
     const spriteContainer = document.createElement("th")
     const sprite = document.createElement("img"); sprite.src = `https://raw.githubusercontent.com/ydarissep/dex-core/main/sprites/${returnMethodSprite(method).replaceAll(" ", "_")}.png`; sprite.classList = "locationSprite"
     spriteContainer.append(sprite)
     row.append(spriteContainer)
 
-    let methodContainer = document.createElement("th"); methodContainer.innerText = method
+    let methodContainer = document.createElement("th"); methodContainer.innerText = method; methodContainer.classList = "methodContainer"
     if(time){
         methodContainer.innerText = methodContainer.innerText.replace(time, "").trim()
         if(time == method){
