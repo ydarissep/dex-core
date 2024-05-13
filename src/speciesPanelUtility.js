@@ -1,3 +1,10 @@
+if(localStorage.getItem("speciesPanelHistory")){
+    window.speciesPanelHistory = JSON.parse(localStorage.getItem("speciesPanelHistory"))
+}
+else{
+    window.speciesPanelHistory = []
+}
+
 async function createSpeciesPanel(name){
     panelSpecies = name
     speciesPanel("show")
@@ -5,6 +12,8 @@ async function createSpeciesPanel(name){
     if(typeof refreshURLParams !== "undefined"){
         refreshURLParams()
     }
+
+    await manageSpeciesPanelHistory(name)
 
     speciesName.innerText = sanitizeString(name)
     speciesID.innerText = `#${species[name]["ID"]}`
@@ -206,17 +215,9 @@ async function createSpeciesPanel(name){
         speciesEvolutionsMainContainer.classList.remove("hide")
     }
 
-    speciesEvoTable.style.display = "ruby"
-    speciesEvoTable.className = ""
-
-    if(speciesEvoTable.offsetWidth > 600){
-        speciesEvoTable.classList.add("resizeEvo1")
-    }
-    if(speciesEvoTable.offsetWidth > 500){
-        speciesEvoTable.classList.add("resizeEvo2")
-    }
-    if(speciesEvoTable.offsetWidth > 350){
-        speciesEvoTable.classList.add("resizeEvo3")
+    speciesEvoTable.removeAttribute("class")
+    if(speciesEvoTable.children.length > 3){
+        speciesEvoTable.classList.add("evoLongLineLength")
     }
 
 
@@ -309,7 +310,7 @@ async function createSpeciesPanel(name){
             const stat = species[name]["changes"][i][0]
             const oldStat = species[name]["changes"][i][1]
             const newStat = species[name][stat]
-            createChange(stat, oldStat, newStat, name, speciesChanges)
+            createChange(stat, oldStat, newStat, speciesChanges)
         }
     }
     if(speciesChanges.firstChild)
@@ -345,38 +346,6 @@ async function createSpeciesPanel(name){
     })
 
 
-
-
-
-    while (recommendedCoverage.children.length > 0)
-        recommendedCoverage.removeChild(recommendedCoverage.firstChild)
-
-    try{
-        for(const type of getSpeciesBestCoverageTypes(species[name])){
-            const recommendationContainer = document.createElement("span"); recommendationContainer.className = "speciesOffensiveTypeChartMarginTop"
-            const recommendationType = document.createElement("span")
-            const recommendationScore = document.createElement("div")
-    
-            recommendationType.innerText = sanitizeString(type[0])
-            recommendationType.className = `background ${type[0]}`
-    
-            recommendationScore.innerText = type[1].toFixed(2)
-    
-            recommendationContainer.append(recommendationType)
-            recommendationContainer.append(recommendationScore)
-            recommendedCoverage.append(recommendationContainer)
-        }
-    }
-    catch{
-        console.log(`Couldn't get recommended coverage type for ${name}`)
-    }
-
-    if(recommendedCoverage.children.length === 0){
-        recommendedCoverageContainer.classList.add("hide")
-    }
-    else{
-        recommendedCoverageContainer.classList.remove("hide")
-    }
 
 
 
@@ -521,7 +490,168 @@ function createClickableImgAndName(speciesName, evoConditions = false, showName 
 
 
 
-function createChange(stat, oldStat = [""], newStat = [""], speciesName, obj){
+async function manageSpeciesPanelHistory(speciesName){
+    for(let i = 0; i < speciesPanelHistory.length; i++){
+        if(!(speciesPanelHistory[i][0] in species) || species[speciesPanelHistory[i][0]]["baseSpeed"] == 0){
+            speciesPanelHistory.splice(i, 1)
+            i--
+        }
+    }
+
+    if(speciesPanelHistoryContainer.children.length != speciesPanelHistory.length){
+        displaySpeciesPanelHistory()
+    }
+
+    for(let i = 0; i < speciesPanelHistoryContainer.children.length; i++){
+        speciesPanelHistoryContainer.children[i].classList.remove("historyActive")
+        if(speciesPanelHistoryContainer.children[i].querySelector(`.sprite${speciesName}`)){
+            speciesPanelHistoryContainer.children[i].classList.add("historyActive")
+        }
+    }
+
+    const maxHistory = 12
+    let index = -1
+    let locked = 0
+    for(let i = 0; i < speciesPanelHistory.length; i++){
+        if(speciesPanelHistory[i][1] == true){
+            locked++
+        }
+        else if(index < 0){
+            index = i
+        }
+    }
+
+    if(locked >= maxHistory || speciesPanelHistory.some(el => el[0] == speciesName)){
+        return
+    }
+
+    for(let i = 0; i < speciesPanelHistory.length; i++){
+        if(species[speciesPanelHistory[i][0]]["evolutionLine"].includes(speciesName) || species[speciesPanelHistory[i][0]]["forms"].includes(speciesName)){
+            speciesPanelHistory[i][0] = speciesName
+            for(let j = i; j > locked; j--){
+                const temp = speciesPanelHistory[j - 1]
+                speciesPanelHistory[j - 1] = speciesPanelHistory[j]
+                speciesPanelHistory[j] = temp
+            }
+            displaySpeciesPanelHistory()
+            localStorage.setItem("speciesPanelHistory", JSON.stringify(speciesPanelHistory))
+            return
+        }
+    }
+
+    if(index < 0){
+        index = locked
+    }
+
+    speciesPanelHistory.splice(index, 0, [speciesName, false])
+    while(speciesPanelHistory.length > maxHistory){
+        speciesPanelHistory.splice(-1, 1)
+    }
+    displaySpeciesPanelHistory()
+    localStorage.setItem("speciesPanelHistory", JSON.stringify(speciesPanelHistory))
+}
+
+function displaySpeciesPanelHistory(){
+    while(speciesPanelHistoryContainer.firstChild){
+        speciesPanelHistoryContainer.removeChild(speciesPanelHistoryContainer.firstChild)
+    }
+
+    for(let i = 0; i < speciesPanelHistory.length; i++){
+        const spriteContainer = document.createElement("span")
+        const sprite = document.createElement("img")
+        const speciesName = speciesPanelHistory[i][0]
+
+        spriteContainer.className = "historyAnimation"
+        sprite.src = getSpeciesSpriteSrc(speciesName)
+        sprite.className = `sprite${speciesName}`
+        if(speciesPanelHistory[i][1] == true){
+            spriteContainer.classList.add("locked")
+        }
+        if(speciesName == panelSpecies){
+            spriteContainer.classList.add("historyActive")
+        }
+
+        spriteContainer.append(sprite)
+        speciesPanelHistoryContainer.append(spriteContainer)
+
+
+
+
+
+
+        let lockTimer = 0
+        let clickTimer = 0
+        function historyHandler(event, preventDefault = true){
+            if(preventDefault){
+                event.preventDefault()
+            }
+            if(event.type == "mousedown" || event.type == "mouseup"){
+                if(event.which == 2 || event.which == 3){ // if right click or mousewheel
+                    return false
+                }
+            }
+            if(event.type == "mousedown" || event.type == "touchstart"){
+                spriteContainer.classList.add("clicked")
+                spriteContainer.classList.add("emulateClick")
+                lockTimer = setTimeout(lockSpecies,750)
+                clickTimer = setTimeout(emulateClick, 300)
+            }
+            else if(event.type == "mouseup" || event.type == "touchend"){
+                spriteContainer.classList.remove("clicked")
+                clearTimeout(lockTimer)
+                if(spriteContainer.classList.contains("emulateClick") && panelSpecies != speciesName){
+                    createSpeciesPanel(speciesName)
+                }
+            }
+        }
+
+        function lockSpecies(){
+            spriteContainer.classList.toggle("locked")
+            if(speciesPanelHistory[i][1] == false){
+                speciesPanelHistory[i][1] = true
+            }
+            else{
+                speciesPanelHistory[i][1] = false
+            }
+            updateSpeciesPanelHistoryOrder()
+        }
+
+        function emulateClick(){
+            spriteContainer.classList.remove("emulateClick")
+        }
+        
+        spriteContainer.addEventListener("touchstart", (event) => {historyHandler(event)})
+        spriteContainer.addEventListener("touchend", (event) => {historyHandler(event)})
+        spriteContainer.addEventListener("mousedown", (event) => {historyHandler(event)})
+        spriteContainer.addEventListener("mouseup", (event) => {historyHandler(event)})
+        document.body.addEventListener("mouseup", (event) => {historyHandler(event, false)})
+    }
+}
+
+
+function updateSpeciesPanelHistoryOrder(){
+    for(let i = 0; i < speciesPanelHistory.length; i++){
+        if(speciesPanelHistory[i][1] == true){
+            for(let j = i; j > 0; j--){
+                if(speciesPanelHistory[j - 1][1] == true){
+                    break
+                }
+                else{
+                    const temp = speciesPanelHistory[j - 1]
+                    speciesPanelHistory[j - 1] = speciesPanelHistory[j]
+                    speciesPanelHistory[j] = temp
+                }
+            }
+        }
+    }
+    localStorage.setItem("speciesPanelHistory", JSON.stringify(speciesPanelHistory))
+    displaySpeciesPanelHistory()
+}
+
+
+
+
+function createChange(stat, oldStat = [""], newStat = [""], obj){
 
     if(typeof newStat == "object"){
         for (let i = 0; i < newStat.length; i++){
@@ -889,7 +1019,7 @@ function buildSpeciesPanelLevelUpFromPreviousEvoTable(table, name, label = "", a
 
     for(let i = 1; i < evolutionLineArray.length; i++){
         sortLearnsetsArray(THead, species[evolutionLineArray[i]]["levelUpLearnsets"], label, asc).forEach(move => {
-            if(!speciesCanLearnMove(species[name], move[0]) && !movesArray.includes(move[0])){
+            if(speciesCanLearnMove(species[name], move[0]) === false && !movesArray.includes(move[0])){
 
                 movesArray.push(move[0])
 
@@ -902,8 +1032,8 @@ function buildSpeciesPanelLevelUpFromPreviousEvoTable(table, name, label = "", a
     
                 const typeContainer = document.createElement("td")
                 const type = document.createElement("div")
-                type.innerText = sanitizeString(moves[move[0]]["type"])
-                type.className = `${moves[move[0]]["type"]} background`
+                type.innerText = sanitizeString(moves[move[0]]["type"]).slice(0,3)
+                type.className = `${moves[move[0]]["type"]} backgroundSmall`
                 typeContainer.append(type)
                 row.append(typeContainer)
     
@@ -916,7 +1046,7 @@ function buildSpeciesPanelLevelUpFromPreviousEvoTable(table, name, label = "", a
     
                 const power = document.createElement("td")
                 power.className = "speciesPanelLearnsetsPower"
-                if(moves[move[0]]["power"] != 0){
+                if(moves[move[0]]["power"] > 0){
                     power.innerText = moves[move[0]]["power"]
                 }
                 else{
@@ -926,7 +1056,7 @@ function buildSpeciesPanelLevelUpFromPreviousEvoTable(table, name, label = "", a
     
                 const accuracy = document.createElement("td")
                 accuracy.className = "speciesPanelLearnsetsAccuracy"
-                if(moves[move[0]]["accuracy"] != 0){
+                if(moves[move[0]]["accuracy"] > 0){
                     accuracy.innerText = moves[move[0]]["accuracy"]
                 }
                 else{
@@ -939,16 +1069,16 @@ function buildSpeciesPanelLevelUpFromPreviousEvoTable(table, name, label = "", a
                 PP.innerText = moves[move[0]]["PP"]
                 row.append(PP)
     
-                const description = document.createElement("td")
-                description.className = "speciesPanelLearnsetsEffect"
-                description.innerText = moves[move[0]]["description"].join("")
+                const movedescription = document.createElement("td")
+                movedescription.className = "speciesPanelLearnsetsEffect"
+                movedescription.innerText = moves[move[0]]["description"].join("")
     
                 row.addEventListener('click', function () {
                     createPopupForMove(moves[move[0]])
                     overlay.style.display = 'block'
                 }) 
     
-                row.append(description)
+                row.append(movedescription)
     
                 Tbody.append(row)
             }
@@ -991,8 +1121,8 @@ function buildSpeciesPanelDoubleLearnsetsTable(table, name, input, label = "", a
 
         const typeContainer = document.createElement("td")
         const type = document.createElement("div")
-        type.innerText = sanitizeString(moves[move[0]]["type"])
-        type.className = `${moves[move[0]]["type"]} background`
+        type.innerText = sanitizeString(moves[move[0]]["type"]).slice(0,3)
+        type.className = `${moves[move[0]]["type"]} backgroundSmall`
         typeContainer.append(type)
         row.append(typeContainer)
 
@@ -1005,7 +1135,7 @@ function buildSpeciesPanelDoubleLearnsetsTable(table, name, input, label = "", a
 
         const power = document.createElement("td")
         power.className = "speciesPanelLearnsetsPower"
-        if(moves[move[0]]["power"] != 0){
+        if(moves[move[0]]["power"] > 0){
             power.innerText = moves[move[0]]["power"]
         }
         else{
@@ -1015,7 +1145,7 @@ function buildSpeciesPanelDoubleLearnsetsTable(table, name, input, label = "", a
 
         const accuracy = document.createElement("td")
         accuracy.className = "speciesPanelLearnsetsAccuracy"
-        if(moves[move[0]]["accuracy"] != 0){
+        if(moves[move[0]]["accuracy"] > 0){
             accuracy.innerText = moves[move[0]]["accuracy"]
         }
         else{
@@ -1028,16 +1158,16 @@ function buildSpeciesPanelDoubleLearnsetsTable(table, name, input, label = "", a
         PP.innerText = moves[move[0]]["PP"]
         row.append(PP)
 
-        const description = document.createElement("td")
-        description.className = "speciesPanelLearnsetsEffect"
-        description.innerText = moves[move[0]]["description"].join("")
+        const movedescription = document.createElement("td")
+        movedescription.className = "speciesPanelLearnsetsEffect"
+        movedescription.innerText = moves[move[0]]["description"].join("")
 
         row.addEventListener('click', function () {
             createPopupForMove(moves[move[0]])
             overlay.style.display = 'block'
         }) 
 
-        row.append(description)
+        row.append(movedescription)
 
         Tbody.append(row)
     })
@@ -1067,8 +1197,8 @@ function buildSpeciesPanelSingleLearnsetsTable(table, name, input, label = "", a
 
         const typeContainer = document.createElement("td")
         const type = document.createElement("div")
-        type.innerText = sanitizeString(moves[move]["type"])
-        type.className = `${moves[move]["type"]} background`
+        type.innerText = sanitizeString(moves[move]["type"]).slice(0,3)
+        type.className = `${moves[move]["type"]} backgroundSmall`
         typeContainer.append(type)
         row.append(typeContainer)
 
@@ -1081,7 +1211,7 @@ function buildSpeciesPanelSingleLearnsetsTable(table, name, input, label = "", a
 
         const power = document.createElement("td")
         power.className = "speciesPanelLearnsetsPower"
-        if(moves[move]["power"] != 0){
+        if(moves[move]["power"] > 0){
             power.innerText = moves[move]["power"]
         }
         else{
@@ -1091,7 +1221,7 @@ function buildSpeciesPanelSingleLearnsetsTable(table, name, input, label = "", a
 
         const accuracy = document.createElement("td")
         accuracy.className = "speciesPanelLearnsetsAccuracy"
-        if(moves[move]["accuracy"] != 0){
+        if(moves[move]["accuracy"] > 0){
             accuracy.innerText = moves[move]["accuracy"]
         }
         else{
@@ -1104,16 +1234,16 @@ function buildSpeciesPanelSingleLearnsetsTable(table, name, input, label = "", a
         PP.innerText = moves[move]["PP"]
         row.append(PP)
 
-        const description = document.createElement("td")
-        description.className = "speciesPanelLearnsetsEffect"
-        description.innerText += moves[move]["description"].join("")
+        const movedescription = document.createElement("td")
+        movedescription.className = "speciesPanelLearnsetsEffect"
+        movedescription.innerText += moves[move]["description"].join("")
 
         row.addEventListener('click', function () {
             createPopupForMove(moves[move])
             overlay.style.display = 'block'
         }) 
 
-        row.append(description)
+        row.append(movedescription)
 
         Tbody.append(row)
     })
@@ -1262,7 +1392,7 @@ let interval = setInterval(function() {
 async function speciesPanel(param){  
     if(typeof speciesPanelMainContainer !== "undefined"){
         if(param === "hide" || species[panelSpecies]["baseSpeed"] <= 0){
-            body.classList.remove("fixed")
+            body.classList.remove("fixedPanel")
             overlaySpeciesPanel.style.display = "none"
             speciesPanelMainContainer.classList.add("hide")
             if(typeof refreshURLParams !== "undefined"){
@@ -1277,7 +1407,7 @@ async function speciesPanel(param){
         }
         else if(param === "show"){
             utilityButton.innerText = "X"
-            body.classList.add("fixed")
+            body.classList.add("fixedPanel")
             overlaySpeciesPanel.style.display = "block"
             speciesPanelMainContainer.classList.remove("hide")
         }
@@ -1285,7 +1415,7 @@ async function speciesPanel(param){
             speciesPanelMainContainer.classList.toggle("hide")
             if(speciesPanelMainContainer.classList.contains("hide")){
                 overlaySpeciesPanel.style.display = "none"
-                body.classList.remove("fixed")
+                body.classList.remove("fixedPanel")
                 if(typeof refreshURLParams !== "undefined"){
                     refreshURLParams()
                 }
@@ -1299,7 +1429,7 @@ async function speciesPanel(param){
             else {
                 utilityButton.innerText = "X"
                 overlaySpeciesPanel.style.display = "block"
-                body.classList.add("fixed")
+                body.classList.add("fixedPanel")
             }
         }
     }

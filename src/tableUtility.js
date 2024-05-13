@@ -1,5 +1,5 @@
 async function displaySetup(){    
-    await footerP("")
+    footerP("")
 
     if(Object.keys(strategies).length === 0){
         onlyShowStrategyPokemon.classList.add("hide")
@@ -9,6 +9,12 @@ async function displaySetup(){
     }
     if(Object.keys(trainers).length === 0){
         trainersButton.classList.add("hide")
+    }
+    if(Object.keys(items).length === 0){
+        itemsButton.classList.add("hide")
+    }
+    else{
+        await setupItemsButtonFilters()
     }
     if(typeof innatesDefined !== "undefined"){
         document.getElementsByClassName("innatesHeader")[0].classList.remove("hide")
@@ -81,15 +87,52 @@ function sortTableByClassName(table, obj, key, classHeader, asc = true) {
 
 
 
+function sortTableByLearnsets(asc = true) {
+    const dirModifier = asc ? 1 : -1
+    const sortOrder = ["levelUpLearnsets", "eggMovesLearnsets", "TMHMLearnsets", "tutorLearnsets", "false"]
+
+    speciesTracker.sort((a, b) => {
+        let stringA = `${speciesCanLearnMove(species[a["key"]], speciesMoveFilter)}`
+        let stringB = `${speciesCanLearnMove(species[b["key"]], speciesMoveFilter)}`
+        
+        if(Number(stringA) && Number(stringB)){
+            return parseInt(stringA) > parseInt(stringB) ? (1 * dirModifier) : (-1 * dirModifier)
+        }
+        if(Number(stringA)){
+            stringA = "levelUpLearnsets"
+        }
+        if(Number(stringB)){
+            stringB = "levelUpLearnsets"
+        }
+
+        return sortOrder.indexOf(stringA) > sortOrder.indexOf(stringB) ? (1 * dirModifier) : (-1 * dirModifier)
+    })
+
+    lazyLoading(true)
+
+    // Remember how the column is currently sorted
+    speciesTable.querySelectorAll("th").forEach(th => th.classList.remove("th-sort-asc", "th-sort-desc"))
+    speciesTable.querySelector(`th.ID`).classList.toggle("th-sort-asc", asc)
+    speciesTable.querySelector(`th.ID`).classList.toggle("th-sort-desc", !asc)
+}
+
+
+
+
+
+
+
+
+
 function filterTableInput(input, obj, keyArray){
-    const sanitizedInput = input.trim().replaceAll(/-|'| |_/g, "").toLowerCase()
+    const sanitizedInput = input.trim().replaceAll(/-|'| |_|!/g, "").toLowerCase()
     const regexInput = new RegExp(sanitizedInput, "i")
 
     for(let i = 0, j = Object.keys(tracker).length; i < j; i++){
         tracker[i]["filter"].push("input")
         for (let k = 0; k < keyArray.length; k++){
             if(keyArray[k] !== "innates" || typeof innatesDefined !== "undefined"){
-                if(regexInput.test(sanitizeString("" + obj[tracker[i]["key"]][keyArray[k]]).replaceAll(/-|'| |_/g, ""))){
+                if(regexInput.test(sanitizeString("" + obj[tracker[i]["key"]][keyArray[k]]).replaceAll(/-|'| |_|!/g, ""))){
                     tracker[i]["filter"] = tracker[i]["filter"].filter(value => value !== "input")
                     break
                 }
@@ -171,6 +214,30 @@ function filterTrainersTableInput(input){
     lazyLoading(true)
 }
 
+function filterItemsTableInput(input, keyArray){
+    const sanitizedInput = input.trim().replaceAll(/-|'| |_|!/g, "").toLowerCase()
+    const regexInput = new RegExp(sanitizedInput, "i")
+
+    for(let i = 0, j = Object.keys(tracker).length; i < j; i++){
+        tracker[i]["filter"].push("input")
+        for (let k = 0; k < keyArray.length; k++){
+            if(regexInput.test(sanitizeString("" + items[tracker[i]["key"]][keyArray[k]]).replaceAll(/-|'| |_|!/g, ""))){
+                tracker[i]["filter"] = tracker[i]["filter"].filter(value => value !== "input")
+                break
+            }
+        }
+        Object.keys(items[tracker[i]["key"]]["locations"]).forEach(method => {
+            if(regexInput.test(sanitizeString("" + items[tracker[i]["key"]]["locations"][method]).replaceAll(/-|'| |_|!/g, ""))){
+                if(!settings.includes(method)){
+                    tracker[i]["filter"] = tracker[i]["filter"].filter(value => value !== "input")
+                }
+            }
+        })
+    }
+
+    lazyLoading(true)
+}
+
 
 
 
@@ -199,6 +266,10 @@ async function lazyLoading(reset = false){
         }
         else if(tracker === locationsTracker){
             displayFunction = "appendLocationsToTable"
+            target = 200
+        }
+        else if(tracker === itemsTracker){
+            displayFunction = "appendItemsToTable"
         }
         else if(tracker === trainersTracker){
             displayFunction = "appendTrainersToTable"
@@ -237,6 +308,7 @@ async function lazyLoading(reset = false){
 
 
 async function tableButtonClick(input){
+    body.classList.remove("fixed", "fixedPanel", "fixedAbilities")
     const activeTable = await document.querySelectorAll(".activeTable")
     const activeButton = await document.querySelectorAll(".activeButton")
     const activeInput = await document.querySelectorAll(".activeInput")

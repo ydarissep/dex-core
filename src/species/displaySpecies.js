@@ -1,8 +1,10 @@
-function appendSpeciesToTable(speciesName){
+window.speciesMoveFilter = null
 
+function appendSpeciesToTable(speciesName){
     if(species[speciesName]["baseSpeed"] <= 0){
         return false
     }
+    let moveMethod = null
 
     const tBody = speciesTableTbody
 
@@ -10,16 +12,60 @@ function appendSpeciesToTable(speciesName){
     row.setAttribute("id", `${speciesName}`)
     tBody.append(row)
 
+    if(!speciesMoveFilter){
+        for(let i = 0; i < speciesFilterContainer.children.length; i++){
+            if(speciesFilterContainer.children[i].innerText.split(":")[0] == "Move"){
+                if(Number.isInteger(speciesMoveFilter)){
+                    speciesMoveFilter = null
+                    break
+                }
+                speciesMoveFilter = i
+            }
+        }
+        if(Number.isInteger(speciesMoveFilter)){
+            speciesMoveFilter = speciesFilterContainer.children[speciesMoveFilter].innerText.replace(" ", "").split(":")[1]
+            Object.keys(moves).forEach(moveName => {
+                if(moves[moveName]["ingameName"] === speciesMoveFilter){
+                    speciesMoveFilter = moveName
+                    sortTableByLearnsets(true)
+                }
+            })
+        }
+    }
     let IDcontainer = document.createElement("td")
     let ID = document.createElement("div")
     IDcontainer.className = "ID"
-    ID.innerText = species[speciesName]["ID"]
+    if(speciesMoveFilter){
+        moveMethod = speciesCanLearnMove(species[speciesName], speciesMoveFilter)
+        let moveFilter = document.createElement("div")
+        moveFilter.className = "bold"
+        if(Number.isInteger(moveMethod)){
+            moveFilter.innerText = `Lv ${moveMethod}`
+            moveFilter.classList.add("levelUpLearnsets")
+        }
+        else if(moveMethod === "eggMovesLearnsets"){
+            moveFilter.innerText = "Egg"
+            moveFilter.classList.add("eggMovesLearnsets")
+        }
+        else if(moveMethod === "TMHMLearnsets"){
+            moveFilter.innerText = "TM"
+            moveFilter.classList.add("TMHMLearnsets")
+        }            
+        else if(moveMethod === "tutorLearnsets"){
+            moveFilter.innerText = "Tutor"
+            moveFilter.classList.add("tutorLearnsets")
+        }
+        IDcontainer.append(moveFilter)
+    }
+    else{
+        ID.innerText = species[speciesName]["ID"]
+    }
     IDcontainer.append(ID)
     row.append(IDcontainer)
 
     let spriteContainer = document.createElement("td")
     spriteContainer.className = "sprite"
-    let sprite = document.createElement("img")
+    let sprite = document.createElement("img"); sprite.setAttribute("width", 64); sprite.setAttribute("height", 64)
     sprite.className = `sprite${speciesName}`
     sprite.src = getSpeciesSpriteSrc(speciesName)
     spriteContainer.append(sprite)
@@ -31,6 +77,14 @@ function appendSpeciesToTable(speciesName){
     let name = document.createElement("div")
     let ingameName = document.createElement("div")
     nameContainer.className = "nameContainer"
+    /*
+    if(Number.isInteger(moveMethod)){
+        nameContainer.classList.add("levelUpLearnsets")
+    }
+    else if(moveMethod){
+        nameContainer.classList.add(moveMethod)
+    }
+    */
     name.className = "key hide"
     name.innerText = species[speciesName]["name"]
     ingameName.className = "species"

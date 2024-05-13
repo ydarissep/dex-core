@@ -109,6 +109,7 @@ function appendMovesToTable(moveName){
     row.addEventListener('click', function () {
         createPopupForMove(moves[moveName])
         overlay.style.display = 'block'
+        body.classList.add("fixed")
     }) 
 
     tBody.append(row)
@@ -129,7 +130,7 @@ function createInputContainer(headerText, input, moveObj){
 
     inputValue.className = `movesBold ${input}` //only used for mobile view
 
-    if(moveObj[input] == 0 || moveObj[input] === undefined)
+    if(moveObj[input] <= 0 || moveObj[input] === undefined)
         inputValue.innerText = "-"
     else
         inputValue.innerText = moveObj[input]
@@ -146,7 +147,7 @@ function createInputContainer(headerText, input, moveObj){
 
 
 
-function createPopupForMove(move){
+function createPopupForMove(move, interactAble = true){
     while(popup.firstChild){
         popup.removeChild(popup.firstChild)
     }
@@ -163,7 +164,7 @@ function createPopupForMove(move){
     popup.append(moveTypeSplitContainer)
 
     const movePower = document.createElement("span"); movePower.innerText = `${move["power"]}\nPower`; movePower.className = "popupTrainerMoveStat"
-    if(move["power"] == 0){
+    if(move["power"] <= 0){
         movePower.innerText = "-\nPower"
     }
     popup.append(movePower)
@@ -172,7 +173,7 @@ function createPopupForMove(move){
     popup.append(movePP)
 
     const moveAccuracy = document.createElement("span"); moveAccuracy.innerText = `${move["accuracy"]}\nAcc`; moveAccuracy.className = "popupTrainerMoveStat"
-    if(move["accuracy"] == 0){
+    if(move["accuracy"] <= 0){
         moveAccuracy.innerText = "-\nAcc"
     }
     popup.append(moveAccuracy)
@@ -186,45 +187,52 @@ function createPopupForMove(move){
     popup.append(moveDescription)
 
     const flagsContainer = document.createElement("div")
-    const flagsListContainer = document.createElement("ul")
+    const flagsListContainer = document.createElement("ul"); flagsListContainer.setAttribute("margin-bottom", "0px")
     for(let i = 0; i < move["flags"].length; i++){
         if(move["flags"][i] !== ""){
-            const flagName = document.createElement("li"); flagName.innerText = sanitizeString(move["flags"][i]); flagName.classList.add("hyperlink")
+            const flagName = document.createElement("li"); flagName.innerText = sanitizeString(move["flags"][i])
+            if(interactAble){
+                flagName.classList.add("hyperlink")
+
+                flagName.addEventListener("click", async() => {
+                    if(!movesButton.classList.contains("activeButton")){
+                        tracker = movesTracker
+                        await tableButtonClick("moves")
+                    }
+                    deleteFiltersFromTable()
+                    createFilter(sanitizeString(move["flags"][i]), "Flag")
+                    overlay.style.display = 'none'
+                    body.classList.remove("fixed")
+                    speciesPanel("hide")
+                    window.scrollTo({ top: 0})
+                })
+            }
+
             flagsListContainer.append(flagName)
-
-
-            flagName.addEventListener("click", async() => {
-                if(!movesButton.classList.contains("activeButton")){
-                    tracker = movesTracker
-                    await tableButtonClick("moves")
-                }
-                deleteFiltersFromTable()
-                createFilter(sanitizeString(move["flags"][i]), "Flag")
-                overlay.style.display = 'none'
-                speciesPanel("hide")
-                window.scrollTo({ top: 0})
-            })
         }
     }
-
-    const filterButton = document.createElement("button"); filterButton.classList.add("popupFilterButton")
-    filterButton.innerText = "FILTER"
-
-    filterButton.addEventListener("click", async() => {
-        if(!speciesButton.classList.contains("activeButton")){
-            tracker = speciesTracker
-            await tableButtonClick("species")
-        }
-        overlay.style.display = 'none'
-        speciesPanel("hide")
-        deleteFiltersFromTable()
-        createFilter(move["ingameName"], "Move")
-        window.scrollTo({ top: 0})
-    })
 
     if(flagsListContainer.childElementCount > 0){
         flagsContainer.append(flagsListContainer)
     }
     popup.append(flagsContainer)
-    popup.append(filterButton)
+
+    if(interactAble){
+        const filterButton = document.createElement("button"); filterButton.classList.add("popupFilterButton")
+        filterButton.innerText = "FILTER"
+
+        filterButton.addEventListener("click", async() => {
+            if(!speciesButton.classList.contains("activeButton")){
+                tracker = speciesTracker
+                await tableButtonClick("species")
+            }
+            overlay.style.display = 'none'
+            speciesPanel("hide")
+            deleteFiltersFromTable()
+            createFilter(move["ingameName"], "Move")
+            window.scrollTo({ top: 0})
+        })
+
+        popup.append(filterButton)
+    }
 }

@@ -1,7 +1,7 @@
 function sanitizeString(string){
-    const regex = /^SPECIES_|^TYPE_|^ABILITY_|^MOVE_|^SPLIT_|FLAG_|^EFFECT_|^Z_EFFECT_|^ITEM_|^EGG_GROUP_|^EVO_|^NATURE_/ig
+    const regex = /^SPECIES_|^TYPE_|^ABILITY_|^MOVE_|^SPLIT_|FLAG_|^EFFECT_|^Z_EFFECT_|^ITEM_|^EGG_GROUP_|^EVO_|^NATURE_|^POCKET_/ig
 
-    const unsanitizedString = string.toString().replace(regex, "")
+    const unsanitizedString = string.toString().replace(regex, "").replaceAll(/_+/g, "_")
     let matchArray = unsanitizedString.match(/\w+/g)
     if(matchArray){
         for (i = 0; i < matchArray.length; i++){
@@ -25,10 +25,6 @@ function sanitizeString(string){
 
 
 async function fetchData(urlParams = ""){
-    setTimeout(() => {
-        timeout = true
-    }, "20000");
-
     if(urlParams == ""){
         history.pushState(null, null, location.href)
         const queryString = window.location.search
@@ -40,13 +36,14 @@ async function fetchData(urlParams = ""){
     await fetchAbilitiesObj()
     await fetchSpeciesObj()
     await fetchLocationsObj()
-    await fetchTrainersObj()
+    await fetchScripts()
     await fetchStrategiesObj()
     
     await fetchTypeChart()
 
     await setDataList()
     await setFilters()
+    await applySettings()
     await displaySetup()
     await displayParams(urlParams)
 
@@ -68,7 +65,6 @@ async function fetchTypeChart(){
     catch(e){
         console.log(e.message)
         console.log(e.stack)
-        typeChart = backupData[6]
     }
 }
 
@@ -77,17 +73,26 @@ async function fetchTypeChart(){
 
 async function forceUpdate(){
     if(localStorage.getItem("update") != `${checkUpdate}`){
-        await localStorage.clear()
+        //await localStorage.clear()
+        await clearLocalStorage()
         await localStorage.setItem("update", `${checkUpdate}`)
         await footerP("Fetching data please wait... this is only run once")
     }
 }
 
 
+async function clearLocalStorage(){
+    Object.keys(localStorage).forEach(key => {
+        if(key != "speciesPanelHistory" && key != "itemsLocations" && !/settings/i.test(key)){
+            localStorage.removeItem(key)
+        }
+    })
+}
+
 
 
 function exportData(){
-    console.log(`let backupData = [${JSON.stringify(moves)}, ${JSON.stringify(abilities)}, ${JSON.stringify(species)}, ${JSON.stringify(locations)}, ${JSON.stringify(trainers)}, ${JSON.stringify(strategies)}, ${JSON.stringify(typeChart)}]`)
+    console.log(`let backupData = [${JSON.stringify(moves)}, ${JSON.stringify(abilities)}, ${JSON.stringify(species)}, ${JSON.stringify(locations)}, ${JSON.stringify(trainers)}, ${JSON.stringify(items)}, ${JSON.stringify(strategies)}, ${JSON.stringify(typeChart)}]`)
 }
 
 
@@ -101,15 +106,6 @@ function footerP(input){
     paragraph.innerText = input
     footer.append(paragraph)
 }
-
-
-
-function checkTimeout(){
-    if(timeout){
-        throw new Error("Timed out")
-    }
-}
-
 
 
 
@@ -142,39 +138,16 @@ function getTextWidth(text) {
 
 
 
-function setDataList(){
+async function setDataList(){
     window.speciesIngameNameArray = []
-    window.typeCount = {}
     for(const name in species){
         if(species[name]["baseSpeed"] <= 0){
             continue
         }
         const option = document.createElement("option")
         option.innerText = sanitizeString(name)
-        speciesIngameNameArray.push(option.innerText)
+        speciesIngameNameArray.push(sanitizeString(name))
         speciesPanelInputSpeciesDataList.append(option)
-
-        if(!(species[name]["type1"] in typeCount)){
-            typeCount[species[name]["type1"]] = 0
-        }
-        if(!(species[name]["type2"] in typeCount)){
-            typeCount[species[name]["type2"]] = 0
-        }
-        if(typeof species[name]["type3"] !== "undefined"){
-            if(!(species[name]["type3"] in typeCount)){
-                typeCount[species[name]["type3"]] = 0
-            }
-        }
-
-        typeCount[species[name]["type1"]] += 1
-        if(species[name]["type1"] !== species[name]["type2"]){
-            typeCount[species[name]["type2"]] += 1
-        }
-        if(typeof species[name]["type3"] !== "undefined"){
-            if(species[name]["type3"] !== species[name]["type1"] && species[name]["type3"] !== species[name]["type2"]){
-                typeCount[species[name]["type3"]] += 1
-            }
-        }
     }
 
     window.abilitiesIngameNameArray = []
@@ -184,7 +157,7 @@ function setDataList(){
         }
         const option = document.createElement("option")
         option.innerText = abilities[abilityName]["ingameName"]
-        abilitiesIngameNameArray.push(option.innerText)
+        abilitiesIngameNameArray.push(abilities[abilityName]["ingameName"])
         abilitiesInputDataList.append(option)
     }
 }
@@ -356,18 +329,21 @@ async function displayHistoryObj(historyStateObj){
 
 
 function speciesCanLearnMove(speciesObj, moveName){
-    const index = ["levelUpLearnsets", "TMHMLearnsets", "eggMovesLearnsets", "tutorLearnsets"]
+    const index = ["levelUpLearnsets", "eggMovesLearnsets", "TMHMLearnsets", "tutorLearnsets"]
     for(let i = 0; i < index.length; i++){
         if(index[i] in speciesObj){
             for(let j = 0; j < speciesObj[index[i]].length; j++){
                 if(typeof(speciesObj[index[i]][j]) == "object"){
                     if(speciesObj[index[i]][j][0] == moveName){
-                        return true
+                        if(index[i] === "levelUpLearnsets"){
+                            return speciesObj[index[i]][j][1]
+                        }
+                        return index[i]
                     }
                 }
                 else if(typeof(speciesObj[index[i]][j] == "string")){
                     if(speciesObj[index[i]][j] == moveName){
-                        return true
+                        return index[i]
                     }
                 }
             }
@@ -381,176 +357,6 @@ function speciesCanLearnMove(speciesObj, moveName){
 
 
 
-
-
-
-
-
-function speciesCanLearnType(speciesObj, type){
-    const index = ["levelUpLearnsets", "TMHMLearnsets", "eggMovesLearnsets", "tutorLearnsets"]
-    const atk = speciesObj["baseAttack"]
-    const spAtk = speciesObj["baseSpAttack"]
-    let split = false
-    let total = 0
-
-    if(atk > spAtk){
-        if(atk / spAtk < 1.3){
-            split = "mixed"
-        }
-        else{
-            split = "SPLIT_PHYSICAL"
-        }
-    }
-    else{
-        if(spAtk / atk < 1.3){
-            split = "mixed"
-        }
-        else{
-            split = "SPLIT_SPECIAL"
-        }
-    }
-
-    let duplicateArray = []
-    let move = "MOVE_NONE"
-    for(let i = 0; i < index.length; i++){
-        if(index[i] in speciesObj){
-            for(let j = 0; j < speciesObj[index[i]].length; j++){
-                if(typeof(speciesObj[index[i]][j]) == "object"){
-                    move = speciesObj[index[i]][j][0]
-                }
-                else if(typeof(speciesObj[index[i]][j] == "string")){
-                    move = speciesObj[index[i]][j]
-                }
-                
-                if(moves[move]["type"] === type && !duplicateArray.includes(move)){
-                    if(split === "mixed" || moves[move]["split"] === split){
-                        duplicateArray.push(move)
-                        if(moves[move]["power"] > 100){
-                            total += 1
-                        }
-                        else if(moves[move]["power"] >= 80){
-                            total += 1.5
-                        }
-                        else if(moves[move]["power"] >= 60){
-                            total += 0.5
-                        }
-                        else{
-                            total += 0.25
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-
-    return total
-}
-
-
-
-
-
-
-
-
-
-
-
-function getSpeciesBestCoverageTypes(speciesObj){
-    let offensiveTypeChart = {}
-    let speciesCanLearnTypeArray = {}
-    let top3TypesArray = []
-    Object.keys(typeChart).forEach(type => {
-
-        offensiveTypeChart[type] = getPokemonEffectivenessValueAgainstType(speciesObj, type)
-
-        if(typeof speciesObj["type3"] !== "undefined"){
-            if(type !== speciesObj["type1"] && type !== speciesObj["type2"] && type !== speciesObj["type3"]){
-                const value = speciesCanLearnType(speciesObj, type)
-                if(value > 0){
-                    speciesCanLearnTypeArray[type] = value
-                }
-            }
-        }
-        else if(type !== speciesObj["type1"] && type !== speciesObj["type2"]){
-            const value = speciesCanLearnType(speciesObj, type)
-            if(value > 0){
-                speciesCanLearnTypeArray[type] = value
-            }
-        }
-    })
-
-    Object.keys(speciesCanLearnTypeArray).forEach(offensiveType => {
-        let total = speciesCanLearnTypeArray[offensiveType]
-
-        if(total > 3){
-            total = 0
-        }
-        else if(total < 0.5){
-            total = -6
-        }
-        else if(total < 1){
-            total = -4
-        }
-        else{
-            total = -2
-        }
-
-        Object.keys(typeChart).forEach(defensiveType => {
-            let value = 0
-            if(getOffensiveTypeValue(offensiveType, defensiveType) > offensiveTypeChart[defensiveType]){
-
-                value += getOffensiveTypeValue(offensiveType, defensiveType) - offensiveTypeChart[defensiveType]
-
-                if(getOffensiveTypeValue(offensiveType, defensiveType) > 1){
-                    if(getPokemonEffectivenessValueAgainstType(speciesObj, defensiveType) < 1){
-                        value += 0.5
-                    }
-                    else if(getPokemonEffectivenessValueAgainstType(speciesObj, defensiveType) === 1){
-                        value += 0.25
-                    }
-                }
-            }
-            
-            if(getPokemonResistanceValueAgainstType(speciesObj, defensiveType) > 1){
-                if(getOffensiveTypeValue(offensiveType, defensiveType) === 0){
-                    value -= 0.5
-                }
-                else if(getOffensiveTypeValue(offensiveType, defensiveType) < 1){
-                    value -= 0.25
-                }
-            }
-
-            if(getOffensiveTypeValue(offensiveType, defensiveType) < 1 && getPokemonEffectivenessValueAgainstType(speciesObj, defensiveType) < 1){
-                value -= 0.25
-            }
-
-            total += value * (1 + (typeCount[defensiveType] / Object.keys(species).length))
-        })
-        top3TypesArray.push([offensiveType, total])
-    })
-
-    top3TypesArray.sort((a, b) => {
-        return b[1] - a[1]
-    })
-
-    top3TypesArray = top3TypesArray.filter(n => n[1] >= 5)
-
-    return top3TypesArray.slice(0, 3)
-}
-
-
-
-
-
-
-
-
-
-function getOffensiveTypeValue(offensiveType, defensiveType){
-    return typeChart[offensiveType][defensiveType]
-}
 
 function getPokemonResistanceValueAgainstType(speciesObj, type){
     if((speciesObj["type1"] !== speciesObj["type2"])){

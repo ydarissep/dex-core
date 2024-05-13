@@ -87,7 +87,7 @@ only screen and (max-width: 850px) {
 
     #speciesTableTbody .sprite {
         display: inline-block;
-    	width: 11.5%;
+    	width: 10%;
     	box-sizing: border-box;
     }
 
@@ -103,7 +103,13 @@ only screen and (max-width: 850px) {
     	box-sizing: border-box;
     }
 
-    #speciesTableTbody .ID, #speciesTableTbody .nameContainer {
+    #speciesTableTbody .ID {
+        display: inline-block;
+    	width: 7%;
+    	box-sizing: border-box;
+    }
+
+    #speciesTableTbody .nameContainer {
         display: none;
     }
 
@@ -132,11 +138,15 @@ only screen and (max-width: 600px) {
     }
 
     #speciesTableTbody .sprite {
-    	width: 22%;
+    	width: 18%;
     }
 
     #speciesTableTbody .types {
-    	width: 20%;
+    	width: 18%;
+    }
+
+    #speciesTableTbody .ID {
+    	width: 10%;
     }
 
     #speciesTableTbody .abilities, #speciesTableTbody .innates {
@@ -149,15 +159,15 @@ only screen and (max-width: 600px) {
     }
 
     .noInnates .types {
-    	width: 20% !important;
+    	width: 18% !important;
     }
 
     .noInnates .sprite {
-        width: 20% !important;
+        width: 18% !important;
     }
 
     .noInnates .abilities {
-    	width: 32% !important;
+    	width: 30% !important;
     }
 }
 

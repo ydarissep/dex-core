@@ -44,7 +44,7 @@ function filterSpeciesItem(value, label){
     }
 }
 
-function filterSpeciesAbility(value, label){
+function filterSpeciesAbility(value = "Placeholder", label = "Placeholder"){
     let abilityName = null
     Object.keys(abilities).forEach(ability => {
         if(abilities[ability]["ingameName"] === value){
@@ -72,6 +72,8 @@ function filterSpeciesAbility(value, label){
 }
 
 function filterSpeciesMove(value, label){
+    speciesMoveFilter = null
+    locationsMoveFilter = null
     let moveName = null
     Object.keys(moves).forEach(move => {
         if(moves[move]["ingameName"] === value){
@@ -84,7 +86,7 @@ function filterSpeciesMove(value, label){
             if(tracker === locationsTracker){
                 name = tracker[i]["key"].split("\\")[2]
             }
-            if(!speciesCanLearnMove(species[name], moveName)){
+            if(speciesCanLearnMove(species[name], moveName) === false){
                 tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
             }
         }
@@ -211,15 +213,6 @@ function filterBaseStats(value, label){
 
 
 
-
-
-
-
-
-
-
-
-
 function selectFilter(value, label){
     if(label === "Item"){
         if(tracker === trainersTracker){
@@ -262,6 +255,9 @@ function selectFilter(value, label){
     }
     else if(label === "Flag"){
         filterMovesFlags(value, label)
+    }
+    else if(label === "Pocket"){
+        filterPocket(value, label)
     }
 }
 
@@ -473,6 +469,8 @@ function createFilter(value, label){
             }
         }
         newFilter.remove()
+        speciesMoveFilter = null
+        locationsMoveFilter = null
         if(trainersFilter === activeFilter){
             trainerSpeciesMatchFilter(false)
         }
@@ -510,9 +508,11 @@ function createOperatorFilter(label, operator, number){
 function deleteFiltersFromTable(){
     const activeFilter = document.getElementsByClassName("activeFilter")[0]
     const tableFilterContainer = activeFilter.getElementsByClassName("filterContainer")[0]
+    speciesMoveFilter = null
+    locationsMoveFilter = null
 
     for(let i = 0, j = tracker.length; i < j; i++){
-        for(let k = 0; k < tracker[i]["filter"].length; k++){
+        for(let k = tracker[i]["filter"].length - 1; k >= 0; k--){
             if(tracker[i]["filter"][k].includes("filter")){
                 tracker[i]["filter"].splice(k, 1)
             }

@@ -1,7 +1,6 @@
 window.tracker
 window.panelSpecies = ""
 window.historyObj = []
-window.timeout = false
 window.trainersDifficulty = "Normal"
 
 
@@ -12,10 +11,10 @@ window.tableFilter = document.getElementById("tableFilter")
 
 
 window.body = document.getElementById("body")
+window.settingsButton = document.getElementById("settings")
 window.credits = document.getElementById("credits")
 window.modal = document.getElementById("modal")
 window.update = document.getElementById("update")
-window.backup = document.getElementById("backup")
 window.overlay = document.getElementById('overlay')
 window.popup = document.getElementById('popup')
 window.overlayAbilities = document.getElementById('overlayAbilities')
@@ -27,15 +26,13 @@ window.onlyShowChangedPokemon = document.getElementById("onlyShowChangedPokemon"
 window.onlyShowStrategyPokemon = document.getElementById("onlyShowStrategyPokemon")
 
 
-
-
-
 window.graph = document.getElementById("statsGraph")
 window.graphStats = [...graph.children]
 window.statDisplays = [...document.querySelectorAll(".statsGraphHeader")]
 
 
 window.speciesPanelMainContainer = document.getElementById("speciesPanelMainContainer")
+window.speciesPanelHistoryContainer = document.getElementById("speciesPanelHistoryContainer")
 window.speciesName = document.getElementById("speciesName")
 window.speciesID = document.getElementById("speciesID")
 window.speciesPanelInputSpecies = document.getElementById("speciesPanelInputSpecies")
@@ -57,8 +54,6 @@ window.speciesChanges = document.getElementById("speciesChanges")
 window.speciesHeldItemsContainer = document.getElementById("speciesHeldItemsContainer")
 window.speciesChangesContainer = document.getElementById("speciesChangesContainer")
 window.speciesDefensiveTypeChart = document.getElementById("speciesDefensiveTypeChart")
-window.recommendedCoverageContainer = document.getElementById("recommendedCoverageContainer")
-window.recommendedCoverage = document.getElementById("recommendedCoverage")
 window.speciesOffensiveTypeChart = document.getElementById("speciesOffensiveTypeChart")
 window.speciesStrategiesContainer = document.getElementById("speciesStrategiesContainer")
 window.speciesStrategies = document.getElementById("speciesStrategies")
@@ -101,17 +96,25 @@ window.movesTableThead = document.getElementById("movesTableThead")
 window.movesTableTbody = document.getElementById("movesTableTbody")
 
 
-window.abilitiesInputDataList = document.getElementById("abilitiesInputDataList")
-window.speciesInputDataList = document.getElementById("speciesInputDataList")
-window.movesInputDataList = document.getElementById("movesInputDataList")
-
-
 window.trainersInput = document.getElementById("trainersInput")
 window.trainersButton = document.getElementById("trainersButton")
 window.trainersTable = document.getElementById("trainersTable")
 window.difficultyButtonContainer = document.getElementById("difficultyButtonContainer")
 window.trainersTableTbody = document.getElementById("trainersTableTbody")
 window.trainersFilter = document.getElementById("trainersFilter")
+
+
+window.itemsInput = document.getElementById("itemsInput")
+window.itemsButton = document.getElementById("itemsButton")
+window.itemsTable = document.getElementById("itemsTable")
+window.itemsTableTbody = document.getElementById("itemsTableTbody")
+window.itemsFilter = document.getElementById("itemsFilter")
+
+
+window.abilitiesInputDataList = document.getElementById("abilitiesInputDataList")
+window.speciesInputDataList = document.getElementById("speciesInputDataList")
+window.movesInputDataList = document.getElementById("movesInputDataList")
+
 
 
 window.table = document.querySelector("#table")
@@ -151,16 +154,10 @@ window.utilityButton = document.querySelector(".utilityButton")
 
 
 headerAbilitiesName.addEventListener("click", () => {
-    if(headerAbilitiesName.classList.contains("th-sort-desc"))
-        sortTableByClassName(abilitiesTable, abilities, ["name"], "ability", asc = true)
-    else
-        sortTableByClassName(abilitiesTable, abilities, ["name"], "ability", asc = false)
+    sortTableByClassName(abilitiesTable, abilities, ["name"], "ability", asc = headerAbilitiesName.classList.contains("th-sort-desc"))
 })
 headerAbilitiesDescription.addEventListener("click", () => {
-    if(headerAbilitiesDescription.classList.contains("th-sort-desc"))
-        sortTableByClassName(abilitiesTable, abilities, ["description"], "description", asc = true)
-    else
-        sortTableByClassName(abilitiesTable, abilities, ["description"], "description", asc = false)
+    sortTableByClassName(abilitiesTable, abilities, ["description"], "description", asc = headerAbilitiesDescription.classList.contains("th-sort-desc"))
 })
 
 
@@ -169,46 +166,25 @@ headerAbilitiesDescription.addEventListener("click", () => {
 
 
 headerMovesMove.addEventListener("click", () => {
-    if(headerMovesMove.classList.contains("th-sort-desc"))
-        sortTableByClassName(movesTable, moves, ["name"], "move", asc = true)
-    else
-        sortTableByClassName(movesTable, moves, ["name"], "move", asc = false)
+    sortTableByClassName(movesTable, moves, ["name"], "move", asc = headerMovesMove.classList.contains("th-sort-desc"))
 })
 headerMovesType.addEventListener("click", () => {
-    if(headerMovesType.classList.contains("th-sort-desc"))
-        sortTableByClassName(movesTable, moves, ["type", "split"], "type", asc = true)
-    else
-        sortTableByClassName(movesTable, moves, ["type", "split"], "type", asc = false)
+    sortTableByClassName(movesTable, moves, ["type", "split"], "type", asc = headerMovesType.classList.contains("th-sort-desc"))
 })
 headerMovesSplit.addEventListener("click", () => {
-    if(headerMovesSplit.classList.contains("th-sort-desc"))
-        sortTableByClassName(movesTable, moves, ["split", "type"], "split", asc = true)
-    else
-        sortTableByClassName(movesTable, moves, ["split", "type"], "split", asc = false)
+    sortTableByClassName(movesTable, moves, ["split", "type"], "split", asc = headerMovesSplit.classList.contains("th-sort-desc"))
 })
 headerMovesPower.addEventListener("click", () => {
-    if(headerMovesPower.classList.contains("th-sort-desc"))
-        sortTableByClassName(movesTable, moves, ["power"], "power", asc = true)
-    else
-        sortTableByClassName(movesTable, moves, ["power"], "power", asc = false)
+    sortTableByClassName(movesTable, moves, ["power"], "power", asc = headerMovesPower.classList.contains("th-sort-desc"))
 })
 headerMovesAccuracy.addEventListener("click", () => {
-    if(headerMovesAccuracy.classList.contains("th-sort-desc"))
-        sortTableByClassName(movesTable, moves, ["accuracy"], "accuracy", asc = true)
-    else
-        sortTableByClassName(movesTable, moves, ["accuracy"], "accuracy", asc = false)
+    sortTableByClassName(movesTable, moves, ["accuracy"], "accuracy", asc = headerMovesAccuracy.classList.contains("th-sort-desc"))
 })
 headerMovesPP.addEventListener("click", () => {
-    if(headerMovesPP.classList.contains("th-sort-desc"))
-        sortTableByClassName(movesTable, moves, ["PP"], "PP", asc = true)
-    else
-        sortTableByClassName(movesTable, moves, ["PP"], "PP", asc = false)
+    sortTableByClassName(movesTable, moves, ["PP"], "PP", asc = headerMovesPP.classList.contains("th-sort-desc"))
 })
 headerMovesEffect.addEventListener("click", () => {
-    if(headerMovesEffect.classList.contains("th-sort-desc"))
-        sortTableByClassName(movesTable, moves, ["effect"], "effect", asc = true)
-    else
-        sortTableByClassName(movesTable, moves, ["effect"], "effect", asc = false)
+    sortTableByClassName(movesTable, moves, ["effect"], "effect", asc = headerMovesEffect.classList.contains("th-sort-desc"))
 })
 
 
@@ -218,82 +194,48 @@ headerMovesEffect.addEventListener("click", () => {
 
 
 headerSpeciesID.addEventListener("click", () => {
-    if(headerSpeciesID.classList.contains("th-sort-desc"))
-        sortTableByClassName(speciesTable, species, ["ID"], "ID", asc = true)
-    else
-        sortTableByClassName(speciesTable, species, ["ID"], "ID", asc = false)
+    if(speciesMoveFilter){
+        sortTableByLearnsets(asc = !headerSpeciesID.classList.contains("th-sort-asc"))
+    }
+    else{
+        sortTableByClassName(speciesTable, species, ["ID"], "ID", asc = headerSpeciesID.classList.contains("th-sort-desc"))
+    }
 })
 headerSpeciesSprite.addEventListener("click", () => {
-    if(headerSpeciesID.classList.contains("th-sort-desc"))
-        sortTableByClassName(speciesTable, species, ["ID"], "ID", asc = true)
-    else
-        sortTableByClassName(speciesTable, species, ["ID"], "ID", asc = false)
+    sortTableByClassName(speciesTable, species, ["ID"], "ID", asc = headerSpeciesSprite.classList.contains("th-sort-desc"))
 })
 headerSpeciesName.addEventListener("click", () => {
-    if(headerSpeciesName.classList.contains("th-sort-desc"))
-        sortTableByClassName(speciesTable, species, ["name"], "species", asc = true)
-    else
-        sortTableByClassName(speciesTable, species, ["name"], "species", asc = false)
+    sortTableByClassName(speciesTable, species, ["name"], "species", asc = headerSpeciesName.classList.contains("th-sort-desc"))
 })
 headerSpeciesTypes.addEventListener("click", () => {
-    if(headerSpeciesTypes.classList.contains("th-sort-desc"))
-        sortTableByClassName(speciesTable, species, ["type1", "type2"], "types", asc = true)
-    else
-        sortTableByClassName(speciesTable, species, ["type1", "type2"], "types", asc = false)
+    sortTableByClassName(speciesTable, species, ["type1", "type2"], "types", asc = headerSpeciesTypes.classList.contains("th-sort-desc"))
 })
 headerSpeciesAbilities.addEventListener("click", () => {
-    if(headerSpeciesAbilities.classList.contains("th-sort-desc"))
-        sortTableByClassName(speciesTable, species, ["abilities"], "abilities", asc = true)
-    else
-        sortTableByClassName(speciesTable, species, ["abilities"], "abilities", asc = false)
+    sortTableByClassName(speciesTable, species, ["abilities"], "abilities", asc = headerSpeciesAbilities.classList.contains("th-sort-desc"))
 })
 headerSpeciesInnates.addEventListener("click", () => {
-    if(headerSpeciesInnates.classList.contains("th-sort-desc"))
-        sortTableByClassName(speciesTable, species, ["innates"], "innates", asc = true)
-    else
-        sortTableByClassName(speciesTable, species, ["innates"], "innates", asc = false)
+    sortTableByClassName(speciesTable, species, ["innates"], "innates", asc = headerSpeciesInnatestrue.classList.contains("th-sort-desc"))
 })
 headerSpeciesHP.addEventListener("click", () => {
-    if(headerSpeciesHP.classList.contains("th-sort-desc"))
-        sortTableByClassName(speciesTable, species, ["baseHP"], "baseHP", asc = true)
-    else
-        sortTableByClassName(speciesTable, species, ["baseHP"], "baseHP", asc = false)
+    sortTableByClassName(speciesTable, species, ["baseHP"], "baseHP", asc = headerSpeciesHP.classList.contains("th-sort-desc"))
 })
 headerSpeciesAtk.addEventListener("click", () => {
-    if(headerSpeciesAtk.classList.contains("th-sort-desc"))
-        sortTableByClassName(speciesTable, species, ["baseAttack"], "baseAttack", asc = true)
-    else
-        sortTableByClassName(speciesTable, species, ["baseAttack"], "baseAttack", asc = false)
+    sortTableByClassName(speciesTable, species, ["baseAttack"], "baseAttack", asc = headerSpeciesAtk.classList.contains("th-sort-desc"))
 })
 headerSpeciesDef.addEventListener("click", () => {
-    if(headerSpeciesDef.classList.contains("th-sort-desc"))
-        sortTableByClassName(speciesTable, species, ["baseDefense"], "baseDefense", asc = true)
-    else
-        sortTableByClassName(speciesTable, species, ["baseDefense"], "baseDefense", asc = false)
+    sortTableByClassName(speciesTable, species, ["baseDefense"], "baseDefense", asc = headerSpeciesDef.classList.contains("th-sort-desc"))
 })
 headerSpeciesSpA.addEventListener("click", () => {
-    if(headerSpeciesSpA.classList.contains("th-sort-desc"))
-        sortTableByClassName(speciesTable, species, ["baseSpAttack"], "baseSpAttack", asc = true)
-    else
-        sortTableByClassName(speciesTable, species, ["baseSpAttack"], "baseSpAttack", asc = false)
+    sortTableByClassName(speciesTable, species, ["baseSpAttack"], "baseSpAttack", asc = headerSpeciesSpA.classList.contains("th-sort-desc"))
 })
 headerSpeciesSpD.addEventListener("click", () => {
-    if(headerSpeciesSpD.classList.contains("th-sort-desc"))
-        sortTableByClassName(speciesTable, species, ["baseSpDefense"], "baseSpDefense", asc = true)
-    else
-        sortTableByClassName(speciesTable, species, ["baseSpDefense"], "baseSpDefense", asc = false)
+    sortTableByClassName(speciesTable, species, ["baseSpDefense"], "baseSpDefense", asc = headerSpeciesSpD.classList.contains("th-sort-desc"))
 })
 headerSpeciesSpe.addEventListener("click", () => {
-    if(headerSpeciesSpe.classList.contains("th-sort-desc"))
-        sortTableByClassName(speciesTable, species, ["baseSpeed"], "baseSpeed", asc = true)
-    else
-        sortTableByClassName(speciesTable, species, ["baseSpeed"], "baseSpeed", asc = false)
+    sortTableByClassName(speciesTable, species, ["baseSpeed"], "baseSpeed", asc = headerSpeciesSpe.classList.contains("th-sort-desc"))
 })
 headerSpeciesBST.addEventListener("click", () => {
-    if(headerSpeciesBST.classList.contains("th-sort-desc"))
-        sortTableByClassName(speciesTable, species, ["BST"], "BST", asc = true)
-    else
-        sortTableByClassName(speciesTable, species, ["BST"], "BST", asc = false)
+    sortTableByClassName(speciesTable, species, ["BST"], "BST", asc = headerSpeciesBST.classList.contains("th-sort-desc"))
 })
 
 
@@ -347,6 +289,14 @@ trainersInput.addEventListener('input', e => {
         filterTrainersTableInput(value)
     }, doneTypingInterval)
 })
+itemsInput.addEventListener('input', e => {
+    clearTimeout(typingTimer)
+    typingTimer = setTimeout(function(){
+        const value = e.target.value
+        filterFilters(value)
+        filterItemsTableInput(value, ["description", "name"])
+    }, doneTypingInterval)
+})
 speciesPanelInputSpecies.addEventListener("input", e => {
     const value = e.target.value
     if(speciesIngameNameArray.includes(value)){
@@ -381,6 +331,11 @@ movesButton.addEventListener("click", async () => {
 trainersButton.addEventListener("click", async () => {
     if(!trainersButton.classList.contains("activeButton")){
         await tableButtonClick("trainers")
+    }
+})
+itemsButton.addEventListener("click", async () => {
+    if(!itemsButton.classList.contains("activeButton")){
+        await tableButtonClick("items")
     }
 })
 
@@ -434,25 +389,6 @@ onlyShowStrategyPokemon.addEventListener("click", () => {
 
 
 
-credits.addEventListener("click", () => {
-    while(popup.firstChild){
-        popup.removeChild(popup.firstChild)
-    }
-    const creditMainContainer = document.createElement("div")
-    const creditRis = document.createElement("div"); creditRis.className = "credits"; creditRis.innerText = `Credit to ris (previously ris#0000 on discord) for:\n- Night theme\n- Sprite background removal function\n- Red button design\n- Species stats graph\n- Helping with CSS\n- Bitching and moaning about my CSS while this is literally my first ever website.`
-    creditMainContainer.append(creditRis)
-    popup.append(creditMainContainer)
-
-    overlay.style.display = 'block'
-})
-
-
-
-
-
-
-
-
 
 
 
@@ -467,14 +403,14 @@ const options = {
 function footerIsTouching(entries){
     if(entries[0].isIntersecting){
         lazyLoading(false)
+        settingsButton.classList.remove("hide")
         credits.classList.remove("hide")
         update.classList.remove("hide")
-        backup.classList.remove("hide")
     }
     else{
+        settingsButton.classList.add("hide")
         credits.classList.add("hide")   
         update.classList.add("hide")
-        backup.classList.add("hide")
     }
 }
 
@@ -533,6 +469,12 @@ utilityButton.onclick = () => {
     utilityButtonOnClick()
 }
 document.addEventListener("keydown", e => {
+    if(speciesPanelMainContainer.classList.contains("hide") && ((e.code == "F3") || (e.ctrlKey && e.code == "KeyF"))){ 
+        // Block CTRL + F event
+        e.preventDefault()
+        document.getElementsByClassName("activeInput")[0].focus({focusVisible: true})
+        document.getElementsByClassName("activeInput")[0].select()
+    }
     if(e.target.nodeName !== "INPUT"){
         //e.preventDefault()
         if(e.code === "Space"){
@@ -575,11 +517,13 @@ function utilityButtonOnClick(){
 overlay.addEventListener('click', function (event) {
     if (event.target === overlay) {
         overlay.style.display = 'none'
+        body.classList.remove("fixed")
     }
 })
 overlayAbilities.addEventListener('click', function (event) {
-    if (event.target === overlay) {
-        overlay.style.display = 'none'
+    if (event.target === overlayAbilities) {
+        overlayAbilities.style.display = 'none'
+        body.classList.remove("fixedAbilities")
     }
 })
 overlaySpeciesPanel.addEventListener('click', function (event) {
@@ -591,98 +535,34 @@ overlaySpeciesPanel.addEventListener('click', function (event) {
 
 
 
+settingsButton.addEventListener("click", async () => {
+    while(popup.firstChild){
+        popup.removeChild(popup.firstChild)
+    }
+
+    manageSettings()
+
+    overlay.style.display = 'block'
+    body.classList.add("fixed")
+})
+
+credits.addEventListener("click", () => {
+    while(popup.firstChild){
+        popup.removeChild(popup.firstChild)
+    }
+    const creditMainContainer = document.createElement("div")
+    const creditRis = document.createElement("div"); creditRis.className = "credits"; creditRis.innerText = `Credit to ris (previously ris#0000 on discord) for:\n- Night theme\n- Sprite background removal function\n- Red button design\n- Species stats graph\n- Helping with CSS\n- Bitching and moaning about my CSS while this is literally my first ever website.`
+    creditMainContainer.append(creditRis)
+    popup.append(creditMainContainer)
+
+    overlay.style.display = 'block'
+    body.classList.add("fixed")
+})
+
 update.addEventListener("click", () => {
-    localStorage.clear()
+    clearLocalStorage()
     window.location.reload()
 })
-
-backup.addEventListener("click", async () => {
-    timeout = true
-    await useBackup()
-})
-
-
-async function useBackup(){
-    console.log("Used Backup")
-    await localStorage.clear()
-    await localStorage.setItem("update", `${checkUpdate}`)
-    history.pushState(null, null, location.href)
-    const queryString = window.location.search
-    const urlParams = new URLSearchParams(queryString)
-
-    moves = await backupData[0]
-    await localStorage.setItem("moves", LZString.compressToUTF16(JSON.stringify(moves)))
-    movesTracker = []
-    for(let i = 0, j = Object.keys(moves).length; i < j; i++){
-        movesTracker[i] = {}
-        movesTracker[i]["key"] = Object.keys(moves)[i]
-        movesTracker[i]["filter"] = []
-    }
-
-
-    abilities = await backupData[1]
-    await localStorage.setItem("abilities", LZString.compressToUTF16(JSON.stringify(abilities)))
-    abilitiesTracker = []
-    for(let i = 0, j = Object.keys(abilities).length; i < j; i++){
-        abilitiesTracker[i] = {}
-        abilitiesTracker[i]["key"] = Object.keys(abilities)[i]
-        abilitiesTracker[i]["filter"] = []
-    }
-
-    
-    species = await backupData[2]
-    await localStorage.setItem("species", LZString.compressToUTF16(JSON.stringify(species)))
-    speciesTracker = []
-    for(let i = 0, j = Object.keys(species).length; i < j; i++){
-        speciesTracker[i] = {}
-        speciesTracker[i]["key"] = Object.keys(species)[i]
-        speciesTracker[i]["filter"] = []
-    }
-
-
-    locations = await backupData[3]
-    await localStorage.setItem("locations", LZString.compressToUTF16(JSON.stringify(locations)))
-    let counter = 0
-    locationsTracker = []
-    Object.keys(locations).forEach(zone => {
-        Object.keys(locations[zone]).forEach(method => {
-            Object.keys(locations[zone][method]).forEach(speciesName => {
-                locationsTracker[counter] = {}
-                locationsTracker[counter]["key"] = `${zone}\\${method}\\${speciesName}`
-                locationsTracker[counter]["filter"] = []
-                counter++
-            })
-        })
-    })
-
-
-    trainers = await backupData[4]
-    await localStorage.setItem("trainers", LZString.compressToUTF16(JSON.stringify(trainers)))
-    counter = 0
-    trainersTracker = []
-    Object.keys(trainers).forEach(zone => {
-        Object.keys(trainers[zone]).forEach(trainer => {
-            trainersTracker[counter] = {}
-            trainersTracker[counter]["key"] = `${zone}\\${trainer}`
-            trainersTracker[counter]["filter"] = []
-            counter++
-        })
-    })
-
-    
-    strategies = await backupData[5]
-    //await localStorage.setItem("strategies", LZString.compressToUTF16(JSON.stringify(strategies)))
-
-    
-    typeChart = await backupData[6]
-
-    await setDataList()
-    await setFilters()
-    await displaySetup()
-    await displayParams(urlParams)
-
-    await window.scrollTo(0, 0)
-}
 
 window.onbeforeunload = () => {  
     window.scrollTo(0, 0)
@@ -717,4 +597,3 @@ let fetchDatainterval = setInterval(function() {
 
     fetchData(searchParams)
 }, 100)  
-
