@@ -24,7 +24,7 @@
 }
 
 .methodTableThead {
-    height: 70px;
+    height: 75px;
 	font-weight: 700;
 	cursor: default !important;
     width: 100%;
@@ -80,11 +80,82 @@ only screen and (max-width: 1525px) {
 
 @media 
 only screen and (max-width: 1125px) {
-    .methodTable {
-        width: 20% !important;
+    .locationSpriteContainer {
+        width: 100% !important;
+    }
+    .locationSpeciesName {
+        display: none;
+    }
+
+    .locationSpeciesName {
+        display: none;
+    }
+
+    .locationSpeciesNameHidden {
+        display: block !important;
+        font-size: 15px;
     }
 }
 
+@media 
+only screen and (max-width: 1000px) {
+    .methodTableTheadRow {
+        display: grid;
+    }
+
+    .methodTableThead {
+        /*height: 150px;*/
+        font-size: 15px;
+    }
+}
+
+@media 
+only screen and (max-width: 900px) {
+    .locationSpeciesRow {
+        height: 115px;
+    }
+}
+
+@media 
+only screen and (max-width: 750px) {
+    .locationRarity {
+        display: none;
+    }
+
+    .locationRarityHidden {
+        display: block !important;
+    }
+}
+
+@media 
+only screen and (max-width: 550px) {
+    .locationSpeciesNameHidden {
+        font-size: 10px !important;
+    }
+
+    .locationSpeciesRow, .methodTableThead {
+        height: 105px;
+    }
+}
+
+@media 
+only screen and (max-width: 350px) {
+    .locationSpeciesNameHidden {
+        display: none !important;
+    }
+
+    .methodTableThead {
+        height: 100px;
+        font-size: 13px;
+    }
+
+    #locationsTable .miniSprite3 {
+        width: 42px !important;
+        height: 42px !important;
+    }
+}
+
+/*
 @media 
 only screen and (max-width: 900px) {
     .methodTable {
@@ -112,3 +183,4 @@ only screen and (max-width: 399px) {
         width: 100% !important;
     }
 }
+*/
