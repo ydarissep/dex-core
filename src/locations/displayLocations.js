@@ -55,6 +55,15 @@ function appendLocationsToTable(key){
 
     appendSpeciesEl(location, method, speciesKey, methodTable)
 
+    if(locationTable.children[1].children.length == 1){
+        locationTable.classList.remove("locationScale")
+        locationTable.classList.add("locationFixed")
+    }
+    else{
+        locationTable.classList.add("locationScale")
+        locationTable.classList.remove("locationFixed")
+    }
+
     return true
 }
 
