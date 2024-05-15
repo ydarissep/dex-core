@@ -204,7 +204,7 @@ only screen and (max-width: 350px) {
 }
 
 @media 
-only screen and (max-width: 1450px) {
+only screen and (max-width: 1550px) {
   .utilityButton {
       right: 5px !important;
   }
