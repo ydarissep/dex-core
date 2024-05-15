@@ -58,10 +58,20 @@ window.speciesOffensiveTypeChart = document.getElementById("speciesOffensiveType
 window.speciesStrategiesContainer = document.getElementById("speciesStrategiesContainer")
 window.speciesStrategies = document.getElementById("speciesStrategies")
 window.speciesPanelLevelUpFromPreviousEvoTable = document.getElementById("speciesPanelLevelUpFromPreviousEvoTable")
+window.speciesPanelLevelUpFromPreviousEvoTableTbody = document.getElementById("speciesPanelLevelUpFromPreviousEvoTableTbody")
+window.hideLevelUpFromPreviousEvolution = document.getElementById("hideLevelUpFromPreviousEvolution")
 window.speciesPanelLevelUpTable = document.getElementById("speciesPanelLevelUpTable")
+window.speciesPanelLevelUpTableTbody = document.getElementById("speciesPanelLevelUpTableTbody")
+window.hideLevelUp = document.getElementById("hideLevelUp")
 window.speciesPanelTMHMTable = document.getElementById("speciesPanelTMHMTable")
+window.speciesPanelTMHMTableTbody = document.getElementById("speciesPanelTMHMTableTbody")
+window.hideTMHM = document.getElementById("hideTMHM")
 window.speciesPanelTutorTable = document.getElementById("speciesPanelTutorTable")
+window.speciesPanelTutorTableTbody = document.getElementById("speciesPanelTutorTableTbody")
+window.hideTutor = document.getElementById("hideTutor")
 window.speciesPanelEggMovesTable = document.getElementById("speciesPanelEggMovesTable")
+window.speciesPanelEggMovesTableTbody = document.getElementById("speciesPanelEggMovesTableTbody")
+window.hideEggMoves = document.getElementById("hideEggMoves")
 
 
 
@@ -150,6 +160,38 @@ window.headerLocationsRarity = document.querySelector("#locationsTableThead th.r
 window.headerLocationsZone = document.querySelector("#locationsTableThead th.zone")
 
 window.utilityButton = document.querySelector(".utilityButton")
+
+
+
+
+
+
+hideLevelUpFromPreviousEvolution.addEventListener("click", () => {
+    hideLevelUpFromPreviousEvolution.classList.toggle("activeSetting")
+    changeSetting("hideLevelUpFromPreviousEvolution", hideLevelUpFromPreviousEvolution.classList.contains("activeSetting"))
+})
+
+hideLevelUp.addEventListener("click", () => {
+    hideLevelUp.classList.toggle("activeSetting")
+    changeSetting("hideLevelUp", hideLevelUp.classList.contains("activeSetting"))
+})
+
+hideTMHM.addEventListener("click", () => {
+    hideTMHM.classList.toggle("activeSetting")
+    changeSetting("hideTMHM", hideTMHM.classList.contains("activeSetting"))
+})
+
+hideTutor.addEventListener("click", () => {
+    hideTutor.classList.toggle("activeSetting")
+    changeSetting("hideTutor", hideTutor.classList.contains("activeSetting"))
+})
+
+hideEggMoves.addEventListener("click", () => {
+    hideEggMoves.classList.toggle("activeSetting")
+    changeSetting("hideEggMoves", hideEggMoves.classList.contains("activeSetting"))
+})
+
+
 
 
 

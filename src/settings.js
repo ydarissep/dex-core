@@ -17,6 +17,51 @@ async function applySettings(){
     else{
         speciesPanelHistoryContainer.classList.remove("speciesPanelHistorySticky")
     }
+
+    if(settings.includes("hideLevelUpFromPreviousEvolution")){
+        hideLevelUpFromPreviousEvolution.classList.add("activeSetting")
+        speciesPanelLevelUpFromPreviousEvoTableTbody.classList.add("hide")
+    }
+    else{
+        hideLevelUpFromPreviousEvolution.classList.remove("activeSetting")
+        speciesPanelLevelUpFromPreviousEvoTableTbody.classList.remove("hide")
+    }
+
+    if(settings.includes("hideLevelUp")){
+        hideLevelUp.classList.add("activeSetting")
+        speciesPanelLevelUpTableTbody.classList.add("hide")
+    }
+    else{
+        hideLevelUp.classList.remove("activeSetting")
+        speciesPanelLevelUpTableTbody.classList.remove("hide")
+    }
+
+    if(settings.includes("hideTMHM")){
+        hideTMHM.classList.add("activeSetting")
+        speciesPanelTMHMTableTbody.classList.add("hide")
+    }
+    else{
+        hideTMHM.classList.remove("activeSetting")
+        speciesPanelTMHMTableTbody.classList.remove("hide")
+    }
+
+    if(settings.includes("hideTutor")){
+        hideTutor.classList.add("activeSetting")
+        speciesPanelTutorTableTbody.classList.add("hide")
+    }
+    else{
+        hideTutor.classList.remove("activeSetting")
+        speciesPanelTutorTableTbody.classList.remove("hide")
+    }
+
+    if(settings.includes("hideEggMoves")){
+        hideEggMoves.classList.add("activeSetting")
+        speciesPanelEggMovesTableTbody.classList.add("hide")
+    }
+    else{
+        hideEggMoves.classList.remove("activeSetting")
+        speciesPanelEggMovesTableTbody.classList.remove("hide")
+    }
 }
 
 function manageSettings(){
