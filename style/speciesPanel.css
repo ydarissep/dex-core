@@ -357,6 +357,20 @@ only screen and (max-width: 500px) {
     cursor: pointer;
 }
 
+#hideLevelUpFromPreviousEvolution.activeSetting, #hideLevelUp.activeSetting, #hideTMHM.activeSetting, #hideTutor.activeSetting, #hideEggMoves.activeSetting {
+	width: 65px !important;
+	padding: 4px;
+  	margin: 4px;
+	border: 2px solid red;
+}
+
+#hideLevelUpFromPreviousEvolution, #hideLevelUp, #hideTMHM, #hideTutor, #hideEggMoves {
+	padding: 0px;
+	margin: 0px 0px 4px 4px;
+	width: 50px !important;
+	border: 2px solid var(--blue-border);
+}
+
 @media 
 only screen and (max-width: 600px) {
 	#speciesPanelMainContainer {
