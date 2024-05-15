@@ -294,7 +294,7 @@ async function lazyLoading(reset = false){
             else{
                 if(displayFunction === "appendLocationsToTable"){
                     const map = tracker[i - 1]["key"].match(/.*?\\/)[0]
-                    while((i < tracker.length) && (tracker[i]["key"].match(/.*?\\/)[0] == map)){
+                    while(i < j && tracker[i]["key"].match(/.*?\\/)[0] == map){
                         if(tracker[i]["filter"].length === 0 && !document.getElementById(tracker[i]["key"])){
                             window[displayFunction](tracker[i]["key"])
                         }
