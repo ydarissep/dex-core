@@ -241,7 +241,7 @@ async function displayParams(urlParams){
         speciesPanel("hide")
     }
     if(urlParams.get("table")){
-        await tableButtonClick(document.getElementById(urlParams.get("table")).id.replace("Table", ""))
+        await tableButtonClick(document.getElementById(urlParams.get("table")).id.replace("Table", ""), urlParams.get("species"))
     }
     if(urlParams.get("filter")){
         urlParams.get("filter").split(",").forEach(filter => {
