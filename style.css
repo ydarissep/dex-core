@@ -56,7 +56,7 @@ body {
 .Special {filter: brightness(200%);}
 .Status {filter: brightness(300%);}
 
-.Move {color: #86FF64;}
+.Move, .Target {color: #86FF64;}
 .Item, .Split {color: #FFC2F0;}
 .BaseStats {color: #70FFFA;}
 .Ability, .Flag {color: #FFF86E;}

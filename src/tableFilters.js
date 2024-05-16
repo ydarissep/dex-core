@@ -153,6 +153,17 @@ function filterMovesFlags(value, label){
     }
 }
 
+function filterMovesTarget(value, label){
+    mainLoop: for(let i = 0, j = tracker.length; i < j; i++){
+        let name = tracker[i]["key"]
+
+        if((sanitizeString(moves[name]["target"]) === value)){
+            continue mainLoop
+        }   
+        tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+    }
+}
+
 function filterBaseStats(value, label){
     if(value === "HP"){
         value = "baseHP"
@@ -256,6 +267,9 @@ function selectFilter(value, label){
     else if(label === "Flag"){
         filterMovesFlags(value, label)
     }
+    else if(label === "Target"){
+        filterMovesTarget(value, label)
+    }
     else if(label === "Pocket"){
         filterPocket(value, label)
     }
@@ -275,6 +289,7 @@ async function setFilters(){
     createFilterGroup(createFilterArray(["type"], moves), "Type", [speciesFilterList, movesFilterList, locationsFilterList])
     createFilterGroup(createFilterArray(["split"], moves), "Split", [movesFilterList])
     createFilterGroup(createFilterArray(["flags"], moves), "Flag", [movesFilterList])
+    createFilterGroup(createFilterArray(["target"], moves), "Target", [movesFilterList])
     createFilterGroup(createFilterArray(["item1", "item2"], species), "Item", [speciesFilterList, locationsFilterList])
     try{
         createFilterGroup(Array.from(new Set(JSON.stringify(trainers).match(/ITEM_\w+/g).map(value => sanitizeString(value)))), "Item", [trainersFilterList])

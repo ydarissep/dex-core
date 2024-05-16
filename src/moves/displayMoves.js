@@ -178,9 +178,34 @@ function createPopupForMove(move, interactAble = true){
     }
     popup.append(moveAccuracy)
 
+    const target = document.createElement("div"); target.innerText = `Target: ${sanitizeString(move["target"])}`; target.className = "bold popupTrainerTarget"
+    if(move["target"] != ""){
+        if(interactAble){
+            target.classList.add("hyperlink")
+
+            target.addEventListener("click", async() => {
+                if(!movesButton.classList.contains("activeButton")){
+                    tracker = movesTracker
+                    await tableButtonClick("moves")
+                }
+                deleteFiltersFromTable()
+                createFilter(sanitizeString(move["target"]), "Target")
+                overlay.style.display = 'none'
+                body.classList.remove("fixed")
+                speciesPanel("hide")
+                window.scrollTo({ top: 0})
+            })
+        }
+
+        popup.append(target)
+    }
+
     if(moves[move["name"]]["chance"] > 0 && moves[move["name"]]["chance"] < 100){
         const moveEffect = document.createElement("div"); moveEffect.innerText = `${sanitizeString(moves[move["name"]]["effect"])} ${moves[move["name"]]["chance"]}%`; moveEffect.className = "bold popupTrainerMoveEffect"
         popup.append(moveEffect)
+    }
+    else{
+        target.style.marginBottom = "15px"
     }
 
     const moveDescription = document.createElement("div"); moveDescription.innerText = move["description"].join(""); moveDescription.className = "popupTrainerMoveDescription"
