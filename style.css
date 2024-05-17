@@ -111,6 +111,10 @@ button[type='button'] {
   transition: background 0s ease-in-out !important;
 }
 
+.setting.activeSetting {
+  border: 1px solid green !important;
+}
+
 .activeButton, .activeSetting {
   background: rgba(255, 255, 255, 0.125) !important;
 }
