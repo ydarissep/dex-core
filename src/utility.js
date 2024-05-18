@@ -167,6 +167,7 @@ async function setDataList(){
 
 
 function getSpeciesSpriteSrc(speciesName){
+    speciesName = returnTargetSpeciesSprite(speciesName)
     if(sprites[speciesName]){
         if(sprites[speciesName].length < 500){
             localStorage.removeItem(speciesName)
@@ -181,6 +182,12 @@ function getSpeciesSpriteSrc(speciesName){
         spriteRemoveBgReturnBase64(speciesName, species)
         return species[speciesName]["sprite"]
     }
+}
+function returnTargetSpeciesSprite(speciesName){
+    if(species[speciesName]["forms"].length > 1 && species[speciesName]["sprite"] == species[species[speciesName]["forms"][0]]["sprite"]){
+        return species[speciesName]["forms"][0]
+    }
+    return speciesName
 }
 
 
