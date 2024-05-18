@@ -167,7 +167,9 @@ async function setDataList(){
 
 
 function getSpeciesSpriteSrc(speciesName){
-    speciesName = returnTargetSpeciesSprite(speciesName)
+    if(species[speciesName]["forms"].length > 1 && species[speciesName]["sprite"] == species[species[speciesName]["forms"][0]]["sprite"]){
+        speciesName = species[speciesName]["forms"][0]
+    }
     if(sprites[speciesName]){
         if(sprites[speciesName].length < 500){
             localStorage.removeItem(speciesName)
