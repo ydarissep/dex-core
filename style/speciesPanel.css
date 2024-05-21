@@ -415,6 +415,11 @@ only screen and (max-width: 500px) {
     #speciesEvoTable {
         font-size: 16px;
     }
+
+    #speciesPanelContainer .backgroundSmall {
+        font-size: 8px !important;
+        letter-spacing: -1px;
+    }
 }
 
 @media /* resize evo conditions */

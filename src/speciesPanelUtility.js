@@ -334,7 +334,13 @@ async function createSpeciesPanel(name){
         const checkType = document.createElement("span")
         const defensiveTypeEffectivenessValue = document.createElement("span")
         defensiveTypeEffectivenessContainer.className = "flex flexCenter flexColumn speciesDefensiveTypeChartMarginTop"
-        checkType.innerText = sanitizeString(type).slice(0,3)
+        checkType.innerText = sanitizeString(type)
+        if(type === "TYPE_FIGHTING"){
+            checkType.innerText = "Fight"
+        }
+        else if(type === "TYPE_ELECTRIC"){
+            checkType.innerText = "Electr"
+        }
         checkType.className = `backgroundSmall ${type}`
 
         defensiveTypeEffectivenessValue.innerText = getPokemonResistanceValueAgainstType(species[name], type)
@@ -360,7 +366,13 @@ async function createSpeciesPanel(name){
             const checkType = document.createElement("span")
             const offensiveTypeEffectivenessValue = document.createElement("span")
             offensiveTypeEffectivenessContainer.className = "flex flexCenter flexColumn speciesOffensiveTypeChartMarginTop"
-            checkType.innerText = sanitizeString(type).slice(0,3)
+            checkType.innerText = sanitizeString(type)
+            if(type === "TYPE_FIGHTING"){
+                checkType.innerText = "Fight"
+            }
+            else if(type === "TYPE_ELECTRIC"){
+                checkType.innerText = "Electr"
+            }
             checkType.className = `backgroundSmall ${type}`
     
             offensiveTypeEffectivenessValue.innerText = getPokemonEffectivenessValueAgainstType(species[name], type)
