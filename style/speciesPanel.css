@@ -416,9 +416,9 @@ only screen and (max-width: 500px) {
         font-size: 16px;
     }
 
-    #speciesPanelContainer .backgroundSmall {
+	#speciesPanelContainer .backgroundSmall[class*="TYPE_"] {
         font-size: 8px !important;
-        letter-spacing: -1px;
+        letter-spacing: -0.5px;
     }
 }
 
