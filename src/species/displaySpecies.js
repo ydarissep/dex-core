@@ -264,17 +264,30 @@ async function spriteRemoveBgReturnBase64(speciesName, species){
         for (let i = 0; i < 4; i++) {
           backgroundColor.push(imageData.data[i])
         }
+        let spriteDataString = "", repeat = 1, pal = []
         for (let i = 0; i < imageData.data.length; i += 4) {
-          if (
-            imageData.data[i] === backgroundColor[0] &&
-            imageData.data[i + 1] === backgroundColor[1] &&
-            imageData.data[i + 2] === backgroundColor[2]
-          ) imageData.data[i + 3] = 0
+            if(imageData.data[i] === backgroundColor[0] && imageData.data[i + 1] === backgroundColor[1] && imageData.data[i + 2] === backgroundColor[2]){
+                imageData.data[i + 3] = 0
+            }
+
+            if(!pal.includes(`${imageData.data[i]},${imageData.data[i + 1]},${imageData.data[i + 2]},${imageData.data[i + 3]}`)){
+                pal.push(`${imageData.data[i]},${imageData.data[i + 1]},${imageData.data[i + 2]},${imageData.data[i + 3]}`)
+            }
+
+            if(imageData.data[i] === imageData.data[i + 4] && imageData.data[i + 1] === imageData.data[i + 5] && imageData.data[i + 2] === imageData.data[i + 6] && (imageData.data[i + 3] === imageData.data[i + 7] || imageData.data[i + 3] === 0)){
+                repeat++
+            }
+            else{
+                spriteDataString += `&${pal.indexOf(`${imageData.data[i]},${imageData.data[i + 1]},${imageData.data[i + 2]},${imageData.data[i + 3]}`)}*${repeat}`
+                repeat = 1
+            }
         }
         context.putImageData(imageData, 0, 0)
 
+        spriteDataString = `${canvas.width}&${canvas.height}&[${pal}]${spriteDataString}`
+
         if(!localStorage.getItem(speciesName)){
-            localStorage.setItem(speciesName, LZString.compressToUTF16(canvas.toDataURL()))
+            localStorage.setItem(speciesName, LZString.compressToUTF16(spriteDataString))
             sprites[speciesName] = canvas.toDataURL()
         }
         const els = document.getElementsByClassName(`sprite${speciesName}`)
@@ -284,4 +297,37 @@ async function spriteRemoveBgReturnBase64(speciesName, species){
             }
         }
     }
+}
+
+
+
+
+
+
+function decodeSpriteDataString(spriteDataString){
+    let canvas = document.createElement("canvas")
+
+    const spriteData = spriteDataString.split("&")
+    canvas.width = spriteData[0]
+    canvas.height = spriteData[1]
+    const context = canvas.getContext('2d')
+    context.clearRect(0, 0, canvas.width, canvas.height)
+    const imageData = context.getImageData(0, 0, canvas.width, canvas.height)
+    const pal = JSON.parse(spriteData[2])
+    let counter = 0
+
+    for(let i = 1; i < spriteData.length; i++){
+        const spriteDataSplit = spriteData[i].split("*")
+        for(let j = 0; j < spriteDataSplit[1]; j++){
+            imageData.data[counter] = pal[spriteDataSplit[0] * 4]
+            imageData.data[counter + 1] = pal[spriteDataSplit[0] * 4 + 1]
+            imageData.data[counter + 2] = pal[spriteDataSplit[0] * 4 + 2]
+            imageData.data[counter + 3] = pal[spriteDataSplit[0] * 4 + 3]
+            counter += 4
+        }
+    }
+
+    context.putImageData(imageData, 0, 0)
+
+    return canvas.toDataURL()
 }
