@@ -513,7 +513,7 @@ function fetchShinySprite(clicked = false){
         speciesSprite.src = sprites[targetSpecies]
     }
     else{
-        applyPalVar(targetSpecies)
+        applyShinyVar(targetSpecies)
     }
 }
 
@@ -527,7 +527,7 @@ function handleShiny(){
 
 
 
-async function applyPalVar(speciesName){
+async function applyShinyVar(speciesName){
     let sprite = new Image()
     let canvas = document.createElement("canvas")
 
