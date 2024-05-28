@@ -170,13 +170,19 @@ function getSpeciesSpriteSrc(speciesName){
     if(species[speciesName]["forms"].length > 1 && species[speciesName]["sprite"] == species[species[speciesName]["forms"][0]]["sprite"]){
         speciesName = species[speciesName]["forms"][0]
     }
-    if(sprites[speciesName]){
-        if(sprites[speciesName].length < 500){
-            localStorage.removeItem(speciesName)
-            spriteRemoveBgReturnBase64(speciesName, species)
-            return species[speciesName]["sprite"]
+    if(localStorage.getItem(speciesName)){
+        if(speciesName in sprites){
+            if(sprites[speciesName].length < 500){
+                localStorage.removeItem(speciesName)
+                spriteRemoveBgReturnBase64(speciesName, species)
+                return species[speciesName]["sprite"]
+            }
+            else{
+                return sprites[speciesName]
+            }
         }
         else{
+            sprites[speciesName] = decodeSpriteDataString(LZString.decompressFromUTF16(localStorage.getItem(speciesName)))
             return sprites[speciesName]
         }
     }
