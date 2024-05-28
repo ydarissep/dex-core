@@ -19,6 +19,9 @@ async function displaySetup(){
     if(typeof innatesDefined !== "undefined"){
         document.getElementsByClassName("innatesHeader")[0].classList.remove("hide")
     }
+    if(typeof showShinyToggle !== "undefined"){
+        document.getElementById("shinyContainer").classList.remove("hide")
+    }
 
     lazyLoading(true)
 

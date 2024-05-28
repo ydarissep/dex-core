@@ -19,6 +19,7 @@ async function createSpeciesPanel(name){
     speciesID.innerText = `#${species[name]["ID"]}`
 
     speciesSprite.className = `sprite${name}`
+    handleShiny()
     speciesSprite.src = getSpeciesSpriteSrc(name)
 
     speciesType1.innerText = sanitizeString(species[name]["type1"])
@@ -495,6 +496,76 @@ function createClickableImgAndName(speciesName, evoConditions = false, showName 
     return container
 }
 
+
+
+
+shinyToggle.addEventListener("click", async () => {
+    fetchShinySprite(true)
+})
+
+
+function fetchShinySprite(clicked = false){
+    const targetSpecies = returnTargetSpeciesSprite(panelSpecies)
+    if(clicked){
+        shinyToggle.classList.toggle("toggled")
+    }
+    if(!shinyToggle.classList.contains("toggled")){
+        speciesSprite.src = sprites[targetSpecies]
+    }
+    else{
+        applyPalVar(targetSpecies)
+    }
+}
+
+
+
+function handleShiny(){
+    if(shinyToggle.classList.contains("toggled")){
+        fetchShinySprite()
+    }
+}
+
+
+
+async function applyPalVar(speciesName){
+    let sprite = new Image()
+    let canvas = document.createElement("canvas")
+
+    sprite.src = sprites[speciesName]
+
+    canvas.width = sprite.width
+    canvas.height = sprite.height
+
+    const rawNormalPal = await fetch(`${species[speciesName]["sprite"].replace(/\w+\.png/, "normal.pal")}`)
+    const textNormalPal = await rawNormalPal.text()
+
+    let normalPal = textNormalPal.split("\n").toSpliced(0, 3)
+
+    const rawShinyPal = await fetch(`${species[speciesName]["sprite"].replace(/\w+\.png/, "shiny.pal")}`)
+    const textShinyPal = await rawShinyPal.text()
+
+    let shinyPal = textShinyPal.split("\n").toSpliced(0, 3)
+
+    const context = canvas.getContext('2d')
+
+    context.clearRect(0, 0, canvas.width, canvas.height)
+    context.drawImage(sprite, 0, 0)
+
+    const imageData = context.getImageData(0, 0, canvas.width, canvas.height)
+
+    for(let i = 0; i < imageData.data.length; i += 4) {
+        if(normalPal.includes(`${imageData.data[i]} ${imageData.data[i + 1]} ${imageData.data[i + 2]}`)){
+            const index = normalPal.indexOf(`${imageData.data[i]} ${imageData.data[i + 1]} ${imageData.data[i + 2]}`)
+            const shinyPalArray = shinyPal[index].split(" ")
+            imageData.data[i] = shinyPalArray[0]
+            imageData.data[i + 1] = shinyPalArray[1]
+            imageData.data[i + 2] = shinyPalArray[2]
+        }
+    }
+    
+    context.putImageData(imageData, 0, 0)
+    speciesSprite.src = canvas.toDataURL()
+}
 
 
 
