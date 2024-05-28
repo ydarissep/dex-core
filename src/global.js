@@ -165,6 +165,11 @@ window.utilityButton = document.querySelector(".utilityButton")
 
 
 
+shinyToggle.addEventListener("click", async () => {
+    fetchShinySprite(true)
+})
+
+
 
 
 hideLevelUpFromPreviousEvolution.addEventListener("click", () => {

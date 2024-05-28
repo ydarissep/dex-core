@@ -499,9 +499,6 @@ function createClickableImgAndName(speciesName, evoConditions = false, showName 
 
 
 
-shinyToggle.addEventListener("click", async () => {
-    fetchShinySprite(true)
-})
 
 
 function fetchShinySprite(clicked = false){
