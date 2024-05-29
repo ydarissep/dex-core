@@ -643,7 +643,7 @@ function displaySpeciesPanelHistory(){
 
         spriteContainer.className = "historyAnimation"
         sprite.src = getSpeciesSpriteSrc(speciesName)
-        sprite.className = `sprite${speciesName}`
+        sprite.className = `sprite${returnTargetSpeciesSprite(speciesName)}`
         if(speciesPanelHistory[i][1] == true){
             spriteContainer.classList.add("locked")
         }
