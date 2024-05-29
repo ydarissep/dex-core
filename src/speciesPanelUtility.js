@@ -533,12 +533,22 @@ async function applyShinyVar(speciesName){
     canvas.width = sprite.width
     canvas.height = sprite.height
 
-    const rawNormalPal = await fetch(`${species[speciesName]["sprite"].replace(/\w+\.png/, "normal.pal")}`)
+    let rawNormalPal = await fetch(`${species[speciesName]["sprite"].replace(/\w+\.png/, "normal.pal")}`)
+    if(rawNormalPal.status === 404){
+        if(species[speciesName]["forms"].length > 1){
+            rawNormalPal = await fetch(`${species[species[speciesName]["forms"][0]]["sprite"].replace(/\w+\.png/, "normal.pal")}`)
+        }
+    }
     const textNormalPal = await rawNormalPal.text()
 
     let normalPal = textNormalPal.split("\n").toSpliced(0, 3)
 
-    const rawShinyPal = await fetch(`${species[speciesName]["sprite"].replace(/\w+\.png/, "shiny.pal")}`)
+    let rawShinyPal = await fetch(`${species[speciesName]["sprite"].replace(/\w+\.png/, "shiny.pal")}`)
+    if(rawShinyPal.status === 404){
+        if(species[speciesName]["forms"].length > 1){
+            rawShinyPal = await fetch(`${species[species[speciesName]["forms"][0]]["sprite"].replace(/\w+\.png/, "shiny.pal")}`)
+        }
+    }
     const textShinyPal = await rawShinyPal.text()
 
     let shinyPal = textShinyPal.split("\n").toSpliced(0, 3)
