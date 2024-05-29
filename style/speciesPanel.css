@@ -278,6 +278,7 @@
   filter: opacity(90%);
   border-radius: 3px;
   transition: background 0s ease-in-out !important;
+  height: 17.2px;
 }
 
 
