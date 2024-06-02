@@ -51,6 +51,12 @@ table[id*="ITEM_"] {
     padding-top: 10px;
 }
 
+.methodButton:not(.activeSetting), .pocketButton:not(.activeSetting) {
+    text-decoration: line-through;
+    text-decoration-color: gray;
+    color: gray;
+}
+
 #resetCrossedItems:hover {
     border: 1px solid crimson !important;
 }
