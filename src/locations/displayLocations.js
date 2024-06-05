@@ -103,7 +103,7 @@ function appendSpeciesEl(location, method, speciesKey, methodTable){
     }
 
     const spriteContainer = document.createElement("td"); spriteContainer.classList = "locationSpriteContainer"
-    const sprite = document.createElement("img"); sprite.src = getSpeciesSpriteSrc(speciesKey); sprite.className = `sprite${speciesKey} miniSprite3`
+    const sprite = document.createElement("img"); sprite.src = getSpeciesSpriteSrc(speciesKey); sprite.className = `sprite${returnTargetSpeciesSprite(speciesKey)} miniSprite3`
     const speciesNameHidden = document.createElement("div"); speciesNameHidden.innerText = sanitizeString(speciesKey); speciesNameHidden.classList = "locationSpeciesNameHidden hide"
     const rarityHidden = rarity.cloneNode(true); rarityHidden.classList.add("hide"); rarityHidden.classList.add("locationRarityHidden")
     spriteContainer.append(sprite)
