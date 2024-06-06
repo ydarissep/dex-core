@@ -456,7 +456,7 @@ function createClickableImgAndName(speciesName, evoConditions = false, showName 
     container.className = "flexCenter flex flexRow hyperlink"
 
     sprite.src = getSpeciesSpriteSrc(speciesName)
-    sprite.className = `sprite${speciesName}`
+    sprite.className = `sprite${returnTargetSpeciesSprite(speciesName)}`
     if(miniSprite){
         sprite.classList.add("miniSprite")
     }
