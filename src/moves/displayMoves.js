@@ -1,6 +1,6 @@
 function appendMovesToTable(moveName){
 
-    if(moves[moveName]["PP"] <= 0 || moves[moveName]["description"] == ""){
+    if(!moves[moveName]["description"] || moves[moveName]["PP"] <= 0 || moves[moveName]["description"]?.length <= 0){
         return false
     }
 
