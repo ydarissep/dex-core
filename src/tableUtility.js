@@ -135,7 +135,7 @@ function filterTableInput(input, obj, keyArray){
         tracker[i]["filter"].push("input")
         for (let k = 0; k < keyArray.length; k++){
             if(keyArray[k] !== "innates" || typeof innatesDefined !== "undefined"){
-                if(regexInput.test(sanitizeString("" + obj[tracker[i]["key"]][keyArray[k]]).replaceAll(/-|'| |_|!/g, "").normalize("NFD").replace(/[\u0300-\u036f]/g, ""))){
+                if(regexInput.test(sanitizeString("" + obj[tracker[i]["key"]][keyArray[k]]).replaceAll(/-|'| |_|!/g, ""))){
                     tracker[i]["filter"] = tracker[i]["filter"].filter(value => value !== "input")
                     break
                 }
@@ -224,13 +224,13 @@ function filterItemsTableInput(input, keyArray){
     for(let i = 0, j = Object.keys(tracker).length; i < j; i++){
         tracker[i]["filter"].push("input")
         for(let k = 0; k < keyArray.length; k++){
-            if(regexInput.test(sanitizeString("" + items[tracker[i]["key"]][keyArray[k]]).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replaceAll(/-|'| |_|!/g, ""))){
+            if(regexInput.test(sanitizeString("" + items[tracker[i]["key"]][keyArray[k]]).replaceAll(/-|'| |_|!/g, ""))){
                 tracker[i]["filter"] = tracker[i]["filter"].filter(value => value !== "input")
                 break
             }
         }
         Object.keys(items[tracker[i]["key"]]["locations"]).forEach(method => {
-            if(regexInput.test(sanitizeString("" + items[tracker[i]["key"]]["locations"][method]).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replaceAll(/-|'| |_|!/g, ""))){
+            if(regexInput.test(sanitizeString("" + items[tracker[i]["key"]]["locations"][method]).replaceAll(/-|'| |_|!/g, ""))){
                 if(!settings.includes(method)){
                     tracker[i]["filter"] = tracker[i]["filter"].filter(value => value !== "input")
                 }
