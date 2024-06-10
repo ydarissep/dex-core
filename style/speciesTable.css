@@ -45,7 +45,8 @@
 }
 
 #speciesTableTbody .nameContainer {
-    width: min-content;
+    /*width: min-content;*/
+    max-width: 110px;
 }
 
 #speciesTable .background {
