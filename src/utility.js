@@ -1,7 +1,7 @@
 function sanitizeString(string){
     const regex = /^SPECIES_|^TYPE_|^ABILITY_|^MOVE_TARGET_|^MOVE_|^SPLIT_|FLAG_|^EFFECT_|^Z_EFFECT_|^ITEM_|^EGG_GROUP_|^EVO_|^NATURE_|^POCKET_/ig
 
-    const unsanitizedString = string.toString().replace(regex, "").replaceAll(/_+/g, "_")
+    const unsanitizedString = string.toString().replace(regex, "").replaceAll(/_+/g, "_").normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     let matchArray = unsanitizedString.match(/\w+/g)
     if(matchArray){
         for (i = 0; i < matchArray.length; i++){
