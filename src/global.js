@@ -2,7 +2,7 @@ window.tracker
 window.panelSpecies = ""
 window.historyObj = []
 window.trainersDifficulty = "Normal"
-window.regexSpChar = new RegExp("-|'| |,|\\.|_|!|\\?", "g")
+window.regexSpChar = new RegExp("-|'|’| |,|\\.|_|!|\\?", "g")
 
 
 
