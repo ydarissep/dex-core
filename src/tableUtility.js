@@ -128,14 +128,14 @@ function sortTableByLearnsets(asc = true) {
 
 
 function filterTableInput(input, obj, keyArray){
-    const sanitizedInput = input.trim().replaceAll(/-|'| |_|!/g, "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    const sanitizedInput = input.trim().replaceAll(regexSpChar, "").normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     const regexInput = new RegExp(sanitizedInput, "i")
 
     for(let i = 0, j = Object.keys(tracker).length; i < j; i++){
         tracker[i]["filter"].push("input")
         for (let k = 0; k < keyArray.length; k++){
             if(keyArray[k] !== "innates" || typeof innatesDefined !== "undefined"){
-                if(regexInput.test(sanitizeString("" + obj[tracker[i]["key"]][keyArray[k]]).replaceAll(/-|'| |_|!/g, ""))){
+                if(regexInput.test(sanitizeString("" + obj[tracker[i]["key"]][keyArray[k]]).replaceAll(regexSpChar, ""))){
                     tracker[i]["filter"] = tracker[i]["filter"].filter(value => value !== "input")
                     break
                 }
@@ -154,19 +154,19 @@ function filterTableInput(input, obj, keyArray){
 
 
 function filterLocationsTableInput(input, obj, keyArray){
-    const arraySanitizedInput = input.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/-|'| |,|_/g)
+    const arraySanitizedInput = input.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(regexSpChar)
 
     mainLoop: for(let i = 0, j = Object.keys(tracker).length; i < j; i++){
-        const zone = tracker[i]["key"].split("\\")[0].replaceAll(/-|'| |_/g, "").toLowerCase()
-        const method = tracker[i]["key"].split("\\")[1].replaceAll(/-|'| |_/g, "").toLowerCase()
+        const zone = tracker[i]["key"].split("\\")[0].replaceAll(regexSpChar, "").toLowerCase()
+        const method = tracker[i]["key"].split("\\")[1].replaceAll(regexSpChar, "").toLowerCase()
         const name = tracker[i]["key"].split("\\")[2]
         let compareString = `${zone},${method},`.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
         if(name in species){
             for (let k = 0; k < keyArray.length; k++){
-                compareString += (obj[name][keyArray[k]] + ",").replaceAll(/-|'| |_|species/gi, "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+                compareString += (obj[name][keyArray[k]] + ",").replaceAll(regexSpChar, "").replace(/species/i, "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
             }
             for(splitInput of arraySanitizedInput){
-                if(!compareString.includes(splitInput.toLowerCase())){
+                if(!compareString.includes(splitInput)){
                     tracker[i]["filter"].push("input")
                     continue mainLoop
                 }
@@ -218,19 +218,19 @@ function filterTrainersTableInput(input){
 }
 
 function filterItemsTableInput(input, keyArray){
-    const sanitizedInput = input.trim().replaceAll(/-|'| |_|!/g, "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    const sanitizedInput = input.trim().replaceAll(regexSpChar, "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     const regexInput = new RegExp(sanitizedInput, "i")
 
     for(let i = 0, j = Object.keys(tracker).length; i < j; i++){
         tracker[i]["filter"].push("input")
         for(let k = 0; k < keyArray.length; k++){
-            if(regexInput.test(sanitizeString("" + items[tracker[i]["key"]][keyArray[k]]).replaceAll(/-|'| |_|!/g, ""))){
+            if(regexInput.test(sanitizeString("" + items[tracker[i]["key"]][keyArray[k]]).replaceAll(regexSpChar, ""))){
                 tracker[i]["filter"] = tracker[i]["filter"].filter(value => value !== "input")
                 break
             }
         }
         Object.keys(items[tracker[i]["key"]]["locations"]).forEach(method => {
-            if(regexInput.test(sanitizeString("" + items[tracker[i]["key"]]["locations"][method]).replaceAll(/-|'| |_|!/g, ""))){
+            if(regexInput.test(sanitizeString("" + items[tracker[i]["key"]]["locations"][method]).replaceAll(regexSpChar, ""))){
                 if(!settings.includes(method)){
                     tracker[i]["filter"] = tracker[i]["filter"].filter(value => value !== "input")
                 }
