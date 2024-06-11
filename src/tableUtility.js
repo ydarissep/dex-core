@@ -135,18 +135,9 @@ function filterTableInput(input, obj, keyArray){
         tracker[i]["filter"].push("input")
         for (let k = 0; k < keyArray.length; k++){
             if(keyArray[k] !== "innates" || typeof innatesDefined !== "undefined"){
-                if(keyArray[k] === "abilities"){
-                    obj[tracker[i]["key"]][keyArray[k]].forEach(ability => {
-                        if(regexInput.test(sanitizeString("" + abilities[ability]["ingameName"]).replaceAll(/-|'| |_|!/g, ""))){
-                            tracker[i]["filter"] = tracker[i]["filter"].filter(value => value !== "input")
-                        }
-                    })   
-                }
-                else{
-                    if(regexInput.test(sanitizeString("" + obj[tracker[i]["key"]][keyArray[k]]).replaceAll(/-|'| |_|!/g, ""))){
-                        tracker[i]["filter"] = tracker[i]["filter"].filter(value => value !== "input")
-                        break
-                    }
+                if(regexInput.test(sanitizeString("" + obj[tracker[i]["key"]][keyArray[k]]).replaceAll(/-|'| |_|!/g, ""))){
+                    tracker[i]["filter"] = tracker[i]["filter"].filter(value => value !== "input")
+                    break
                 }
             }
         }
