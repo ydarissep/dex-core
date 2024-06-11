@@ -412,16 +412,20 @@ function createFilterGroup(values, labelValue, tableFilterListArray, operator = 
 
 
 function filterFilters(input){
-    const sanitizedInput = input.replaceAll(/-|'| |_/g, "").toLowerCase()
+    const sanitizedInput = input.replaceAll(regexSpChar, "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+    const inputLength = input.replaceAll(regexSpChar, "").length
     const activeFilter = document.getElementsByClassName("activeFilter")
     if(activeFilter.length > 0){
         const filters = activeFilter[0].getElementsByClassName("tableFilter")
         for(let i = 0; i < filters.length; i++){
-            const filterValue = filters[i].getElementsByClassName("filterValue")
+            const filterValue = filters[i].getElementsByClassName("filterValue")[0].innerText.replaceAll(regexSpChar, "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
             if(filters[i].classList.contains("operator") && /\d+/.test(input)){
                 filters[i].classList.remove("hide")
             }
-            else if(sanitizedInput.length >= 3 && filterValue[0].innerText.replaceAll(/-|'| |_/g, "").toLowerCase().includes(sanitizedInput) && !filters[i].classList.contains("operator")){
+            else if(inputLength >= 3 && filterValue.includes(sanitizedInput) && !filters[i].classList.contains("operator")){
+                filters[i].classList.remove("hide")
+            }
+            else if(sanitizedInput === filterValue && inputLength > 0){
                 filters[i].classList.remove("hide")
             }
             else{
