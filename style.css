@@ -91,7 +91,7 @@ body {
 
 button[type='button'] {
   width: 100px;
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.35);
   outline: none;
   padding: 8px;
   border: 2px solid var(--blue-border);
@@ -126,7 +126,7 @@ table {
 }
 
 thead {
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.35);
 }
 
 th {
@@ -167,7 +167,7 @@ input[type="search"] {
   border-radius: 3px;
   outline: none;
   border: 2px solid var(--blue-border);
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.35);
   box-sizing: border-box;
   color: #f1f1f1;
   font-weight: 700;

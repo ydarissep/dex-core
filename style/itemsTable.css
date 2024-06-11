@@ -37,7 +37,7 @@ table[id*="ITEM_"] {
 }
 
 .pocketButton, .methodButton {
-    background: rgba(0, 0, 0, 0.25);
+    background: rgba(0, 0, 0, 0.35);
     outline: none;
     border: 2px solid gray;
     border-radius: 6px;
