@@ -336,10 +336,10 @@ async function createSpeciesPanel(name){
         const defensiveTypeEffectivenessValue = document.createElement("span")
         defensiveTypeEffectivenessContainer.className = "flex flexCenter flexColumn speciesDefensiveTypeChartMarginTop"
         checkType.innerText = sanitizeString(type)
-        if(type === "TYPE_FIGHTING"){
+        if(checkType.innerText === "Fighting"){
             checkType.innerText = "Fight"
         }
-        else if(type === "TYPE_ELECTRIC"){
+        else if(checkType.innerText === "Electric"){
             checkType.innerText = "Electr"
         }
         checkType.className = `backgroundSmall ${type}`
