@@ -185,21 +185,9 @@ function appendSpeciesToTable(speciesName){
         row.classList.add("noInnates")
     }
 
-    let speciesObj = species[speciesName]
-
-    row.append(createBaseStatsContainer("HP", "baseHP", speciesObj))
-
-    row.append(createBaseStatsContainer("Atk", "baseAttack", speciesObj))
-
-    row.append(createBaseStatsContainer("Def", "baseDefense", speciesObj))
-
-    row.append(createBaseStatsContainer("SpA", "baseSpAttack", speciesObj))
-
-    row.append(createBaseStatsContainer("SpD", "baseSpDefense", speciesObj))
-
-    row.append(createBaseStatsContainer("Spe", "baseSpeed", speciesObj))
-
-    row.append(createBaseStatsContainer("BST", "BST", speciesObj))
+    [["HP", "baseHP"], ["Atk", "baseAttack"], ["Def", "baseDefense"], ["SpA", "baseSpAttack"], ["SpD", "baseSpDefense"], ["Spe", "baseSpeed"], ["BST", "BST"]].forEach(statInfo => {
+        row.append(createBaseStatsContainer(statInfo[0], statInfo[1], species[speciesName]))    
+    })
 
     row.addEventListener("click", () => {
         createSpeciesPanel(speciesName)
