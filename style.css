@@ -397,8 +397,8 @@ only screen and (max-width: 1550px) {
 
 .popupTrainerMoveStat {
   padding-bottom: 15px;
-  display: table-cell;
-  width: 16.66%;
+  display: inline-block;
+  width: 33.3%;
   font-weight: 700;
   white-space: nowrap;
   text-align: center;
