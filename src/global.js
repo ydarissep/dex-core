@@ -148,6 +148,7 @@ window.headerSpeciesName = document.querySelector("#speciesTableThead th.species
 window.headerSpeciesTypes = document.querySelector("#speciesTableThead th.types")
 window.headerSpeciesAbilities = document.querySelector("#speciesTableThead th.abilities")
 window.headerSpeciesInnates = document.querySelector("#speciesTableThead th.innates")
+window.headerSpeciesStarterCost = document.querySelector("#speciesTableThead th.starterCost")
 window.headerSpeciesHP = document.querySelector("#speciesTableThead th.baseHP")
 window.headerSpeciesAtk = document.querySelector("#speciesTableThead th.baseAttack")
 window.headerSpeciesDef = document.querySelector("#speciesTableThead th.baseDefense")
@@ -264,6 +265,9 @@ headerSpeciesAbilities.addEventListener("click", () => {
 })
 headerSpeciesInnates.addEventListener("click", () => {
     sortTableByClassName(speciesTable, species, ["innates"], "innates", asc = headerSpeciesInnatestrue.classList.contains("th-sort-desc"))
+})
+headerSpeciesStarterCost.addEventListener("click", () => {
+		sortTableByClassName(speciesTable, species, ["starterCost"], "starterCost", asc = headerSpeciesStarterCost.classList.contains("th-sort-desc"))
 })
 headerSpeciesHP.addEventListener("click", () => {
     sortTableByClassName(speciesTable, species, ["baseHP"], "baseHP", asc = headerSpeciesHP.classList.contains("th-sort-desc"))
