@@ -24,11 +24,6 @@ function filterSpeciesForm(value, label){
                 tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
             }   
         }
-        else if(value === "Seviian"){
-            if(!/_S$|_SEVI$|_S_MEGA$/i.test(name) || /UNOWN|ORICORIO|WISHIWASHI_S$/i.test(name)){
-                tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
-            }   
-        }
     }
 }
 
@@ -285,7 +280,7 @@ async function setFilters(){
         el.remove()
     })
 
-    createFilterGroup(["Mega", "Alolan", "Galarian", "Hisuian", "Seviian"], "Form", [speciesFilterList, locationsFilterList])
+    createFilterGroup(["Mega", "Alolan", "Galarian", "Hisuian"], "Form", [speciesFilterList, locationsFilterList])
     createFilterGroup(createFilterArray(["type"], moves), "Type", [speciesFilterList, movesFilterList, locationsFilterList])
     createFilterGroup(createFilterArray(["split"], moves), "Split", [movesFilterList])
     createFilterGroup(createFilterArray(["flags"], moves), "Flag", [movesFilterList])
