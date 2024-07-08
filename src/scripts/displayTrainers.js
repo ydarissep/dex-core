@@ -98,7 +98,7 @@ function createTrainerSpeciesTbody(trainerObj){
 
             const speciesSpriteContainer = document.createElement("div"); speciesSpriteContainer.className = "trainerSpeciesSprite"
             let speciesName = trainerSpeciesObj["name"]
-            const speciesSprite = document.createElement("img"); speciesSprite.className = `sprite${speciesName}`; speciesSprite.src = getSpeciesSpriteSrc(speciesName)
+            const speciesSprite = document.createElement("img"); speciesSprite.className = `sprite${returnTargetSpeciesSprite(speciesName)}`; speciesSprite.src = getSpeciesSpriteSrc(speciesName)
             speciesSpriteContainer.append(speciesSprite)
             trainerSpeciesContainer.append(speciesSpriteContainer)
             speciesSpriteContainer.addEventListener("click", () => {
