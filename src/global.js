@@ -644,7 +644,7 @@ let fetchDatainterval = setInterval(function() {
     }
     clearInterval(fetchDatainterval);
 
-    if(window === window.parent && window.location.href.includes('ydarissep')){
+    if(window === window.parent && !/playpokerogue/i.test(window.location.href)){
         fetchData(searchParams)
     }
     else{
