@@ -644,7 +644,7 @@ let fetchDatainterval = setInterval(function() {
     }
     clearInterval(fetchDatainterval);
 
-    if(window === window.parent){
+    if(window === window.parent && window.location.href.includes('ydarissep')){
         fetchData(searchParams)
     }
     else{
