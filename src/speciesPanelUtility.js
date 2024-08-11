@@ -6,6 +6,9 @@ else{
 }
 
 async function createSpeciesPanel(name){
+    if(panelSpecies == name){
+        return
+    }
     panelSpecies = name
     speciesPanel("show")
 
