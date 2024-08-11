@@ -6,7 +6,7 @@ else{
 }
 
 async function createSpeciesPanel(name){
-    if(panelSpecies == name){
+    if(panelSpecies == name && !speciesPanelMainContainer.classList.contains("hide")){
         return
     }
     panelSpecies = name
