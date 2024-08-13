@@ -486,8 +486,8 @@ function createClickableImgAndName(speciesName, evoConditions = false, showName 
     container.append(sprite)
     container.append(name)
 
-    container.addEventListener("click", () => {
-        createSpeciesPanel(speciesName)
+    container.addEventListener("click", async () => {
+        await createSpeciesPanel(speciesName)
     })
 
     return container
@@ -668,7 +668,7 @@ function displaySpeciesPanelHistory(){
 
         let lockTimer = 0
         let clickTimer = 0
-        function historyHandler(event, preventDefault = true){
+        async function historyHandler(event, preventDefault = true){
             if(preventDefault){
                 event.preventDefault()
             }
@@ -687,7 +687,7 @@ function displaySpeciesPanelHistory(){
                 spriteContainer.classList.remove("clicked")
                 clearTimeout(lockTimer)
                 if(spriteContainer.classList.contains("emulateClick") && panelSpecies != speciesName){
-                    createSpeciesPanel(speciesName)
+                    await createSpeciesPanel(speciesName)
                 }
             }
         }

@@ -1,4 +1,4 @@
-async function displaySetup(){    
+async function displaySetup(){
     footerP("")
 
     if(Object.keys(strategies).length === 0){

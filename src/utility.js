@@ -249,7 +249,7 @@ async function refreshURLParams(){
 async function displayParams(urlParams){
     if(urlParams.get("species")){
         scrollToSpecies = urlParams.get("species")
-        createSpeciesPanel(scrollToSpecies)
+        await createSpeciesPanel(scrollToSpecies)
     }
     else{
         speciesPanel("hide")

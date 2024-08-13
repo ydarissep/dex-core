@@ -346,11 +346,11 @@ itemsInput.addEventListener('input', e => {
         filterItemsTableInput(value, ["description", "name"])
     }, doneTypingInterval)
 })
-speciesPanelInputSpecies.addEventListener("input", e => {
+speciesPanelInputSpecies.addEventListener("input", async e => {
     const value = e.target.value
     if(speciesIngameNameArray.includes(value)){
         const species = `SPECIES_${value.replaceAll(" ", "_").toUpperCase()}`
-        createSpeciesPanel(species)
+        await createSpeciesPanel(species)
         speciesPanelInputSpecies.blur()
         speciesPanelInputSpecies.value = ""
     }

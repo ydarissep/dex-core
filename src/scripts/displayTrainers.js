@@ -101,8 +101,8 @@ function createTrainerSpeciesTbody(trainerObj){
             const speciesSprite = document.createElement("img"); speciesSprite.className = `sprite${returnTargetSpeciesSprite(speciesName)}`; speciesSprite.src = getSpeciesSpriteSrc(speciesName)
             speciesSpriteContainer.append(speciesSprite)
             trainerSpeciesContainer.append(speciesSpriteContainer)
-            speciesSpriteContainer.addEventListener("click", () => {
-                createSpeciesPanel(trainerSpeciesObj["name"])
+            speciesSpriteContainer.addEventListener("click", async () => {
+                await createSpeciesPanel(trainerSpeciesObj["name"])
                 document.getElementById("speciesPanelMainContainer").scrollIntoView(true)
             })
 

@@ -181,12 +181,12 @@ function appendSpeciesToTable(speciesName){
         row.append(createBaseStatsContainer(statInfo[0], statInfo[1], species[speciesName]))    
     })
 
-    row.addEventListener("click", () => {
+    row.addEventListener("click", async () => {
         if(panelSpecies == speciesName){
             speciesPanel("show")
         }
         else{
-            createSpeciesPanel(speciesName)
+            await createSpeciesPanel(speciesName)
             document.getElementById("speciesPanelMainContainer").scrollIntoView(true)
         }
     })

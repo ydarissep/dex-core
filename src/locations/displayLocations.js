@@ -116,8 +116,8 @@ function appendSpeciesEl(location, method, speciesKey, methodTable){
 
     row.append(rarity)
 
-    row.addEventListener("click", () => {
-        createSpeciesPanel(speciesKey)
+    row.addEventListener("click", async () => {
+        await createSpeciesPanel(speciesKey)
         document.getElementById("speciesPanelMainContainer").scrollIntoView(true)
     })
 
