@@ -1,3 +1,7 @@
+#speciesStrategies {
+    word-break: break-word !important;
+}
+
 .strategyInfo {
     border: 1px solid #424242;
     background: rgb(29, 29, 29);
