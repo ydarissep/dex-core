@@ -1052,7 +1052,7 @@ function createStrategyMisc(label, value, speciesName){
             miscValue.innerText = value.trim()
         }
         else{
-            miscValue.innerText = sanitizeString(value)
+            miscValue.innerText = sanitizeString(value, false)
         }
     }
     miscContainer.append(miscLabel)
