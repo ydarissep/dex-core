@@ -349,8 +349,8 @@ itemsInput.addEventListener('input', e => {
 speciesPanelInputSpecies.addEventListener("input", async e => {
     const value = e.target.value
     if(speciesIngameNameArray.includes(value)){
-        const species = `SPECIES_${value.replaceAll(" ", "_").toUpperCase()}`
-        await createSpeciesPanel(species)
+        const panelSpeciesName = `SPECIES_${value.replaceAll(" ", "_").toUpperCase()}`
+        await createSpeciesPanel(panelSpeciesName)
         speciesPanelInputSpecies.blur()
         speciesPanelInputSpecies.value = ""
     }
