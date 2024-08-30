@@ -151,8 +151,8 @@ async function setDataList(){
             continue
         }
         const option = document.createElement("option")
-        option.innerText = species[name]["ingameName"]
-        speciesIngameNameArray.push(species[name]["ingameName"])
+        option.innerText = sanitizeString(name)
+        speciesIngameNameArray.push(sanitizeString(name))
         speciesPanelInputSpeciesDataList.append(option)
     }
 
