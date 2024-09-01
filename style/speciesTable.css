@@ -55,6 +55,7 @@
 
 #speciesTableTbody .nameContainer {
     font-weight: 700;
+    word-break: break-word;
 }
 
 .changelogAbilities {
