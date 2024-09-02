@@ -2,6 +2,16 @@
     word-break: break-word !important;
 }
 
+#showStrategies {
+    font-size: 21px;
+    font-weight: 700;
+    width: fit-content;
+    margin: 50px auto 0 auto;
+    border: 2px #e1e1e1 solid;
+    padding: 3px 7px 3px 7px;
+    color: #ccc !important;
+}
+
 .strategyInfo {
     border: 1px solid #424242;
     background: rgb(29, 29, 29);
