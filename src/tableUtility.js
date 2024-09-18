@@ -257,28 +257,9 @@ async function lazyLoading(reset = false){
         let target = 75
         let counter = 0
 
-        let displayFunction = ""
-        if(tracker === speciesTracker){
-            displayFunction = "appendSpeciesToTable"
-        }
-        else if(tracker === abilitiesTracker){
-            displayFunction = "appendAbilitiesToTable"
-        }
-        else if(tracker === movesTracker){
-            displayFunction = "appendMovesToTable"
-        }
-        else if(tracker === locationsTracker){
-            displayFunction = "appendLocationsToTable"
-        }
-        else if(tracker === itemsTracker){
-            displayFunction = "appendItemsToTable"
-        }
-        else if(tracker === trainersTracker){
-            displayFunction = "appendTrainersToTable"
+        const displayFunction = `append${sanitizeString(activeTable.id).replace("tabletbody", "ToTable")}`
+        if(displayFunction === "appendTrainersToTable"){
             target = 20
-        }
-        else{
-            return
         }
 
         for(let i = 0, j = tracker.length; i < j; i++){
@@ -322,10 +303,10 @@ async function tableButtonClick(input, fromDisplayParams = false){
     if(!fromDisplayParams){
         body.classList.remove("fixed", "fixedPanel", "fixedAbilities")
     }
-    const activeTable = await document.querySelectorAll(".activeTable")
-    const activeButton = await document.querySelectorAll(".activeButton")
-    const activeInput = await document.querySelectorAll(".activeInput")
-    const activeFilter = await document.querySelectorAll(".activeFilter")
+    const activeTable = document.querySelectorAll(".activeTable")
+    const activeButton = document.querySelectorAll(".activeButton")
+    const activeInput = document.querySelectorAll(".activeInput")
+    const activeFilter = document.querySelectorAll(".activeFilter")
 
     activeTable.forEach(table => {
         const tbody = table.querySelector("tbody")
@@ -352,10 +333,10 @@ async function tableButtonClick(input, fromDisplayParams = false){
     })
 
 
-    const targetTable = await document.getElementById(`${input}Table`)
-    const targetButton = await document.getElementById(`${input}Button`)
-    const targetInput = await document.getElementById(`${input}Input`)
-    const targetFilter = await document.getElementById(`${input}Filter`)
+    const targetTable = document.getElementById(`${input}Table`)
+    const targetButton = document.getElementById(`${input}Button`)
+    const targetInput = document.getElementById(`${input}Input`)
+    const targetFilter = document.getElementById(`${input}Filter`)
     
     targetTable.classList.remove("hide")
     targetTable.classList.add("activeTable")
