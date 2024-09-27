@@ -571,6 +571,7 @@ overlay.addEventListener('click', function (event) {
 })
 overlayAbilities.addEventListener('click', function (event) {
     if (event.target === overlayAbilities) {
+        overlayAbilities.classList = ""
         overlayAbilities.style.display = 'none'
         body.classList.remove("fixedAbilities")
     }
