@@ -571,7 +571,6 @@ overlay.addEventListener('click', function (event) {
 })
 overlayAbilities.addEventListener('click', function (event) {
     if (event.target === overlayAbilities) {
-        overlayAbilities.classList = ""
         overlayAbilities.style.display = 'none'
         body.classList.remove("fixedAbilities")
     }
@@ -592,7 +591,7 @@ settingsButton.addEventListener("click", async () => {
 
     manageSettings()
 
-    overlay.style.display = 'block'
+    overlay.style.display = "flex"
     body.classList.add("fixed")
 })
 
@@ -605,7 +604,7 @@ credits.addEventListener("click", () => {
     creditMainContainer.append(creditRis)
     popup.append(creditMainContainer)
 
-    overlay.style.display = 'block'
+    overlay.style.display = "flex"
     body.classList.add("fixed")
 })
 

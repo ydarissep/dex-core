@@ -108,7 +108,7 @@ function appendMovesToTable(moveName){
 
     row.addEventListener('click', function () {
         createPopupForMove(moves[moveName])
-        overlay.style.display = 'block'
+        overlay.style.display = "flex"
         body.classList.add("fixed")
     }) 
 

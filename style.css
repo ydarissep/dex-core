@@ -363,18 +363,22 @@ only screen and (max-width: 1550px) {
 }
 
 #popup, #popupAbilities {
+  /*
   position: absolute;
   top: 50%;
   left: 50%;
-  background-color: #3D3B3B;
   transform: translate(-50%, -50%);
+  */
+  background-color: #3D3B3B;
   padding: 10px;
   border: 3px solid #ccc;
   border-radius: 14px;
+  width: fit-content;
+  margin: auto;
 }
 
 #popupAbilities {
-  width: min(min(max(75%, 300px), 500px), 80%) !important;
+  /*width: min(min(max(75%, 300px), 500px), 80%) !important;*/
   text-align: left !important;
   font-size: min(max(2.5vw, 16px), 20px) !important;
 }

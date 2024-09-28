@@ -178,7 +178,7 @@ function returnMovesObj(trainerSpeciesObj){
 
             trainerSpeciesMoveName.addEventListener("click", () => {
                 createPopupForMove(moves[trainerSpeciesObj["moves"][i]], false)
-                overlay.style.display = 'block'
+                overlay.style.display = "flex"
                 body.classList.add("fixed")
             })
 
@@ -282,7 +282,7 @@ function returnNature(nature){
 
 
 function createPopupAbility(abilityArray){
-    overlayAbilities.style.display = 'block'
+    overlayAbilities.style.display = "flex"
     body.classList.add("fixedAbilities")
 
     while(popupAbilities.firstChild){
@@ -311,7 +311,7 @@ function createPopupAbility(abilityArray){
 
 
 function createPopupItem(itemArray){
-    overlayAbilities.style.display = 'block'
+    overlayAbilities.style.display = "flex"
     body.classList.add("fixedAbilities")
 
     while(popupAbilities.firstChild){
