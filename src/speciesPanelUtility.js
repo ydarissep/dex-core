@@ -473,7 +473,7 @@ function createClickableImgAndName(speciesName, evoConditions = false, showName 
             evoCondition.innerText = `Level Up (${sanitizeString(evoConditions[1]).replace(/Mapsec */i, "")})`
         }
         else{
-            evoCondition.innerText = `${sanitizeString(evoConditions[0])} (${sanitizeString(evoConditions[1])})`
+            evoCondition.innerText = `${sanitizeString(evoConditions[0])} (${evoConditions[1] ? sanitizeString(evoConditions[1]) : ""})`
         }
         evoCondition.className = "evoMethod"
         container.append(evoCondition)
