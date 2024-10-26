@@ -475,7 +475,7 @@ function createClickableImgAndName(speciesName, evoConditions = false, showName 
         else{
             evoCondition.innerText = `${sanitizeString(evoConditions[0])}`
             if(evoConditions[1]){
-                evoCondition.innerText += ` (${evoConditions[1]})`
+                evoCondition.innerText += ` (${sanitizeString(evoConditions[1])})`
             }
         }
         evoCondition.className = "evoMethod"
