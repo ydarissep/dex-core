@@ -10,6 +10,14 @@ async function displaySetup(){
     if(Object.keys(trainers).length === 0){
         trainersButton.classList.add("hide")
     }
+    const speciesKeyArray = Object.keys(species)
+    for(let i = 0; i < speciesKeyArray.length; i++){
+        if(species[speciesKeyArray[i]]["changes"].length > 0){
+            changelogMode.classList.remove("hide")
+            onlyShowChangedPokemon.classList.remove("hide")
+            break
+        }
+    }
     if(Object.keys(items).length === 0){
         itemsButton.classList.add("hide")
     }
