@@ -644,7 +644,7 @@ let fetchDatainterval = setInterval(function() {
     }
     clearInterval(fetchDatainterval);
 
-    if(window === window.parent && !/playpokerogue|rougedex/i.test(window.location.href)){
+    if(window === window.parent && /ydarissep/i.test(window.location.href)){
         fetchData(searchParams)
     }
     else{
