@@ -707,17 +707,6 @@ function updateSpeciesPanelHistoryOrder(){
 
 
 
-speciesPanelLocationsButton.addEventListener("click", () => {
-    createPopupForLocations()
-    overlay.style.display = "flex"
-    body.classList.add("fixed")
-})
-
-speciesPanelInfoButton.addEventListener("click", () => {
-    createPopupForInfo()
-    overlay.style.display = "flex"
-    body.classList.add("fixed")
-})
 
 function createPopupForLocations(){
     while (popup.firstChild){
