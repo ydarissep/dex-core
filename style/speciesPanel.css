@@ -179,10 +179,6 @@
 	color: var(--theme-color);	
 }
 
-#speciesHeldItems, #speciesEggGroups {
-	font-size: 15px;
-}
-
 #speciesPanelSubcontainer1, #speciesPanelSubcontainer2, #speciesEvolutionsMainContainer {
 	padding: 15px 0px 0px 0px;
 }
@@ -219,6 +215,13 @@
 	padding-right: 15px;
 }
 
+#speciesPaneMiscContainer {
+	padding-left: 15px;
+}
+
+.speciesPanelMiscButton {
+	width: auto !important;
+}
 
 .evoMethod {
 	display: flex;

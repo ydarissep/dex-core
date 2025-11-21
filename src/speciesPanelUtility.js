@@ -47,7 +47,12 @@ async function createSpeciesPanel(name){
         speciesType3.classList.add("hide")
     }
 
-
+    if (name in locationsByPokemon){
+        speciesPanelLocationsButton.classList.remove("hide")
+    }
+    else{
+        speciesPanelLocationsButton.classList.add("hide")
+    }
 
     while (speciesAbilities.firstChild)
         speciesAbilities.removeChild(speciesAbilities.firstChild)
@@ -259,55 +264,8 @@ async function createSpeciesPanel(name){
 
 
 
-
-
-
-
-
-
-    while (speciesEggGroups.firstChild) 
-        speciesEggGroups.removeChild(speciesEggGroups.firstChild)
-    while (speciesHeldItems.firstChild)
-        speciesHeldItems.removeChild(speciesHeldItems.firstChild)
     while (speciesChanges.firstChild)
         speciesChanges.removeChild(speciesChanges.firstChild)
-
-
-
-
-    const eggGroup1 = document.createElement("div")
-    const eggGroup2 = document.createElement("div")
-    eggGroup1.innerText = sanitizeString(species[name]["eggGroup1"])
-    eggGroup2.innerText = sanitizeString(species[name]["eggGroup2"])
-    speciesEggGroups.append(eggGroup1)
-    if(species[name]["eggGroup1"] !== species[name]["eggGroup2"])
-        speciesEggGroups.append(eggGroup2)
-
-
-
-
-
-    if(species[name]["item1"] !== "ITEM_NONE" && species[name]["item1"] !== ""){
-        const heldItem1 = document.createElement("div")
-        heldItem1.innerText = `50% ${sanitizeString(species[name]["item1"])}`
-        speciesHeldItems.append(heldItem1)
-    }
-    if(species[name]["item2"] !== "ITEM_NONE" && species[name]["item2"] !== ""){
-        const heldItem2 = document.createElement("div")
-        heldItem2.innerText = `5% ${sanitizeString(species[name]["item2"])}`
-        speciesHeldItems.append(heldItem2)
-    }
-
-    if(speciesHeldItems.firstChild)
-        speciesHeldItemsContainer.classList.remove("hide")
-    else
-        speciesHeldItemsContainer.classList.add("hide")
-
-
-
-
-
-
 
     if(species[name]["changes"].length !== 0){
         for (let i = 0; i < species[name]["changes"].length; i++){
@@ -321,6 +279,9 @@ async function createSpeciesPanel(name){
         speciesChangesContainer.classList.remove("hide")
     else
         speciesChangesContainer.classList.add("hide")
+
+
+
 
 
 
@@ -737,6 +698,83 @@ function updateSpeciesPanelHistoryOrder(){
     localStorage.setItem("speciesPanelHistory", JSON.stringify(speciesPanelHistory))
     displaySpeciesPanelHistory()
 }
+
+
+
+
+
+
+
+
+
+speciesPanelLocationsButton.addEventListener("click", () => {
+    createPopupForLocations()
+    overlay.style.display = "flex"
+    body.classList.add("fixed")
+})
+
+speciesPanelInfoButton.addEventListener("click", () => {
+    createPopupForInfo()
+    overlay.style.display = "flex"
+    body.classList.add("fixed")
+})
+
+function createPopupForLocations(){
+    while (popup.firstChild){
+        popup.removeChild(popup.firstChild)
+    }
+
+    const pokemonName = document.createElement("div"); pokemonName.classList.add("bold"); pokemonName.innerText = sanitizeString(panelSpecies); pokemonName.style.minWidth = "200px"; pokemonName.style.fontSize = "35px"
+    popup.append(pokemonName)
+
+    Object.keys(locationsByPokemon[panelSpecies]).forEach(location => {
+        const locationName = document.createElement("div"); locationName.classList.add("bold"); locationName.innerText = location; locationName.style.padding = "25px 0px 10px 0px"; locationName.style.fontSize = "25px"
+        popup.append(locationName)
+        locationsByPokemon[panelSpecies][location].forEach(method => {
+            const locationContainer = document.createElement("div"); locationContainer.style.fontSize = "20px"
+            const locationMethod = document.createElement("span"); locationMethod.innerText = `${method} `
+            const locationRarity = document.createElement("span"); locationRarity.innerText = `${locations[location][method][panelSpecies]}%`; locationRarity.style.color = `hsl(${locations[location][method][panelSpecies]*2},85%,45%)`
+            locationContainer.append(locationMethod)
+            locationContainer.append(locationRarity)
+            popup.append(locationContainer)
+        })
+    })
+}
+
+function createPopupForInfo(){
+    while (popup.firstChild){
+        popup.removeChild(popup.firstChild)
+    }
+
+    const pokemonName = document.createElement("div"); pokemonName.classList.add("bold"); pokemonName.innerText = sanitizeString(panelSpecies); pokemonName.style.minWidth = "200px"; pokemonName.style.fontSize = "35px"
+    popup.append(pokemonName)
+
+    const eggGroupHeader = document.createElement("div"); eggGroupHeader.innerText = "Egg Groups:"; eggGroupHeader.classList.add("bold"); eggGroupHeader.style.padding = "20px 0px 0px 0px"; eggGroupHeader.style.fontSize = "20px"; eggGroupHeader.style.color = "var(--theme-color)";
+    popup.append(eggGroupHeader)
+    const eggGroup1 = document.createElement("div"); eggGroup1.innerText = sanitizeString(species[panelSpecies]["eggGroup1"])
+    popup.append(eggGroup1)
+    if (species[panelSpecies]["eggGroup1"] != species[panelSpecies]["eggGroup2"]){
+        const eggGroup2 = document.createElement("div"); eggGroup2.innerText = sanitizeString(species[panelSpecies]["eggGroup2"])
+        popup.append(eggGroup2)
+    }
+
+    if (species[panelSpecies]["item1"] || species[panelSpecies]["item2"]){
+        const heldItemHeader = document.createElement("div"); heldItemHeader.innerText = "Held Items:"; heldItemHeader.classList.add("bold"); heldItemHeader.style.padding = "20px 0px 0px 0px"; heldItemHeader.style.fontSize = "20px"; heldItemHeader.style.color = "var(--theme-color)";
+        popup.append(heldItemHeader)
+
+        if (species[panelSpecies]["item1"]){
+            const heldItem1 = document.createElement("div"); heldItem1.innerText = `50% ${sanitizeString(species[panelSpecies]["item1"])}`
+            popup.append(heldItem1)
+        }
+        if (species[panelSpecies]["item2"]){
+            const heldItem2 = document.createElement("div"); heldItem2.innerText = `5% ${sanitizeString(species[panelSpecies]["item2"])}`
+            popup.append(heldItem2)
+        }
+    }
+}
+
+
+
 
 
 

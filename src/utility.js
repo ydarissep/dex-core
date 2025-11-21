@@ -46,6 +46,7 @@ async function fetchData(urlParams = ""){
     await fetchStrategiesObj()
     
     await fetchTypeChart()
+    await getLocationsByPokemon()
 
     await setDataList()
     await setFilters()
@@ -72,6 +73,27 @@ async function fetchTypeChart(){
         console.log(e.message)
         console.log(e.stack)
     }
+}
+
+
+
+
+async function getLocationsByPokemon(){
+    window.locationsByPokemon = {}
+
+    Object.keys(locations).forEach(location => {
+		Object.keys(locations[location]).forEach(method => {
+			Object.keys(locations[location][method]).forEach(name => {
+                if (!(name in locationsByPokemon)){
+                    locationsByPokemon[name] = {}
+                }
+                if (!(location in locationsByPokemon)){
+                    locationsByPokemon[name][location] = []
+                }
+                locationsByPokemon[name][location].push(method)
+            })
+		})
+	})
 }
 
 

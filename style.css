@@ -362,6 +362,12 @@ only screen and (max-width: 1550px) {
   overflow-y: scroll;
 }
 
+#popup {
+  max-height: 85%;
+  overflow: auto;
+  max-width: 90%;
+}
+
 #popup, #popupAbilities {
   /*
   position: absolute;
@@ -440,18 +446,6 @@ only screen and (max-width: 1550px) {
   cursor: pointer;
 }
 
-.popupFilterButton {
-  display: flex;
-  margin: 18px auto 0px auto;
-  background-color: #303134;
-  border: 2px solid gray !important;
-  outline: none;
-  color: #f1f1f1;
-  padding: 0.5rem 0.75rem;
-  border-radius: 3px;
-}
-
-.popupFilterButton:hover {
-  cursor: pointer;
-  background: rgba(215, 212, 231, 0.4) !important;
+.popupFilterButton .speciesPanelMiscButton {
+  border: 2px solid #ffffff !important;
 }

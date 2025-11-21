@@ -243,7 +243,7 @@ function createPopupForMove(move, interactAble = true){
     popup.append(flagsContainer)
 
     if(interactAble){
-        const filterButton = document.createElement("button"); filterButton.classList.add("popupFilterButton")
+        const filterButton = document.createElement("button"); filterButton.classList.add("popupFilterButton"); filterButton.type = "button"
         filterButton.innerText = "FILTER"
 
         filterButton.addEventListener("click", async() => {
