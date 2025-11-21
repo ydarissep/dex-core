@@ -747,15 +747,15 @@ function createPopupForInfo(){
         popup.append(eggGroup2)
     }
 
-    if (species[panelSpecies]["item1"] || species[panelSpecies]["item2"]){
+    if ((species[panelSpecies]["item1"] && species[panelSpecies]["item1"] != "ITEM_NONE") || (species[panelSpecies]["item2"] && species[panelSpecies]["item2"] != "ITEM_NONE")){
         const heldItemHeader = document.createElement("div"); heldItemHeader.innerText = "Held Items:"; heldItemHeader.classList.add("bold"); heldItemHeader.style.padding = "20px 0px 0px 0px"; heldItemHeader.style.fontSize = "20px"; heldItemHeader.style.color = "var(--theme-color)";
         popup.append(heldItemHeader)
 
-        if (species[panelSpecies]["item1"]){
+        if (species[panelSpecies]["item1"] && species[panelSpecies]["item1"] != "ITEM_NONE"){
             const heldItem1 = document.createElement("div"); heldItem1.innerText = `50% ${sanitizeString(species[panelSpecies]["item1"])}`
             popup.append(heldItem1)
         }
-        if (species[panelSpecies]["item2"]){
+        if (species[panelSpecies]["item2"] && species[panelSpecies]["item2"] != "ITEM_NONE"){
             const heldItem2 = document.createElement("div"); heldItem2.innerText = `5% ${sanitizeString(species[panelSpecies]["item2"])}`
             popup.append(heldItem2)
         }
