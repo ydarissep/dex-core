@@ -1,45 +1,150 @@
-function filterSpeciesForm(value, label){
+function returnAllORfilterValuefromLabel(label){
+    let activeORfilterArray = []
+    const activeFilter = document.getElementsByClassName("activeFilter")[0]
+    const labelFilterContainer = activeFilter.getElementsByClassName(`${activeFilter.id}${label}Container`.replaceAll(" ", ""))[0]
+    for (let i = 0; i < labelFilterContainer.children.length; i++){
+        if (labelFilterContainer.children[i].children[0].value == "OR"){
+            activeORfilterArray.push((labelFilterContainer.children[i].children[1].innerText.split(":")[1].replaceAll(" ", "")))
+        }
+    }
+
+    return activeORfilterArray
+}
+
+function reverseFilter(filterString, trackerFilter){
+    if (trackerFilter.includes(filterString)){
+        for(let k = 0; k < trackerFilter.length; k++){
+            if(trackerFilter[k] == filterString){
+                trackerFilter.splice(k, 1)
+            }
+        }
+    }
+    else{
+        trackerFilter.push(filterString)
+    }
+
+    return trackerFilter
+}
+
+function filterLogicalConnector(trackerFilter, value, label, operator, passed){
+    if (operator == "OR"){
+        let i = 0
+        for (i = 0; i < trackerFilter.length; i++){
+            if (new RegExp(`^OR_${label}`).test(trackerFilter[i])){
+                if (!passed){
+                    trackerFilter[i] += `/${value}@FAIL`
+                }
+                else{
+                    trackerFilter[i] += `/${value}@OK`
+                }
+                break
+            }
+        }
+
+        if (i == trackerFilter.length){
+            trackerFilter.push(`OR_${label}`)
+            if (!passed){
+                trackerFilter[i] += `/${value}@FAIL`
+            }
+            else{
+                trackerFilter[i] += `/${value}@OK`
+            }
+        }
+    }
+    else if ((!passed && operator == "AND") || (passed && operator == "NOT")){
+        trackerFilter.push(`filter${label}${value}`)
+    }
+    else if (!passed && operator == "NOT"){
+        for(let k = 0; k < trackerFilter.length; k++){
+            if(trackerFilter[k] == `filter${label}${value}`){
+                trackerFilter.splice(k, 1)
+            }
+        }
+    }
+
+    return trackerFilter
+}
+
+function updateORinTracker(value, label){
+    const activeORfilterArray = returnAllORfilterValuefromLabel(label)
+    for (let i = 0; i < tracker.length; i++){
+        for (let j = 0; j < tracker[i]["filter"].length; j++){
+            if (new RegExp(`^OR_${label}`).test(tracker[i]["filter"][j])){
+                if (activeORfilterArray.length == 0){
+                    tracker[i]["filter"].splice(j, 1)
+                }
+                else{
+                    tracker[i]["filter"][j] = tracker[i]["filter"][j].replaceAll(new RegExp(`/${value}@FAIL|/${value}@OK`, "g"), "")
+                }
+            }
+        }
+    }
+}
+
+function passAllFilters(filterArray){
+    for (let i = 0; i < filterArray.length; i++){
+        if (!filterArray[i].includes("@OK")){
+            return false
+        }
+    }
+
+    return true
+}
+
+
+
+
+
+
+
+function filterSpeciesForm(value, label, operator){
     for(let i = 0, j = tracker.length; i < j; i++){
+        let passed = true
         let name = tracker[i]["key"]
         if(tracker === locationsTracker){
             name = tracker[i]["key"].split("\\")[2]
         }
         if(value === "Mega"){
             if(!/_MEGA$|_MEGA_Y$|_MEGA_X$/i.test(name)){
-                tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+                passed = false
             }
         }
         else if(value === "Alolan"){
             if(!/_A$/i.test(name) || /UNOWN/i.test(name)){
-                tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+                passed = false
             }   
         }
         else if(value === "Galarian"){
             if(!/_G$|PERRSERKER$|SIRFETCHD$|MR_RIME$|CURSOLA$|OBSTAGOON$|RUNERIGUS$/i.test(name) || /UNOWN/i.test(name)){
-                tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+                passed = false
             }   
         }
         else if(value === "Hisuian"){
             if(!/_H$|OVERQWIL$|SNEASLER$|BASCULEGION$/i.test(name) || /UNOWN/i.test(name)){
-                tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+                passed = false
             }   
         }
+
+        tracker[i]["filter"] = filterLogicalConnector(tracker[i]["filter"], value.replaceAll(" ", ""), label.replaceAll(" ", ""), operator, passed)
     }
 }
 
-function filterSpeciesItem(value, label){
+function filterSpeciesItem(value, label, operator){
     for(let i = 0, j = tracker.length; i < j; i++){
+        let passed = true
         let name = tracker[i]["key"]
         if(tracker === locationsTracker){
             name = tracker[i]["key"].split("\\")[2]
         }
         if(!(sanitizeString(species[name]["item1"]) === value) && !(sanitizeString(species[name]["item2"]) === value)){
-            tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+            passed = false
         }
+
+        tracker[i]["filter"] = filterLogicalConnector(tracker[i]["filter"], value.replaceAll(" ", ""), label.replaceAll(" ", ""), operator, passed)
     }
 }
 
-function filterSpeciesAbility(value = "Placeholder", label = "Placeholder"){
+function filterSpeciesAbility(value = "Placeholder", label = "Placeholder", operator){
     let abilityName = null
     Object.keys(abilities).forEach(ability => {
         if(abilities[ability]["ingameName"] === value){
@@ -48,6 +153,7 @@ function filterSpeciesAbility(value = "Placeholder", label = "Placeholder"){
     })
     if(abilityName){
         for(let i = 0, j = tracker.length; i < j; i++){
+            let passed = true
             let name = tracker[i]["key"]
             if(tracker === locationsTracker){
                 name = tracker[i]["key"].split("\\")[2]
@@ -55,20 +161,20 @@ function filterSpeciesAbility(value = "Placeholder", label = "Placeholder"){
             if(!species[name]["abilities"].includes(abilityName)){
                 if(typeof innatesDefined !== "undefined"){
                     if(!species[name]["innates"].includes(abilityName)){
-                        tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+                        passed = false
                     }
                 }
                 else{
-                    tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+                    passed = false
                 }
             }
+
+            tracker[i]["filter"] = filterLogicalConnector(tracker[i]["filter"], value.replaceAll(" ", ""), label.replaceAll(" ", ""), operator, passed)
         }
     }
 }
 
-function filterSpeciesMove(value, label){
-    speciesMoveFilter = null
-    locationsMoveFilter = null
+function filterSpeciesMove(value, label, operator){
     let moveName = null
     Object.keys(moves).forEach(move => {
         if(moves[move]["ingameName"] === value){
@@ -77,85 +183,112 @@ function filterSpeciesMove(value, label){
     })
     if(moveName){
         for(let i = 0, j = tracker.length; i < j; i++){
+            let passed = true
             let name = tracker[i]["key"]
             if(tracker === locationsTracker){
                 name = tracker[i]["key"].split("\\")[2]
             }
             if(speciesCanLearnMove(species[name], moveName) === false){
-                tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+                passed = false
             }
+
+            tracker[i]["filter"] = filterLogicalConnector(tracker[i]["filter"], value.replaceAll(" ", ""), label.replaceAll(" ", ""), operator, passed)
         }
+    }
+
+    if (tracker == speciesTracker){
+        let sortTable = false
+        if (speciesMoveFilter == null){
+            sortTable = true
+        }
+        updateSpeciesMoveFilter(sortTable)
+    }
+    else if (tracker == locationsTracker){
+        updateLocationsMoveFilter()
     }
 }
 
-function filterSpeciesEggGroup(value, label){
+function filterSpeciesEggGroup(value, label, operator){
     for(let i = 0, j = tracker.length; i < j; i++){
+        let passed = true
         let name = tracker[i]["key"]
         if(tracker === locationsTracker){
             name = tracker[i]["key"].split("\\")[2]
         }
         if(!(sanitizeString(species[name]["eggGroup1"]) === value) && !(sanitizeString(species[name]["eggGroup2"]) === value)){
-            tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+            passed = false
         }
+
+        tracker[i]["filter"] = filterLogicalConnector(tracker[i]["filter"], value.replaceAll(" ", ""), label.replaceAll(" ", ""), operator, passed)
     }
 }
 
-function filterType(value, label){
-    const table = document.getElementsByClassName("activeTable")[0]
+function filterType(value, label, operator){
     for(let i = 0, j = tracker.length; i < j; i++){
+        let passed = true
         let name = tracker[i]["key"]
         if(tracker === locationsTracker){
             name = tracker[i]["key"].split("\\")[2]
         }
-        if(table === speciesTable || table === locationsTable){
+        if(tracker == speciesTracker || tracker == locationsTracker){
             if(typeof species[name]["type3"] !== "undefined"){
                 if(!(sanitizeString(species[name]["type1"]) === value) && !(sanitizeString(species[name]["type2"]) === value) && !(sanitizeString(species[name]["type3"]) === value)){
-                    tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+                    passed = false
                 }
             }
             else if(!(sanitizeString(species[name]["type1"]) === value) && !(sanitizeString(species[name]["type2"]) === value)){
-                tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+                passed = false
             }
         }
-        else if(table === movesTable){
+        else if(tracker == movesTracker){
             if(!(sanitizeString(moves[name]["type"]) === value)){
-                tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+                passed = false
             }   
         }
+
+        tracker[i]["filter"] = filterLogicalConnector(tracker[i]["filter"], value.replaceAll(" ", ""), label.replaceAll(" ", ""), operator, passed)
     }
 }
 
-function filterMovesSplit(value, label){
+function filterMovesSplit(value, label, operator){
     for(let i = 0, j = tracker.length; i < j; i++){
+        let passed = true
         let name = tracker[i]["key"]
-
         if(!(sanitizeString(moves[name]["split"]) === value)){
-            tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+            passed = false
         }
+
+        tracker[i]["filter"] = filterLogicalConnector(tracker[i]["filter"], value.replaceAll(" ", ""), label.replaceAll(" ", ""), operator, passed)
     }
 }
 
-function filterMovesFlags(value, label){
-    mainLoop: for(let i = 0, j = tracker.length; i < j; i++){
+function filterMovesFlags(value, label, operator){
+    for(let i = 0, j = tracker.length; i < j; i++){
+        let passed = false
         let name = tracker[i]["key"]
-
         for(let k = 0; k < moves[name]["flags"].length; k++){
-            if((sanitizeString(moves[name]["flags"][k]) === value)){
-                continue mainLoop
+            if(sanitizeString(moves[name]["flags"][k]) === value){
+                passed = true
+                break
             }   
         }
-        tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+
+        tracker[i]["filter"] = filterLogicalConnector(tracker[i]["filter"], value.replaceAll(" ", ""), label.replaceAll(" ", ""), operator, passed)
     }
 }
 
-function filterMovesTarget(value, label){
-    mainLoop: for(let i = 0, j = tracker.length; i < j; i++){
+function filterMovesTarget(value, label, operator){
+    for(let i = 0, j = tracker.length; i < j; i++){
+        let passed = false
         let name = tracker[i]["key"]
-
-        if((sanitizeString(moves[name]["target"]) === value)){
-            continue mainLoop
+        if(sanitizeString(moves[name]["target"]) === value){
+            if (operator == "NOT"){
+                passed = true
+                break
+            }
         }   
-        tracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+        
+        tracker[i]["filter"] = filterLogicalConnector(tracker[i]["filter"], value.replaceAll(" ", ""), label.replaceAll(" ", ""), operator, passed)
     }
 }
 
@@ -219,13 +352,13 @@ function filterBaseStats(value, label){
 
 
 
-function selectFilter(value, label){
+function selectFilter(value, label, operator = "AND"){
     if(label === "Item"){
         if(tracker === trainersTracker){
             trainerSpeciesMatchFilter(true)
         }
         else{
-            filterSpeciesItem(value, label)
+            filterSpeciesItem(value, label, operator)
         }
     }
     else if(label === "Move"){
@@ -233,40 +366,40 @@ function selectFilter(value, label){
             trainerSpeciesMatchFilter(true)
         }
         else{
-            filterSpeciesMove(value, label)
+            filterSpeciesMove(value, label, operator)
         }
     }
     else if(label === "Type"){
-        filterType(value, label)
+        filterType(value, label, operator)
     }
     else if(label === "Ability"){
         if(tracker === trainersTracker){
             trainerSpeciesMatchFilter(true)
         }
         else{
-            filterSpeciesAbility(value, label)   
+            filterSpeciesAbility(value, label, operator)
         }
     }
     else if(label === "Egg Group"){
-        filterSpeciesEggGroup(value, label)   
+        filterSpeciesEggGroup(value, label, operator)
     }
     else if(label === "Form"){
-        filterSpeciesForm(value, label)   
+        filterSpeciesForm(value, label, operator)
     }
     else if(label === "Split"){
-        filterMovesSplit(value, label)
+        filterMovesSplit(value, label, operator)
     }
     else if(label === "Base Stats"){
-        filterBaseStats(value, label)
+        filterBaseStats(value, label, operator)
     }
     else if(label === "Flag"){
-        filterMovesFlags(value, label)
+        filterMovesFlags(value, label, operator)
     }
     else if(label === "Target"){
-        filterMovesTarget(value, label)
+        filterMovesTarget(value, label, operator)
     }
     else if(label === "Pocket"){
-        filterPocket(value, label)
+        filterPocket(value, label, operator)
     }
 }
 
@@ -386,7 +519,7 @@ function createFilterGroup(values, labelValue, tableFilterListArray, operator = 
             mainContainer.append(container)
             mainContainer.className = "filterListContainer"
 
-            if(operator){
+            if(operator == true){
                 container.classList.add("operator")
                 container.addEventListener("click", () => {
                     selectFilter(value, labelValue)
@@ -424,7 +557,7 @@ function filterFilters(input){
                 filters[i].classList.remove("hide")
             }
             else{
-                filters[i].classList.add("hide")   
+                filters[i].classList.add("hide")
             }
         }
     }
@@ -465,34 +598,111 @@ function createFilterArray(objInputArray, obj, sanitize = true){
 
 
 
-function createFilter(value, label){
+function createFilter(value, label, operator = "AND"){
     const activeFilter = document.getElementsByClassName("activeFilter")[0]
     const tableFilterContainer = activeFilter.getElementsByClassName("filterContainer")[0]
-    const newFilter = document.createElement("div")
-    newFilter.innerText = `${label}: ${value}`
-    newFilter.classList = "filter crossOnHover newFilter"
-    tableFilterContainer.append(newFilter)
-    selectFilter(value, label)
+    let labelFilterContainer = tableFilterContainer.getElementsByClassName(`${activeFilter.id}${label}Container`.replaceAll(" ", ""))[0]
+    if (!labelFilterContainer){
+        labelFilterContainer = document.createElement("div"); labelFilterContainer.classList.add(`${activeFilter.id}${label}Container`.replaceAll(" ", ""))
+        tableFilterContainer.append(labelFilterContainer)
+    }
 
-    newFilter.addEventListener("click", () => {
-        for(let i = 0, j = tracker.length; i < j; i++){
-            for(let k = 0; k < tracker[i]["filter"].length; k++){
-                if(tracker[i]["filter"][k] == `filter${label}${value}`.replaceAll(" ", "")){
-                    tracker[i]["filter"].splice(k, 1)
+    labelFilterContainer.append(createFilterElement(label, value, operator, activeFilter))
+    selectFilter(value, label, operator)
+
+    filterList()
+    lazyLoading(true)
+}
+
+
+
+function createFilterElement(label, value, operator = "AND", activeFilter){
+    const newFilter = document.createElement("span"); newFilter.classList.add("newFilterContainer")
+    const filterText = document.createElement("span"); filterText.innerText = `${label}: ${value}`; filterText.classList = "filter crossOnHover newFilter"
+    const filterOperator = document.createElement("select"); filterOperator.classList.add("logicalConnector")
+    filterOperator.innerHTML = `
+        <option value="AND">AND</option>
+        <option value="OR">OR</option>
+        <option value="NOT">NOT</option>`
+    filterOperator.value = operator
+    let previousOperator = operator
+
+    newFilter.append(filterOperator)
+    newFilter.append(filterText)
+
+    filterText.addEventListener("click", () => {
+        newFilter.remove()
+
+        if (filterOperator.value == "OR"){
+            updateORinTracker(value.replaceAll(" ", ""), label.replaceAll(" ", ""))
+        }
+        else{
+            for(let i = 0, j = tracker.length; i < j; i++){
+                for(let k = 0; k < tracker[i]["filter"].length; k++){
+                    if(tracker[i]["filter"][k] == `filter${label}${value}`.replaceAll(" ", "")){
+                        tracker[i]["filter"].splice(k, 1)
+                    }
                 }
             }
         }
-        newFilter.remove()
-        speciesMoveFilter = null
-        locationsMoveFilter = null
+
+
+        if (tracker == speciesTracker){
+            updateSpeciesMoveFilter()
+        }
+        else if (tracker == locationsTracker){
+            updateLocationsMoveFilter()
+        }
         if(trainersFilter === activeFilter){
             trainerSpeciesMatchFilter(false)
         }
         lazyLoading(true)
+
+        const labelFilterContainer = document.getElementsByClassName(`${activeFilter.id}${label}Container`.replaceAll(" ", ""))
+        if (labelFilterContainer){
+            if (labelFilterContainer[0].children.length == 0){
+                labelFilterContainer[0].remove()
+            }
+        }
     })
 
-    filterList()
-    lazyLoading(true)
+    filterOperator.addEventListener("focus", () => {
+        previousOperator = filterOperator.value
+    })
+
+    filterOperator.addEventListener("change", () => {
+        if (previousOperator == "OR"){
+            updateORinTracker(value.replaceAll(" ", ""), label.replaceAll(" ", ""))
+        }
+        else{
+            for(let i = 0, j = tracker.length; i < j; i++){
+                for(let k = 0; k < tracker[i]["filter"].length; k++){
+                    if(tracker[i]["filter"][k] == `filter${label}${value}`.replaceAll(" ", "")){
+                        tracker[i]["filter"].splice(k, 1)
+                    }
+                }
+            }
+        }
+
+        selectFilter(value, label, filterOperator.value)
+
+        if (filterOperator.value == "NOT" && label == "Move"){
+            if (tracker == speciesTracker){
+                updateSpeciesMoveFilter()
+            }
+            else if (tracker == locationsTracker){
+                updateLocationsMoveFilter()
+            }
+        }
+        if(trainersFilter == activeFilter){
+            trainerSpeciesMatchFilter(false)
+        }
+
+        lazyLoading(true)
+        previousOperator = filterOperator.value
+    })
+
+    return newFilter
 }
 
 
@@ -522,8 +732,6 @@ function createOperatorFilter(label, operator, number){
 function deleteFiltersFromTable(){
     const activeFilter = document.getElementsByClassName("activeFilter")[0]
     const tableFilterContainer = activeFilter.getElementsByClassName("filterContainer")[0]
-    speciesMoveFilter = null
-    locationsMoveFilter = null
 
     for(let i = 0, j = tracker.length; i < j; i++){
         for(let k = tracker[i]["filter"].length - 1; k >= 0; k--){
@@ -535,13 +743,19 @@ function deleteFiltersFromTable(){
 
     while(tableFilterContainer.firstChild)
         tableFilterContainer.removeChild(tableFilterContainer.firstChild)
+
+    if (tracker == speciesTracker){
+        updateSpeciesMoveFilter()
+    }
+    else if (tracker == locationsTracker){
+        updateLocationsMoveFilter()
+    }
 }
 
 
 
-
 function trainerSpeciesMatchFilter(resetInput = true){
-    const trainersFilter = trainersFilterContainer.children
+    const trainersFilter = trainersFilterContainer.getElementsByClassName("filter")
     trainersTrackerLoop: for(let i = 0, j = trainersTracker.length; i < j; i++){
         delete trainersTracker[i]["show"]
         if(resetInput){
@@ -557,22 +771,20 @@ function trainerSpeciesMatchFilter(resetInput = true){
         delete trainersTracker[i]["show"]
 
 
-
-        let ignoreTrainerTeamIndex = []
         filterContainer: for(let k = 0; k < trainersFilter.length; k++){
-
-
-
+            let ignoreTrainerTeamIndex = []
             const label = trainersFilter[k].innerText.split(":")[0]
             const value = trainersFilter[k].innerText.replace(" ", "").split(":")[1]
+            const operator = trainersFilter[k].parentNode.children[0].value
             let trainerTeam = trainers[zone][trainer]["party"][difficulty]
-            let trainerMatch = false
-
+            let passed = false
+            
 
             trainerTeamLoop: for(let l = 0; l < trainerTeam.length; l++){
                 if(ignoreTrainerTeamIndex.includes(l)){
                     continue trainerTeamLoop
                 }
+                passed = false
                 const speciesObj = trainerTeam[l]
                 if(label === "Ability"){
                     let abilityName = null
@@ -583,12 +795,10 @@ function trainerSpeciesMatchFilter(resetInput = true){
                     })
                     if(abilityName){
                         if(species[speciesObj["name"]]["abilities"][speciesObj["ability"]] === abilityName){
-                            trainerMatch = true
                             continue trainerTeamLoop
                         }
                         else if(typeof innatesDefined !== "undefined"){
                             if(species[speciesObj["name"]]["innates"].includes(abilityName)){
-                                trainerMatch = true
                                 continue trainerTeamLoop
                             }
                         }
@@ -603,25 +813,24 @@ function trainerSpeciesMatchFilter(resetInput = true){
                     })
                     if(moveName){
                         if(speciesObj["moves"].includes(moveName)){
-                            trainerMatch = true
                             continue trainerTeamLoop
                         }
                     }
                 }
                 else if(label === "Item"){
                     if(sanitizeString(speciesObj["item"]) === value){
-                        trainerMatch = true
                         continue trainerTeamLoop
                     }
                 }
                 ignoreTrainerTeamIndex.push(l)
             }
-            if(!trainerMatch){
-                trainersTracker[i]["filter"].push(`filter${label}${value}`.replaceAll(" ", ""))
+            passed = trainerTeam.length != ignoreTrainerTeamIndex.length
+            trainersTracker[i]["filter"] = filterLogicalConnector(trainersTracker[i]["filter"], value.replaceAll(" ", ""), label.replaceAll(" ", ""), operator, passed)
+            if (!passed && operator == "AND"){
                 continue trainersTrackerLoop
             }
         }
-        if(trainersTracker[i]["filter"].length === 0){
+        if(passAllFilters(trainersTracker[i]["filter"])){
             trainers[zone][trainer]["match"] = true
         }
         if(trainersInput.value.trim().length === 0 && trainersFilter.length === 0){

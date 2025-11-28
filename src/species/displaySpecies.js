@@ -1,5 +1,26 @@
 window.speciesMoveFilter = null
 
+function updateSpeciesMoveFilter(sortTable = false){
+    speciesMoveFilter = null
+    const moveFiltersContainer = speciesFilterContainer.getElementsByClassName("speciesFilterMoveContainer")[0]
+    if (moveFiltersContainer){
+        const filters = moveFiltersContainer.getElementsByClassName("filter")
+        if (filters.length == 1){
+            if (filters[0].parentNode.children[0].value != "NOT"){
+                speciesMoveFilter = filters[0].innerText.replace(" ", "").split(":")[1]
+                Object.keys(moves).forEach(moveName => {
+                    if(moves[moveName]["ingameName"] === speciesMoveFilter){
+                        speciesMoveFilter = moveName
+                        if (sortTable){
+                            sortTableByLearnsets(true)
+                        }
+                    }
+                })
+            }
+        }
+    }
+}
+
 function appendSpeciesToTable(speciesName){
     if(species[speciesName]["baseSpeed"] <= 0){
         return false
@@ -12,26 +33,6 @@ function appendSpeciesToTable(speciesName){
     row.setAttribute("id", `${speciesName}`)
     tBody.append(row)
 
-    if(!speciesMoveFilter){
-        for(let i = 0; i < speciesFilterContainer.children.length; i++){
-            if(speciesFilterContainer.children[i].innerText.split(":")[0] == "Move"){
-                if(Number.isInteger(speciesMoveFilter)){
-                    speciesMoveFilter = null
-                    break
-                }
-                speciesMoveFilter = i
-            }
-        }
-        if(Number.isInteger(speciesMoveFilter)){
-            speciesMoveFilter = speciesFilterContainer.children[speciesMoveFilter].innerText.replace(" ", "").split(":")[1]
-            Object.keys(moves).forEach(moveName => {
-                if(moves[moveName]["ingameName"] === speciesMoveFilter){
-                    speciesMoveFilter = moveName
-                    sortTableByLearnsets(true)
-                }
-            })
-        }
-    }
     let IDcontainer = document.createElement("td")
     let ID = document.createElement("div")
     IDcontainer.className = "ID"

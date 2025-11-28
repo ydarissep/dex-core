@@ -1,5 +1,23 @@
 window.locationsMoveFilter = null
 
+function updateLocationsMoveFilter(){
+    locationsMoveFilter = null
+    const moveFiltersContainer = locationsFilterContainer.getElementsByClassName("locationsFilterMoveContainer")[0]
+    if (moveFiltersContainer){
+        const filters = moveFiltersContainer.getElementsByClassName("filter")
+        if (filters.length == 1){
+            if (filters[0].parentNode.children[0].value != "NOT"){
+                locationsMoveFilter = filters[0].innerText.replace(" ", "").split(":")[1]
+                Object.keys(moves).forEach(moveName => {
+                    if(moves[moveName]["ingameName"] === locationsMoveFilter){
+                        locationsMoveFilter = moveName
+                    }
+                })
+            }
+        }
+    }
+}
+
 function appendLocationsToTable(key){
     const timeRegex = /Day|Night|Morning|Evening|Dusk|Dawn/i
     const location = key.split("\\")[0]
@@ -16,26 +34,6 @@ function appendLocationsToTable(key){
     }
     else{
         time = "Anytime"
-    }
-
-    if(!locationsMoveFilter){
-        for(let i = 0; i < locationsFilterContainer.children.length; i++){
-            if(locationsFilterContainer.children[i].innerText.split(":")[0] == "Move"){
-                if(Number.isInteger(locationsMoveFilter)){
-                    locationsMoveFilter = null
-                    break
-                }
-                locationsMoveFilter = i
-            }
-        }
-        if(Number.isInteger(locationsMoveFilter)){
-            locationsMoveFilter = locationsFilterContainer.children[locationsMoveFilter].innerText.replace(" ", "").split(":")[1]
-            Object.keys(moves).forEach(moveName => {
-                if(moves[moveName]["ingameName"] === locationsMoveFilter){
-                    locationsMoveFilter = moveName
-                }
-            })
-        }
     }
 
     let locationTable = document.getElementById(`${location}${time}`)

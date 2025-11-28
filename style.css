@@ -203,7 +203,7 @@ only screen and (max-width: 350px) {
   .crossOnHover:hover {
     cursor: pointer;
     text-decoration: line-through !important;
-    background: rgba(215, 212, 231, 0.5) !important;
+    background: rgba(215, 212, 231, 0.1) !important;
   }
 }
 
@@ -241,14 +241,29 @@ only screen and (max-width: 1550px) {
 }
 
 .tableFilter, .filter {
-  padding: 6px 12px 6px 12px;
-  margin: 1px 1px 1px 1px;
-  display: inline-block;
-  border-radius: 3px;
-  border: 1px solid gray;
-  background: rgba(215, 212, 231, 0.2) !important;
-  font-weight: 700;
-  cursor: pointer;
+    padding: 4px 9px 4px 9px;
+    margin: 1px 1px 1px 1px;
+    display: inline-block;
+    border-radius: 10px;
+    border: 1px solid gray;
+    background: rgba(215, 212, 231, 0.2) !important;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.filterContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.filterContainer > div {
+    background-color: rgba(0, 0, 0, 0.25);
+    margin: 8px;
+    padding: 10px 15px 10px 15px !important;
+    width: auto;
+    border-radius: 50px;
 }
 
 .activeFilter, .filterListContainer {
@@ -256,9 +271,30 @@ only screen and (max-width: 1550px) {
   margin-bottom: 12px;
 }
 
+.newFilterContainer {
+  margin: 0px 5px 0px 5px;
+}
+
 .newFilter {
-  color: rgba(0, 0, 0, 0.55) !important;
   transition: background 0s ease-in-out !important;
+  font-size: 16px !important;
+  color: rgba(150, 150, 150, 1) !important;
+}
+
+.logicalConnector {
+    color: white;
+    padding: 1px 2px 1px 2px;
+    margin: 1px 1px 1px 1px;
+    border-radius: 10px;
+    border: 1px solid gray;
+    background: rgba(215, 212, 231, 0.2) !important;
+    font-weight: 700;
+    font-size: 10px;
+}
+
+.logicalConnector option {
+  background-color: #3b3b3b;
+  color: #ffffff;
 }
 
 .background {
@@ -369,12 +405,6 @@ only screen and (max-width: 1550px) {
 }
 
 #popup, #popupAbilities {
-  /*
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  */
   background-color: #3D3B3B;
   padding: 10px;
   border: 3px solid #ccc;
@@ -384,7 +414,6 @@ only screen and (max-width: 1550px) {
 }
 
 #popupAbilities {
-  /*width: min(min(max(75%, 300px), 500px), 80%) !important;*/
   text-align: left !important;
   font-size: min(max(2.5vw, 16px), 20px) !important;
 }

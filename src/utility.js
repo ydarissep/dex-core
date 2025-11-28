@@ -241,25 +241,29 @@ async function refreshURLParams(){
     if(!speciesPanelMainContainer.classList.contains("hide")){
         params += `species=${panelSpecies}&`
     }
-    if(document.getElementsByClassName("activeTable").length > 0){
-        params += `table=${document.getElementsByClassName("activeTable")[0].id}&`
-    }
-    if(document.getElementsByClassName("activeFilter")[0].getElementsByClassName("filter").length > 0){
-        params += "filter="
-        const filters = document.getElementsByClassName("activeFilter")[0].getElementsByClassName("filter")
-        for(let i = 0, j = filters.length; i < j; i++){
-            if(!/>|<|=/.test(filters[i].innerText)){
-                let param = filters[i].innerText.split(":")
-                params += `${param[0]}:${param[1].trim()}`
-                if(i !== j - 1){
-                    params += ","
+    else if(document.getElementsByClassName("activeTable").length > 0){
+        const activeTable = document.getElementsByClassName("activeTable")[0].id 
+        if (activeTable != "speciesTable"){
+            params += `table=${document.getElementsByClassName("activeTable")[0].id}&`
+        }
+        if (document.getElementsByClassName("activeFilter")[0].getElementsByClassName("filter").length > 0){
+            params += "filter="
+            const filters = document.getElementsByClassName("activeFilter")[0].getElementsByClassName("filter")
+            for(let i = 0, j = filters.length; i < j; i++){
+                if(!/>|<|=/.test(filters[i].innerText)){
+                    let param = filters[i].innerText.split(":")
+                    params += `${param[0]}:${param[1].trim()}:`
+                    params += filters[i].parentNode.children[0].value 
+                    if(i !== j - 1){
+                        params += ","
+                    }
                 }
             }
+            params += "&"
         }
-        params += "&"
-    }
-    if(document.getElementsByClassName("activeInput")[0].value !== ""){
-        params += `input=${document.getElementsByClassName("activeInput")[0].value}&`
+        if (document.getElementsByClassName("activeInput")[0].value !== ""){
+            params += `input=${document.getElementsByClassName("activeInput")[0].value}&`
+        }
     }
     
     await getHistoryState()
@@ -287,7 +291,7 @@ async function displayParams(urlParams){
     }
     if(urlParams.get("filter")){
         urlParams.get("filter").split(",").forEach(filter => {
-            createFilter(filter.split(":")[1], filter.split(":")[0])
+            createFilter(filter.split(":")[1], filter.split(":")[0], filter.split(":")[2])
         })
     }
     if(urlParams.get("input")){
@@ -355,7 +359,7 @@ async function displayHistoryObj(historyStateObj){
                     if(key === historyStateObj["table"].replace("Table", "")){
                         for(filter of historyStateObj["filter"][key]){
                             if(!/>|<|=/.test(filter)){
-                                createFilter(filter.split(":")[1].trim(), filter.split(":")[0])
+                                createFilter(filter.split(":")[1].trim(), filter.split(":")[0], filter.split(":")[2])
                             }
                         }
                     }

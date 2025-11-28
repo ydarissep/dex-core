@@ -51,10 +51,22 @@ table[id*="ITEM_"] {
     padding-top: 10px;
 }
 
+.methodButton.activeSetting:hover, .pocketButton.activeSetting:hover {
+    text-decoration: line-through;
+    text-decoration-color: white;
+    color: rgb(165, 162, 162);
+}
+
 .methodButton:not(.activeSetting), .pocketButton:not(.activeSetting) {
     text-decoration: line-through;
     text-decoration-color: gray;
     color: gray;
+}
+
+.methodButton:not(.activeSetting):hover, .pocketButton:not(.activeSetting):hover {
+    text-decoration: line-through;
+    text-decoration-color: rgb(165, 162, 162);
+    color: rgb(165, 162, 162);
 }
 
 #resetCrossedItems:hover {

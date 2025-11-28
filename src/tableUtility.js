@@ -199,8 +199,7 @@ function filterTrainersTableInput(input){
         const zone = tracker[i]["key"].split("\\")[0]
         const trainer = tracker[i]["key"].split("\\")[1]
         const compareZone = zone.replaceAll(/ /g, "").toUpperCase()
-        //const compareTrainer = trainer.replaceAll(/ /g, "").toUpperCase()
-        let compareArray = [compareZone, /*compareTrainer, */trainers[zone][trainer]["ingameName"].toUpperCase()]
+        let compareArray = [compareZone, trainers[zone][trainer]["ingameName"].toUpperCase()]
         
         const trainerDifficulty = checkTrainerDifficulty(zone, trainer)
         for(let k = 0; k < trainers[zone][trainer]["party"][trainerDifficulty].length; k++){
@@ -272,12 +271,12 @@ async function lazyLoading(reset = false){
 
         for(let i = 0, j = tracker.length; i < j; i++){
             if(counter < target){
-                if(displayFunction === "appendTrainersToTable" && (tracker[i]["filter"].length === 0 || tracker[i]["show"]) && !document.getElementById(tracker[i]["key"])){
+                if(displayFunction === "appendTrainersToTable" && (passAllFilters(tracker[i]["filter"]) || tracker[i]["show"]) && !document.getElementById(tracker[i]["key"])){
                     if(window[displayFunction](tracker[i]["key"])){
                         counter++
                     }
                 }
-                else if(tracker[i]["filter"].length === 0 && !document.getElementById(tracker[i]["key"])){
+                else if(passAllFilters(tracker[i]["filter"]) && !document.getElementById(tracker[i]["key"])){
                     if(window[displayFunction](tracker[i]["key"])){
                         counter++
                     }
