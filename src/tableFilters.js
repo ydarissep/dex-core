@@ -282,10 +282,8 @@ function filterMovesTarget(value, label, operator){
         let passed = false
         let name = tracker[i]["key"]
         if(sanitizeString(moves[name]["target"]) === value){
-            if (operator == "NOT"){
-                passed = true
-                break
-            }
+            passed = true
+            break
         }   
         
         tracker[i]["filter"] = filterLogicalConnector(tracker[i]["filter"], value.replaceAll(" ", ""), label.replaceAll(" ", ""), operator, passed)
