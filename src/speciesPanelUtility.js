@@ -502,7 +502,7 @@ async function applyShinyVar(speciesName){
     }
     const textNormalPal = await rawNormalPal.text()
 
-    let normalPal = textNormalPal.split("\n").toSpliced(0, 3)
+    let normalPal = textNormalPal.replaceAll("\r", "").split("\n").toSpliced(0, 3)
 
     let rawShinyPal = await fetch(`${species[speciesName]["sprite"].replace(/\w+\.png/, "shiny.pal")}`)
     if(rawShinyPal.status === 404){
@@ -512,7 +512,7 @@ async function applyShinyVar(speciesName){
     }
     const textShinyPal = await rawShinyPal.text()
 
-    let shinyPal = textShinyPal.split("\n").toSpliced(0, 3)
+    let shinyPal = textShinyPal.replaceAll("\r", "").split("\n").toSpliced(0, 3)
 
     const context = canvas.getContext('2d')
 
