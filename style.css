@@ -30,7 +30,7 @@ body {
   font-size: 18px;
   text-align: center;
   color: #f1f1f1;
-  background: #0f0f10;
+  background: #1a1a1e;
 }
 
 .TYPE_NORMAL {background: rgb(var(--TYPE_NORMAL));}
