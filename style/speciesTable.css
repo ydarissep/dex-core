@@ -22,6 +22,9 @@
 #speciesTableThead th.innates {
     width: 130px;
 }
+#speciesTableThead th.starterCost {
+	width: 40px;
+}
 #speciesTableThead th.baseHP {
 	width: 40px;
 }
@@ -75,6 +78,7 @@ only screen and (max-width: 850px) {
         display: block;
     }
     
+    .starterCostContainer,
     .baseHPContainer, 
     .baseAttackContainer, 
     .baseDefenseContainer, 
@@ -129,6 +133,7 @@ only screen and (max-width: 850px) {
 
 @media 
 only screen and (max-width: 600px) {
+    .starterCostContainer,
     .baseHPContainer, 
     .baseAttackContainer, 
     .baseDefenseContainer, 
