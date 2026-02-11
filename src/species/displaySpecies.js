@@ -252,8 +252,8 @@ async function spriteRemoveBgReturnBase64(speciesName, species){
         }
         let spriteDataString = "", repeat = 1, pal = []
         for (let i = 0; i < imageData.data.length; i += 4) {
-            if(imageData.data[i] === backgroundColor[0] && imageData.data[i + 1] === backgroundColor[1] && imageData.data[i + 2] === backgroundColor[2]){
-                imageData.data[i + 3] = 0
+            if (isSameColor(imageData.data[i], imageData.data[i + 1], imageData.data[i + 2], backgroundColor[0], backgroundColor[1], backgroundColor[2], 1)) {
+                imageData.data[i + 3] = 0;
             }
 
             if(!pal.includes(`${imageData.data[i]},${imageData.data[i + 1]},${imageData.data[i + 2]},${imageData.data[i + 3]}`)){
@@ -286,6 +286,14 @@ async function spriteRemoveBgReturnBase64(speciesName, species){
 }
 
 
+
+
+function isSameColor(r1, g1, b1, r2, g2, b2, tolerance = 1) {
+    return Math.abs(r1 - r2) <= tolerance &&
+           Math.abs(g1 - g2) <= tolerance &&
+           Math.abs(b1 - b2) <= tolerance &&
+           Math.abs(b1 - b2) <= tolerance;
+}
 
 
 
