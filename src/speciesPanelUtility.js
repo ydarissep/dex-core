@@ -494,25 +494,9 @@ async function applyShinyVar(speciesName){
     canvas.width = sprite.width
     canvas.height = sprite.height
 
-    let rawNormalPal = await fetch(`${species[speciesName]["sprite"].replace(/\w+\.png/, "normal.pal")}`)
-    if(rawNormalPal.status === 404){
-        if(species[speciesName]["forms"].length > 1){
-            rawNormalPal = await fetch(`${species[species[speciesName]["forms"][0]]["sprite"].replace(/\w+\.png/, "normal.pal")}`)
-        }
-    }
-    const textNormalPal = await rawNormalPal.text()
+    const normalColors = await fetchSpeciesPal(speciesName, "normal")
 
-    let normalPal = textNormalPal.replaceAll("\r", "").split("\n").toSpliced(0, 3)
-
-    let rawShinyPal = await fetch(`${species[speciesName]["sprite"].replace(/\w+\.png/, "shiny.pal")}`)
-    if(rawShinyPal.status === 404){
-        if(species[speciesName]["forms"].length > 1){
-            rawShinyPal = await fetch(`${species[species[speciesName]["forms"][0]]["sprite"].replace(/\w+\.png/, "shiny.pal")}`)
-        }
-    }
-    const textShinyPal = await rawShinyPal.text()
-
-    let shinyPal = textShinyPal.replaceAll("\r", "").split("\n").toSpliced(0, 3)
+    const shinyColors = await fetchSpeciesPal(speciesName, "shiny")
 
     const context = canvas.getContext('2d')
 
@@ -521,18 +505,60 @@ async function applyShinyVar(speciesName){
 
     const imageData = context.getImageData(0, 0, canvas.width, canvas.height)
 
-    for(let i = 0; i < imageData.data.length; i += 4) {
-        if(normalPal.includes(`${imageData.data[i]} ${imageData.data[i + 1]} ${imageData.data[i + 2]}`)){
-            const index = normalPal.indexOf(`${imageData.data[i]} ${imageData.data[i + 1]} ${imageData.data[i + 2]}`)
-            const shinyPalArray = shinyPal[index].split(" ")
-            imageData.data[i] = shinyPalArray[0]
-            imageData.data[i + 1] = shinyPalArray[1]
-            imageData.data[i + 2] = shinyPalArray[2]
+
+    for (let i = 0; i < imageData.data.length; i += 4) {
+    const r = imageData.data[i]
+    const g = imageData.data[i + 1]
+    const b = imageData.data[i + 2]
+
+    for (let p = 0; p < normalColors.length; p++) {
+        const [nr, ng, nb] = normalColors[p]
+
+        if (isSameColor(r, g, b, nr, ng, nb, 1)) {
+            const [sr, sg, sb] = shinyColors[p]
+
+            imageData.data[i]     = sr
+            imageData.data[i + 1] = sg
+            imageData.data[i + 2] = sb
+
+            break
         }
     }
+}
     
     context.putImageData(imageData, 0, 0)
     speciesSprite.src = canvas.toDataURL()
+}
+
+
+
+
+
+
+async function fetchSpeciesPal(speciesName, type = "normal"){
+    let rawPal = await fetch(`${species[speciesName]["sprite"].replace(/\w+\.png/, `${type}.pal`)}`)
+    if (rawPal.status === 404){
+        if (species[speciesName]["forms"].length > 1){
+            rawPal = await fetch(`${species[species[speciesName]["forms"][0]]["sprite"].replace(/\w+\.png/, `${type}.pal`)}`)
+        }
+    }
+    const textPal = await rawPal.text()
+
+    let pal = textPal.replaceAll("\r", "").split("\n").toSpliced(0, 3).map(line => {
+        const [r, g, b] = line.split(" ").map(Number)
+        if (isNaN(r) || isNaN(g) || isNaN(b)){
+            return [256, 256, 256]
+        }
+        return [r, g, b]
+    })
+
+    for (let i = pal.length - 1; i >= 0; i--){
+        if (pal[i][0] > 255){
+            pal.splice(i, 1);
+        }
+    }
+
+    return pal
 }
 
 
