@@ -10,9 +10,9 @@ function sanitizeString(string, removeSpecial = true){
         matchArray = unsanitizedString.match(/\S+/g)
     }
     if(matchArray){
-        for (i = 0; i < matchArray.length; i++){
+        for (let i = 0; i < matchArray.length; i++){
             matchArray[i] = matchArray[i].split('_')
-            for (j = 0; j < matchArray[i].length; j++){
+            for (let j = 0; j < matchArray[i].length; j++){
                 matchArray[i][j] = matchArray[i][j][0].toUpperCase() + matchArray[i][j].slice(1).toLowerCase()
             }
             matchArray[i] = matchArray[i].join(" ")
