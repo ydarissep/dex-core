@@ -87,7 +87,7 @@ async function getLocationsByPokemon(){
                 if (!(name in locationsByPokemon)){
                     locationsByPokemon[name] = {}
                 }
-                if (!(location in locationsByPokemon)){
+                if (!(location in locationsByPokemon[name])){
                     locationsByPokemon[name][location] = []
                 }
                 locationsByPokemon[name][location].push(method)
