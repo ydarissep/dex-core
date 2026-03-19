@@ -178,7 +178,7 @@ function appendSpeciesToTable(speciesName){
         row.classList.add("noInnates")
     }
 
-    [["HP", "baseHP"], ["Atk", "baseAttack"], ["Def", "baseDefense"], ["SpA", "baseSpAttack"], ["SpD", "baseSpDefense"], ["Spe", "baseSpeed"], ["BST", "BST"]].forEach(statInfo => {
+    [["Cost", "starterCost"], ["HP", "baseHP"], ["Atk", "baseAttack"], ["Def", "baseDefense"], ["SpA", "baseSpAttack"], ["SpD", "baseSpDefense"], ["Spe", "baseSpeed"], ["BST", "BST"]].forEach(statInfo => {
         row.append(createBaseStatsContainer(statInfo[0], statInfo[1], species[speciesName]))    
     })
 
