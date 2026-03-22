@@ -342,7 +342,7 @@ itemsInput.addEventListener('input', e => {
     typingTimer = setTimeout(function(){
         const value = e.target.value
         filterFilters(value)
-        filterItemsTableInput(value, ["description", "name"])
+        filterItemsTableInput(value, ["description", "ingameName", "name"])
     }, doneTypingInterval)
 })
 speciesPanelInputSpecies.addEventListener("input", async e => {
